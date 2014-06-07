@@ -15,8 +15,9 @@ namespace Gradius {
 
       public Player nearestPlayer = null;
       public float nearestPlayerDistance = 9999f;
-    public Enemy(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, Texture2D sprite, MovableType type) :
-      base(world, pos, size, maxVel, accel, friction, sprite, type) {
+      public Enemy(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, Texture2D sprite, MovableType type, Texture2D projectileSprite) :
+          base(world, pos, size, maxVel, accel, friction, sprite, type, projectileSprite)
+      {
       
     }
 

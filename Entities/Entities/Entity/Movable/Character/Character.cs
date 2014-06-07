@@ -21,19 +21,24 @@ namespace Gradius {
     public float m_friction;
 
     public Texture2D m_sprite;
-    public Vector2   m_spriteSize;
+    public Vector2 m_spriteSize;
+    public Texture2D m_ProjectileSprite;
+    public Vector2 m_ProjectileSpriteSize;
 
     public float m_depth = 0.5f;
     public List<Entity> visibleEntities;
 
     public Character(Game1 world, Vector2 pos, Vector2 size, float maxVel,
-        float accel, float friction, Texture2D sprite, MovableType type) : base(world, pos, size, type) {
+        float accel, float friction, Texture2D sprite, MovableType type, Texture2D projectileSprite) : base(world, pos, size, type) {
       
       m_maxVel   = maxVel;
       m_accel    = accel;
       m_friction = friction;
 
-      m_sprite     = sprite;
+      m_ProjectileSprite = projectileSprite;
+      m_ProjectileSpriteSize = new Vector2(m_ProjectileSprite.Width, m_ProjectileSprite.Height);
+
+      m_sprite = sprite;
       m_spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
       visibleEntities = new List<Entity>();
     }
@@ -128,8 +133,8 @@ namespace Gradius {
     public void Shoot()
     {
         Vector2 shotVel = new Vector2(1000, 0);
-        Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X, this.m_pos.Y);
-        Projectile shot = new Projectile(m_world, shotPos, this.m_size, this.m_sprite, shotVel, MovableType.Projectile);
+        Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X/2, this.m_pos.Y);
+        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, MovableType.Projectile);
         this.m_world.Add(shot);
     }
 

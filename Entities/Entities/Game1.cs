@@ -16,8 +16,8 @@ namespace Gradius {
     GraphicsDeviceManager m_graphics;
     SpriteBatch m_spriteBatch;
 
-    Texture2D m_spritePacman;
-    Texture2D m_spriteGhost;
+    Texture2D m_spriteViper;
+    public Texture2D m_spriteBasicProjectile;
 
     public List<Entity> m_entities = new List<Entity>();
     List<Entity> to_add = new List<Entity>();
@@ -28,8 +28,8 @@ namespace Gradius {
 
       m_graphics = new GraphicsDeviceManager(this);
 
-      m_graphics.PreferredBackBufferWidth  = 1280;
-      m_graphics.PreferredBackBufferHeight = 800;
+      m_graphics.PreferredBackBufferWidth  = 512;
+      m_graphics.PreferredBackBufferHeight = 480;
       m_graphics.ApplyChanges();
 
       Content.RootDirectory = "Content";
@@ -44,22 +44,13 @@ namespace Gradius {
 
       m_spriteBatch = new SpriteBatch(GraphicsDevice);
 
-      m_spritePacman = Content.Load<Texture2D>("pacman");
-      m_spriteGhost  = Content.Load<Texture2D>("ghost");
+      m_spriteViper = Content.Load<Texture2D>("ship");
+      m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
+      
 
       //add player...
-      m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(32, 32), 200, 800, 10, m_spritePacman, MovableType.Player));
-      m_entities.Add(new Player(this, new Vector2(100, 240), new Vector2(32, 32), 200, 800, 10, m_spritePacman, MovableType.Player));
+      m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(32, 32), 100, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
 
-      //add enemies...
-      m_entities.Add(new Enemy(this, new Vector2(160, 240), new Vector2(32, 32), 100, 400, 10, m_spriteGhost, MovableType.Enemy));
-      m_entities.Add(new Enemy(this, new Vector2(480, 240), new Vector2(32, 32), 100, 400, 10, m_spriteGhost, MovableType.Enemy));
-
-      //Random r = new Random();
-      //for(int c = 0; c < 100; c++)
-      //  m_entities.Add(new Enemy(this,
-      //    new Vector2((float)r.NextDouble() * 640.0f, (float)r.NextDouble() * 480.0f),
-      //      new Vector2(32, 32), 100, 400, 10, m_spriteGhost));
     }
 
     protected override void UnloadContent() {}
