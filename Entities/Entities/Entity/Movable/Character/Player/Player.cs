@@ -59,6 +59,14 @@ namespace Gradius {
               previousKey = currentKey;
           }
 
+      if (m_pos.X + m_size.X / 2 > 512)
+          m_pos.X = 512 - m_size.X / 2;
+      if (m_pos.Y + m_size.Y / 2 > 480)
+          m_pos.Y = 480 - m_size.Y / 2;
+      if (m_pos.X - m_size.X / 2 < 0)
+          m_pos.X = m_size.X / 2;
+      if (m_pos.Y - m_size.Y / 2 < 0)
+          m_pos.Y = m_size.Y / 2;
       base.Update(gameTime);
     }
   }

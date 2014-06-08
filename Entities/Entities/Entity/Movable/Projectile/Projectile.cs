@@ -72,6 +72,9 @@ namespace Gradius
                         m_world.Remove(enemy);
                         m_world.Remove(this);
                     }
+
+                    if (this.m_pos.X > 512)
+                        m_world.Remove(this);
                 }
 
             }
