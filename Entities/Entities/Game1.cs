@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
+using FuncWorks.XNA.XTiled;
 namespace Gradius {
 
   public class Game1 : Microsoft.Xna.Framework.Game {
@@ -18,6 +18,7 @@ namespace Gradius {
 
     Texture2D m_spriteViper;
     public Texture2D m_spriteBasicProjectile;
+    Map m_background;
 
     public List<Entity> m_entities = new List<Entity>();
     List<Entity> to_add = new List<Entity>();
@@ -46,6 +47,7 @@ namespace Gradius {
 
       m_spriteViper = Content.Load<Texture2D>("ship");
       m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
+      m_background = Content.Load<Map>("map");
       
 
       //add player...
