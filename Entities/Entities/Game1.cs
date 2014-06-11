@@ -13,12 +13,13 @@ namespace Gradius {
 
   public class Game1 : Microsoft.Xna.Framework.Game {
 
-    GraphicsDeviceManager m_graphics;
+    public GraphicsDeviceManager m_graphics;
     SpriteBatch m_spriteBatch;
 
     Texture2D m_spriteViper;
     public Texture2D m_spriteBasicProjectile;
     Map m_background;
+    Rectangle mapView;
 
     public List<Entity> m_entities = new List<Entity>();
     List<Entity> to_add = new List<Entity>();
@@ -39,6 +40,7 @@ namespace Gradius {
     protected override void Initialize() {
 
       base.Initialize();
+      mapView = m_graphics.GraphicsDevice.Viewport.Bounds;
     }
 
     protected override void LoadContent() {
@@ -47,7 +49,7 @@ namespace Gradius {
 
       m_spriteViper = Content.Load<Texture2D>("ship");
       m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
-      m_background = Content.Load<Map>("map");
+      m_background = Content.Load<Map>("map1");
       
 
       //add player...
@@ -71,6 +73,8 @@ namespace Gradius {
           to_add.Clear();
       }
 
+      mapView.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 4);
+
       // remove entities...
       if (to_remove.Count > 0)
       {
@@ -92,6 +96,7 @@ namespace Gradius {
 
       m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
+      m_background.Draw(m_spriteBatch, mapView);
       //draw all entities...
       foreach(Entity e in m_entities)
         e.Draw(gameTime, m_spriteBatch);

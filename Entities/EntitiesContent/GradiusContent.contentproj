@@ -23,7 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FuncWorks.XNA.XTiledExtensions">
-      <HintPath>..\..\..\..\..\Desktop\XTiled-0.8.1.1i\FuncWorks.XNA.XTiledExtensions.dll</HintPath>
+      <HintPath>C:\Users\14191895.PORTOALEGRE.006\Downloads\XTiled-0.8.1.1i\XTiled-0.8.1.1i\FuncWorks.XNA.XTiledExtensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.EffectImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.FBXImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
@@ -52,8 +52,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="map.tmx">
-      <Name>map</Name>
+    <Compile Include="map1.tmx">
+      <Name>map1</Name>
+      <Importer>TMXContentImporter</Importer>
+      <Processor>TMXContentProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
