@@ -23,12 +23,23 @@ namespace Gradius
 
         public float m_depth = 0.5f;
 
-        public Projectile(Game1 world, Vector2 pos, Vector2 size, Texture2D sprite, Vector2 velocity, MovableType type)
+        public Character m_shooter = null;
+
+        public Projectile(Game1 world, Vector2 pos, Vector2 size, Texture2D sprite, Vector2 velocity, MovableType type, Character shooter)
             : base(world, pos, size, type)
         {
             m_sprite = sprite;
             m_spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
             m_vel = velocity;
+            m_shooter = shooter;
+        }
+
+        public override bool TestCollision(Movable other)
+        {
+            if (other == m_shooter)
+                return false;
+
+            return base.TestCollision(other);
         }
 
         public override void Update(GameTime gameTime)

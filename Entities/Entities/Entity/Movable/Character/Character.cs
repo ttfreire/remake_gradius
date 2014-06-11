@@ -67,12 +67,12 @@ namespace Gradius {
 
       //update position:
 
-      { //with collision:
+      { //without collision:
 
-        //???
+         // m_pos = m_pos + m_vel * dt;
       }
 
-      { //without collision:
+      { //with collision:
 
         for (int axis = 0; axis <= 1; axis++)
         {
@@ -134,7 +134,7 @@ namespace Gradius {
     {
         Vector2 shotVel = new Vector2(1000, 0);
         Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X/2, this.m_pos.Y);
-        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, MovableType.Projectile);
+        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, MovableType.Projectile, this);
         this.m_world.Add(shot);
     }
 

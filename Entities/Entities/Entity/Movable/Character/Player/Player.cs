@@ -52,11 +52,9 @@ namespace Gradius {
           //previousKey = currentKey;
       }
 
-      if (previousKey != currentKey)
-          if (currentKey.IsKeyDown(Keys.Z))
+      if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z))
           {
               base.Shoot();
-              previousKey = currentKey;
           }
 
       if (m_pos.X + m_size.X / 2 > 512)
@@ -67,6 +65,9 @@ namespace Gradius {
           m_pos.X = m_size.X / 2;
       if (m_pos.Y - m_size.Y / 2 < 0)
           m_pos.Y = m_size.Y / 2;
+
+      previousKey = currentKey;
+
       base.Update(gameTime);
     }
   }
