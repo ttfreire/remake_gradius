@@ -82,6 +82,7 @@
     <Compile Include="Entity\Movable\Character\Player\Player.cs" />
     <Compile Include="Entity\Movable\Movable.cs" />
     <Compile Include="Entity\Movable\Projectile\Projectile.cs" />
+    <Compile Include="Entity\WorldMap\WorldMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

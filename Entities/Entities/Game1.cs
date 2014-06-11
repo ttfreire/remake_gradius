@@ -25,6 +25,7 @@ namespace Gradius {
     List<Entity> to_add = new List<Entity>();
     List<Entity> to_remove = new List<Entity>();
 
+    WorldMap m_worldMap;
 
     public Game1() {
 
@@ -50,6 +51,7 @@ namespace Gradius {
       m_spriteViper = Content.Load<Texture2D>("ship");
       m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
       m_background = Content.Load<Map>("map1");
+      m_worldMap = new WorldMap(this, m_background, mapView);
       
 
       //add player...
@@ -73,7 +75,7 @@ namespace Gradius {
           to_add.Clear();
       }
 
-      mapView.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 4);
+      m_worldMap.Update(gameTime);
 
       // remove entities...
       if (to_remove.Count > 0)
@@ -96,7 +98,7 @@ namespace Gradius {
 
       m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-      m_background.Draw(m_spriteBatch, mapView);
+      m_worldMap.Draw(gameTime, m_spriteBatch);
       //draw all entities...
       foreach(Entity e in m_entities)
         e.Draw(gameTime, m_spriteBatch);
