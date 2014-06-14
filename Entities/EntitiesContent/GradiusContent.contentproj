@@ -23,7 +23,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FuncWorks.XNA.XTiledExtensions">
-      <HintPath>C:\Users\14191895.PORTOALEGRE.006\Downloads\XTiled-0.8.1.1i\XTiled-0.8.1.1i\FuncWorks.XNA.XTiledExtensions.dll</HintPath>
+      <HintPath>..\..\..\..\XTiled-0.8.1.1i\FuncWorks.XNA.XTiledExtensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.EffectImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.FBXImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />

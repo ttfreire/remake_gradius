@@ -51,12 +51,17 @@ namespace Gradius {
       m_spriteViper = Content.Load<Texture2D>("ship");
       m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
       m_background = Content.Load<Map>("map1");
-      m_worldMap = new WorldMap(this, m_background, mapView);
+      m_worldMap = new WorldMap(this, m_background, m_graphics.GraphicsDevice.Viewport.Bounds);
       
+      //add map
+      //m_entities.Add(m_worldMap);
 
       //add player...
       m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(32, 32), 100, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
 
+      //add enemy
+      m_entities.Add(new Enemy(this, new Vector2(450, 100), new Vector2(32, 32), 200, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
+      m_entities.Add(new Enemy(this, new Vector2(600, 300), new Vector2(32, 32), 200, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
     }
 
     protected override void UnloadContent() {}
@@ -96,7 +101,7 @@ namespace Gradius {
 
       GraphicsDevice.Clear(Color.CornflowerBlue);
 
-      m_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+      m_spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
       m_worldMap.Draw(gameTime, m_spriteBatch);
       //draw all entities...
