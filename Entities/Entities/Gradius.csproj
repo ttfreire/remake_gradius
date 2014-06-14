@@ -62,7 +62,7 @@
   <ItemGroup>
     <Reference Include="FuncWorks.XNA.XTiled, Version=0.8.1.1, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\XTiled-0.8.1.1i\x86\FuncWorks.XNA.XTiled.dll</HintPath>
+      <HintPath>.\FuncWorks.XNA.XTiled.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -88,6 +88,8 @@
     <Compile Include="Game1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FuncWorks.XNA.XTiled.dll" />
+    <Content Include="FuncWorks.XNA.XTiledExtensions.dll" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>

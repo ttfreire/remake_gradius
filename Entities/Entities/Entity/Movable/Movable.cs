@@ -38,6 +38,8 @@ namespace Gradius {
       Vector2 otherMin  = other.m_pos - otherHalf;
       Vector2 otherMax  = other.m_pos + otherHalf;
 
+      if (this.m_type == other.m_type)
+          return false;
       if ((myMax.X < otherMin.X) || (myMax.Y < otherMin.Y) ||
           (myMin.X > otherMax.X) || (myMin.Y > otherMax.Y)) {
 

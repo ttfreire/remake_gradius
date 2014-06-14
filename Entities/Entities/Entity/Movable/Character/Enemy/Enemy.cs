@@ -32,7 +32,10 @@ namespace Gradius {
                     m_dir.X -= 1.0f;
 
                     if (m_pos.X < worldmap.m_screenMiddle.X)
+                    {
                         currentState = EnemyState.DIAGONAL;
+                        m_vel = Vector2.Zero;
+                    }
                 }
                 break;
             case EnemyState.DIAGONAL:
@@ -40,20 +43,24 @@ namespace Gradius {
                     if (m_pos.Y <= worldmap.m_screenMiddle.Y)
                     {
                         m_dir.X += 1.0f;
-                        m_dir.Y += 1.0f;
+                        m_dir.Y += 2.0f;
                     }
                     else
                     {
                         m_dir.X += 1.0f;
-                        m_dir.Y -= 1.0f;
+                        m_dir.Y -= 2.0f;
                     }
                     foreach (Entity e in m_world.m_entities)
                     {
                         if (e is Player)
                         {
                             Player player = (Player)e;
-                            if (m_pos.Y == player.m_pos.Y)
+                            if (m_pos.Y >= player.m_pos.Y - player.m_spriteSize.Y / 4 &&
+                                m_pos.Y <= player.m_pos.Y + player.m_spriteSize.Y / 4)
+                            {
                                 currentState = EnemyState.RETREAT;
+                                m_vel = Vector2.Zero;
+                            }
                             break;
                         }
                     }
@@ -62,8 +69,8 @@ namespace Gradius {
                 break;
             case EnemyState.RETREAT:
                 {
-                    m_dir.Y = 0.0f;
-                    m_dir.X += 1.0f;
+                    m_dir = Vector2.UnitX;
+                    m_maxVel = 300;
                 }
                 break;
         }

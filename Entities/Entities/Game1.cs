@@ -17,6 +17,7 @@ namespace Gradius {
     SpriteBatch m_spriteBatch;
 
     Texture2D m_spriteViper;
+    Texture2D m_spriteFan;
     public Texture2D m_spriteBasicProjectile;
     Map m_background;
     Rectangle mapView;
@@ -52,16 +53,20 @@ namespace Gradius {
       m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
       m_background = Content.Load<Map>("map1");
       m_worldMap = new WorldMap(this, m_background, m_graphics.GraphicsDevice.Viewport.Bounds);
+      m_spriteFan = Content.Load<Texture2D>("fan");
       
       //add map
       //m_entities.Add(m_worldMap);
 
       //add player...
-      m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(32, 32), 100, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
+      m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(m_spriteViper.Width, m_spriteViper.Height), 100, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
 
       //add enemy
-      m_entities.Add(new Enemy(this, new Vector2(450, 100), new Vector2(32, 32), 200, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
-      m_entities.Add(new Enemy(this, new Vector2(600, 300), new Vector2(32, 32), 200, 800, 10, m_spriteViper, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
+      m_entities.Add(new Enemy(this, new Vector2(450, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
+      m_entities.Add(new Enemy(this, new Vector2(500, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
+      m_entities.Add(new Enemy(this, new Vector2(550, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
+      m_entities.Add(new Enemy(this, new Vector2(600, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
+      m_entities.Add(new Enemy(this, new Vector2(650, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));    
     }
 
     protected override void UnloadContent() {}
