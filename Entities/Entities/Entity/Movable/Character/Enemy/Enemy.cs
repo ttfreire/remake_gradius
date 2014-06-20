@@ -16,8 +16,8 @@ namespace Gradius {
 
       public EnemyState currentState = EnemyState.FORWARD;
       public WorldMap worldmap;
-      public Enemy(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, Texture2D sprite, MovableType type, Texture2D projectileSprite, WorldMap map) :
-          base(world, pos, size, maxVel, accel, friction, sprite, type, projectileSprite)
+      public Enemy(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite, WorldMap map) :
+          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite)
       {
           worldmap = map;
       }

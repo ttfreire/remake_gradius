@@ -19,6 +19,7 @@ namespace Gradius {
     public float m_maxVel;
     public float m_accel;
     public float m_friction;
+    public float m_rateOfFire;
 
     public Texture2D m_sprite;
     public Vector2 m_spriteSize;
@@ -29,11 +30,14 @@ namespace Gradius {
     public List<Entity> visibleEntities;
 
     public Character(Game1 world, Vector2 pos, Vector2 size, float maxVel,
-        float accel, float friction, Texture2D sprite, MovableType type, Texture2D projectileSprite) : base(world, pos, size, type) {
+        float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite)
+        : base(world, pos, size, type)
+    {
       
       m_maxVel   = maxVel;
       m_accel    = accel;
       m_friction = friction;
+      m_rateOfFire = rateoffire;
 
       m_ProjectileSprite = projectileSprite;
       m_ProjectileSpriteSize = new Vector2(m_ProjectileSprite.Width, m_ProjectileSprite.Height);

@@ -14,17 +14,21 @@ namespace Gradius {
   public class Player : Character {
     KeyboardState previousKey = Keyboard.GetState();
     KeyboardState currentKey = Keyboard.GetState();
-    public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, Texture2D sprite, MovableType type, Texture2D ProjectileSprite) :
-        base(world, pos, size, maxVel, accel, friction, sprite, type, ProjectileSprite)
+    float shootCooldown;
+    float continuousShootCooldown;
+    public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite) :
+        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
     {
-
-      m_depth -= 0.1f;
+        shootCooldown = rateoffire;
+        continuousShootCooldown = continuousrateoffire;
+        m_depth -= 0.1f;
     }
 
     public override void Update(GameTime gameTime) {
 
       //fill direction vector using the keyboard:
-
+      float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+      shootCooldown -= dt; 
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
 
@@ -52,10 +56,21 @@ namespace Gradius {
           //previousKey = currentKey;
       }
 
-      if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z))
+      if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z) && shootCooldown <= 0)
+      {
+          shootCooldown = m_rateOfFire;
+          base.Shoot();
+      }
+
+      if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z))
+      {
+          continuousShootCooldown -= dt;
+          if (continuousShootCooldown <= 0)
           {
+              continuousShootCooldown = 1.0f;
               base.Shoot();
           }
+      }
 
       if (m_pos.X + m_size.X / 2 > 512)
           m_pos.X = 512 - m_size.X / 2;
