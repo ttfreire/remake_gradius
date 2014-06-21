@@ -52,5 +52,10 @@ namespace Gradius {
     public MovableType getType(){
         return m_type;
     }
+
+      public void Die()
+      {
+          m_world.Remove(this);
+      }
   }
 }
