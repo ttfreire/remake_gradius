@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="14" height="1" tilewidth="591" tileheight="480">
+ <tileset firstgid="1" name="fundo" tilewidth="591" tileheight="480">
+  <image source="fundo1.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="2" name="front_5_5" tilewidth="591" tileheight="480">
+  <image source="front_5_5.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="3" name="front_6_6" tilewidth="591" tileheight="480">
+  <image source="front_6_6.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="4" name="front_7_7" tilewidth="591" tileheight="480">
+  <image source="front_7_7.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="5" name="front_8_8" tilewidth="591" tileheight="480">
+  <image source="front_8_8.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="6" name="front_9_9" tilewidth="591" tileheight="480">
+  <image source="front_9_9.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="7" name="front_10_10" tilewidth="591" tileheight="480">
+  <image source="front_10_10.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="8" name="front_11_11" tilewidth="591" tileheight="480">
+  <image source="front_11_11.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="9" name="front_12_12" tilewidth="591" tileheight="480">
+  <image source="front_12_12.png" width="591" height="480"/>
+ </tileset>
+ <tileset firstgid="10" name="front_13_13" tilewidth="591" tileheight="480">
+  <image source="front_13_13.png" width="591" height="480"/>
+ </tileset>
+ <layer name="stars" width="14" height="1">
+  <data>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+  </data>
+ </layer>
+ <layer name="scenery" width="14" height="1">
+  <data>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="2"/>
+   <tile gid="3"/>
+   <tile gid="4"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="7"/>
+   <tile gid="8"/>
+   <tile gid="9"/>
+   <tile gid="10"/>
+   <tile gid="0"/>
+  </data>
+ </layer>
+ <objectgroup name="colliders" width="14" height="1">
+  <object name="top" x="2361" y="7" width="5319" height="28"/>
+  <object name="bottom" x="2362" y="447" width="5319" height="29"/>
+  <object name="mountain1" x="2805" y="356">
+   <polygon points="0,0 -60,92 65,91"/>
+  </object>
+  <object name="mountain2-1" x="4099" y="301">
+   <polygon points="0,0 -41,56 45,55"/>
+  </object>
+  <object name="mountain2-2" x="4173" y="415">
+   <polyline points="0,0 -152,1 -181,29 29,31 1,0"/>
+  </object>
+  <object name="mountain3" x="5208" y="303">
+   <polygon points="0,0 -103,144 96,143"/>
+  </object>
+  <object name="meteor" x="6648" y="139">
+   <polyline points="0,0 -57,81 -1,168 61,84 3,0"/>
+  </object>
+  <object name="mountain4" x="7239" y="359">
+   <polygon points="0,0 -63,88 63,88"/>
+  </object>
+  <object name="mountain4" x="7535" y="357">
+   <polygon points="0,0 -63,88 63,88"/>
+  </object>
+  <object name="residual1" x="3059" y="32" width="37" height="15"/>
+  <object name="residual2" x="4832" y="32" width="37" height="15"/>
+  <object name="residual2" x="6008" y="33" width="37" height="15"/>
+ </objectgroup>
+</map>

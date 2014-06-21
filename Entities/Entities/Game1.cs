@@ -51,7 +51,7 @@ namespace Gradius {
 
       m_spriteViper = Content.Load<Texture2D>("ship");
       m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
-      m_background = Content.Load<Map>("map2");
+      m_background = Content.Load<Map>("newmap");
       m_worldMap = new WorldMap(this, m_background, m_graphics.GraphicsDevice.Viewport.Bounds);
       m_spriteFan = Content.Load<Texture2D>("fan");
       
