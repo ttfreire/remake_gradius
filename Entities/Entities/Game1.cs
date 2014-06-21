@@ -27,7 +27,7 @@ namespace Gradius {
     List<Entity> to_remove = new List<Entity>();
 
     WorldMap m_worldMap;
-
+    List<Enemy> fanSquad1;
     public Game1() {
 
       m_graphics = new GraphicsDeviceManager(this);
@@ -59,14 +59,19 @@ namespace Gradius {
       //m_entities.Add(m_worldMap);
 
       //add player...
-      m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(m_spriteViper.Width, m_spriteViper.Height), 100, 800, 10, 0.5f, 1.0f, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
-
+      m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(m_spriteViper.Width, m_spriteViper.Height), 100, 800, 10, 0.25f, 1.0f, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
+      
+      //create squad
+      fanSquad1 = new List<Enemy>();
       //add enemy
-      m_entities.Add(new Enemy(this, new Vector2(450, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
-      m_entities.Add(new Enemy(this, new Vector2(500, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
-      m_entities.Add(new Enemy(this, new Vector2(550, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
-      m_entities.Add(new Enemy(this, new Vector2(600, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));
-      m_entities.Add(new Enemy(this, new Vector2(650, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Player, m_spriteBasicProjectile, m_worldMap));    
+      m_entities.Add(new Enemy(this, new Vector2(450, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
+      m_entities.Add(new Enemy(this, new Vector2(500, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
+      m_entities.Add(new Enemy(this, new Vector2(550, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
+      m_entities.Add(new Enemy(this, new Vector2(600, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
+      m_entities.Add(new Enemy(this, new Vector2(650, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));    
+      for (int i = 0; i < m_entities.Count; i++)
+          if (m_entities[i] is Enemy)
+              fanSquad1.Add((Enemy)m_entities[i]);
     }
 
     protected override void UnloadContent() {}
@@ -99,6 +104,8 @@ namespace Gradius {
         foreach (Entity e in m_entities)
           e.Update(gameTime);
 
+        if (fanSquad1.Count == 0)
+            System.Console.WriteLine("Matou o Squad");
       base.Update(gameTime);
     }
 
