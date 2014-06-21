@@ -32,7 +32,7 @@ namespace Gradius
             {
                 for (int o = 0; o < m_map.ObjectLayers[ol].MapObjects.Length; o++)
                 {
-                    if (m_map.ObjectLayers[ol].MapObjects[o].Polygon != null)
+                    if (m_map.ObjectLayers[ol].MapObjects[o].Bounds != null)
                     {
                         Movable mov;
                         foreach (Entity e in m_world.m_entities)
@@ -40,9 +40,9 @@ namespace Gradius
                             if (e is Player || e is Projectile)
                             {
                                 mov = (Movable)e;
-                                if (m_map.ObjectLayers[ol].MapObjects[o].Polygon.Intersects(new Rectangle((int)(mov.m_pos.X - mov.m_size.X / 2),
+                                if (m_map.ObjectLayers[ol].MapObjects[o].Bounds.Intersects(new Rectangle((int)(mov.m_pos.X - mov.m_size.X / 2) + m_view.X,
                                                                                                   (int)(mov.m_pos.Y - mov.m_size.Y / 2),
-                                                                                                  (int)mov.m_size.X,
+                                                                                                     (int)mov.m_size.X,
                                                                                                   (int)mov.m_size.Y)))
                                 {
                                     m_world.Remove(mov);

@@ -5,12 +5,10 @@
  </tileset>
  <layer name="Camada de Tiles 1" width="1" height="1">
   <data>
-   <tile gid="0"/>
-  </data>
- </layer>
- <layer name="Camada de Tiles 2" width="1" height="1">
-  <data>
    <tile gid="1"/>
   </data>
  </layer>
+ <objectgroup name="COLIDORZAO" width="1" height="1">
+  <object x="695" y="90" width="187" height="94"/>
+ </objectgroup>
 </map>

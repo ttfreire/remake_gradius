@@ -52,17 +52,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="map1.tmx">
-      <Name>map1</Name>
-      <Importer>TMXContentImporter</Importer>
-      <Processor>TMXContentProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="fan.png">
       <Name>fan</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="map2.tmx">
+      <Name>map2</Name>
+      <Importer>TMXContentImporter</Importer>
+      <Processor>TMXContentProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
