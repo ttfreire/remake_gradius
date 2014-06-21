@@ -36,7 +36,7 @@ namespace Gradius
 
         public override bool TestCollision(Movable other)
         {
-            if (other == m_shooter)
+            if (other.m_type == m_shooter.m_type)
                 return false;
 
             return base.TestCollision(other);
@@ -67,9 +67,9 @@ namespace Gradius
                     bool isColliding = false;
                     foreach (Entity e in m_world.m_entities)
                     {
-                        if (e != this)
+                        if (e != this && e is Movable)
                         {
-                            if (e.TestCollision(this))
+                            if (this.TestCollision((Movable)e))
                             {
                                 isColliding = true;
                                 enemy = e;
