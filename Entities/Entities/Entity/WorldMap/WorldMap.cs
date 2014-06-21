@@ -45,7 +45,7 @@ namespace Gradius
                                                                                                      (int)mov.m_size.X,
                                                                                                   (int)mov.m_size.Y)))
                                 {
-                                    m_world.Remove(mov);
+                                    mov.Die();
                                 }
                             }
                         }
