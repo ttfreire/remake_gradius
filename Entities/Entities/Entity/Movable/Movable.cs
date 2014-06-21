@@ -19,7 +19,6 @@ namespace Gradius {
     public Vector2 m_size;
     public MovableType m_type;
 
-    public Movable(Game1 world):base(world) { }
     public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type)
         : base(world)
     {
@@ -54,7 +53,7 @@ namespace Gradius {
         return m_type;
     }
 
-      public virtual void Die()
+      public void Die()
       {
           m_world.Remove(this);
       }
