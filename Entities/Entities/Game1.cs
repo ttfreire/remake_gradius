@@ -21,11 +21,13 @@ namespace Gradius {
     public Texture2D m_spriteBasicProjectile;
     Map m_background;
     Rectangle mapView;
+    float upperEnemySpawnCooldown = 5.0f;
+    float bottomEnemySpawnCooldown = 7.0f;
 
     public List<Entity> m_entities = new List<Entity>();
     List<Entity> to_add = new List<Entity>();
     List<Entity> to_remove = new List<Entity>();
-
+    Player m_player;
     WorldMap m_worldMap;
     List<Enemy> fanSquad1;
     public Game1() {
@@ -60,18 +62,8 @@ namespace Gradius {
 
       //add player...
       m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(m_spriteViper.Width, m_spriteViper.Height), 100, 800, 10, 0.25f, 1.0f, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
+      m_player = (Player) m_entities[0];
       
-      //create squad
-      fanSquad1 = new List<Enemy>();
-      //add enemy
-      m_entities.Add(new Enemy(this, new Vector2(450, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
-      m_entities.Add(new Enemy(this, new Vector2(500, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
-      m_entities.Add(new Enemy(this, new Vector2(550, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
-      m_entities.Add(new Enemy(this, new Vector2(600, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));
-      m_entities.Add(new Enemy(this, new Vector2(650, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1));    
-      for (int i = 0; i < m_entities.Count; i++)
-          if (m_entities[i] is Enemy)
-              fanSquad1.Add((Enemy)m_entities[i]);
     }
 
     protected override void UnloadContent() {}
@@ -81,7 +73,35 @@ namespace Gradius {
       if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
         this.Exit();
 
-      
+      float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+      upperEnemySpawnCooldown -= dt;
+      bottomEnemySpawnCooldown -= dt;
+      if (upperEnemySpawnCooldown <= 0)
+      {
+          upperEnemySpawnCooldown = 5.0f;
+          //create squad
+          fanSquad1 = new List<Enemy>();
+          //add enemy
+          for (int i = 1; i <= 5; i++)
+          {
+              Enemy newEnemy = new Enemy(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1);
+              m_entities.Add(newEnemy);
+              fanSquad1.Add(newEnemy);
+          }
+      }
+        if (bottomEnemySpawnCooldown <= 0)
+      {
+          bottomEnemySpawnCooldown = 5.0f;
+          //create squad
+          fanSquad1 = new List<Enemy>();
+          //add enemy
+          for (int i = 1; i <= 5; i++)
+          {
+              Enemy newEnemy = new Enemy(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 380), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1);
+              m_entities.Add(newEnemy);
+              fanSquad1.Add(newEnemy);
+          }
+      }
       // add new entities...
       if (to_add.Count > 0)
       {
@@ -104,8 +124,6 @@ namespace Gradius {
         foreach (Entity e in m_entities)
           e.Update(gameTime);
 
-        if (fanSquad1.Count == 0)
-            System.Console.WriteLine("Matou o Squad");
       base.Update(gameTime);
     }
 
