@@ -11,9 +11,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Gradius {
 
-  public enum EnemyState {FORWARD, DIAGONAL, RETREAT }
+  
   public class Enemy : Character {
-
+      public enum EnemyState { FORWARD, DIAGONAL, RETREAT }
       public EnemyState currentState = EnemyState.FORWARD;
       public WorldMap worldmap;
       public List<Enemy> mySquad;
@@ -22,6 +22,7 @@ namespace Gradius {
           base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite)
       {
           worldmap = map;
+          mySquad = squad;
       }
 
     public override void Update(GameTime gameTime) {
@@ -73,6 +74,9 @@ namespace Gradius {
                 {
                     m_dir = Vector2.UnitX;
                     m_maxVel = 300;
+
+                    if (m_pos.X > worldmap.screenWidth)
+                        m_world.Remove(this);
                 }
                 break;
         }
@@ -81,6 +85,20 @@ namespace Gradius {
       base.Update(gameTime);
     }
 
-    
+    public void addToSquad()
+    {
+        mySquad.Add(this);
+    }
+
+    public override void Die()
+    {
+        Console.WriteLine("Enemy ID = " + m_id.ToString());
+        if (mySquad.Count == 1)
+            Console.WriteLine("Squad derrotado");
+        mySquad.Remove(this);
+        m_world.Remove(this);
+    }
   }
+
+
 }

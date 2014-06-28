@@ -62,31 +62,31 @@ namespace Gradius
                         m_pos.X = m_pos.X + m_vel.X * dt;
                     else
                         m_pos.Y = m_pos.Y + m_vel.Y * dt;
-
-                    Entity enemy = new Entity(m_world);
-                    bool isColliding = false;
-                    foreach (Entity e in m_world.m_entities)
+                }
+                Character enemy = null;
+                bool isColliding = false;
+                foreach (Entity e in m_world.m_entities)
+                {
+                    if (e != this && e is Character)
                     {
-                        if (e != this && e is Movable)
+                        if (this.TestCollision((Character)e))
                         {
-                            if (this.TestCollision((Movable)e))
-                            {
-                                isColliding = true;
-                                enemy = e;
-                                break;
-                            }
+                            isColliding = true;
+                            enemy = (Character)e;
+                            break;
                         }
                     }
-
-                    if (isColliding)
-                    {
-                        m_world.Remove(enemy);
-                        m_world.Remove(this);
-                    }
-
-                    if (this.m_pos.X > 512)
-                        m_world.Remove(this);
                 }
+
+                if (isColliding)
+                {
+                    enemy.Die();
+                    m_world.Remove(this);
+                }
+
+                if (this.m_pos.X > 512)
+                    m_world.Remove(this);
+                
 
             }
         }

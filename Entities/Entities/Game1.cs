@@ -86,7 +86,7 @@ namespace Gradius {
           {
               Enemy newEnemy = new Enemy(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1);
               m_entities.Add(newEnemy);
-              fanSquad1.Add(newEnemy);
+              newEnemy.addToSquad();
           }
       }
         if (bottomEnemySpawnCooldown <= 0)
@@ -99,7 +99,7 @@ namespace Gradius {
           {
               Enemy newEnemy = new Enemy(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 380), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1);
               m_entities.Add(newEnemy);
-              fanSquad1.Add(newEnemy);
+              newEnemy.addToSquad();
           }
       }
       // add new entities...
