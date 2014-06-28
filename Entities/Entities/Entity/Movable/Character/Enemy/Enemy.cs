@@ -93,7 +93,7 @@ namespace Gradius {
     public override void Die()
     {
         Console.WriteLine("Enemy ID = " + m_id.ToString());
-        if (mySquad.Count == 1)
+        if (mySquad != null && mySquad.Count == 1)
             Console.WriteLine("Squad derrotado");
         mySquad.Remove(this);
         m_world.Remove(this);
