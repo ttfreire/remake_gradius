@@ -110,7 +110,7 @@ namespace Gradius {
           //add enemy
           for (int i = 1; i <= 5; i++)
           {
-              Enemy newEnemy = new Enemy(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1);
+              Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, fanSquad1, m_worldMap);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
           }
@@ -123,7 +123,7 @@ namespace Gradius {
           //add enemy
           for (int i = 1; i <= 5; i++)
           {
-              Enemy newEnemy = new Enemy(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 380), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, m_worldMap, fanSquad1);
+              Garun newEnemy = new Garun(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 380), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 500, 500, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, null, m_worldMap);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
           }

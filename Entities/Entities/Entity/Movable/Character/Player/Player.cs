@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius {
 
   public class Player : Character {
-    static float SPEEDUP_INCREASE = 100.0f;
+    static float SPEEDUP_INCREASE = 50.0f;
     KeyboardState previousKey = Keyboard.GetState();
     KeyboardState currentKey = Keyboard.GetState();
     float shootCooldown;
@@ -140,12 +140,12 @@ namespace Gradius {
                 break;
             case 5:
             {
-                m_maxVel += 100;
+                
             }
                 break;
             case 6:
             {
-                m_maxVel += 100;
+                
             }
                 break;
         }

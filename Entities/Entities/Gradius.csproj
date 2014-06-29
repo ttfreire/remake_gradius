@@ -79,6 +79,8 @@
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\Movable\Character\Character.cs" />
     <Compile Include="Entity\Movable\Character\Enemy\Enemy.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Fan\Fan.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Garun.cs" />
     <Compile Include="Entity\Movable\Character\Player\Player.cs" />
     <Compile Include="Entity\Movable\Movable.cs" />
     <Compile Include="Entity\Movable\Projectile\Projectile.cs" />
