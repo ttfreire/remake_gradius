@@ -90,7 +90,7 @@ namespace Gradius {
           bool isColliding = false;
           foreach (Entity e in m_world.m_entities)
           {
-            if (e != this)
+            if (e != this && e is Character)
             {
               if (e.TestCollision(this))
               {
@@ -134,11 +134,12 @@ namespace Gradius {
           m_spriteSize * 0.5f, m_size / m_spriteSize, SpriteEffects.None, m_depth);
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         Vector2 shotVel = new Vector2(1000, 0);
         Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X/2, this.m_pos.Y);
-        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, MovableType.Projectile, this);
+        Vector2 shotDir = new Vector2(1, 0);
+        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
         this.m_world.Add(shot);
     }
 

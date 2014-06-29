@@ -15,7 +15,7 @@ namespace Gradius
     public class Projectile : Movable
     {
 
-        public Vector2 m_dir = new Vector2(1,0);
+        public Vector2 m_dir;
         public Vector2 m_vel;
 
         public Texture2D m_sprite;
@@ -25,12 +25,13 @@ namespace Gradius
 
         public Character m_shooter = null;
 
-        public Projectile(Game1 world, Vector2 pos, Vector2 size, Texture2D sprite, Vector2 velocity, MovableType type, Character shooter)
+        public Projectile(Game1 world, Vector2 pos, Vector2 size, Texture2D sprite, Vector2 velocity, Vector2 direction, MovableType type, Character shooter)
             : base(world, pos, size, type)
         {
             m_sprite = sprite;
             m_spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
             m_vel = velocity;
+            m_dir = direction;
             m_shooter = shooter;
         }
 

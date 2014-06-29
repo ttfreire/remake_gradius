@@ -16,12 +16,16 @@ namespace Gradius {
     KeyboardState currentKey = Keyboard.GetState();
     float shootCooldown;
     float continuousShootCooldown;
+    
+    List<PowerUpState> activePowerUps;
+
     public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite) :
         base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
     {
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
         m_depth -= 0.1f;
+        activePowerUps = new List<PowerUpState>();
     }
 
     public override void Update(GameTime gameTime) {
@@ -59,7 +63,7 @@ namespace Gradius {
       if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z) && shootCooldown <= 0)
       {
           shootCooldown = m_rateOfFire;
-          base.Shoot();
+          Shoot();
       }
 
       if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z))
@@ -68,8 +72,13 @@ namespace Gradius {
           if (continuousShootCooldown <= 0)
           {
               continuousShootCooldown = 1.0f;
-              base.Shoot();
+              Shoot();
           }
+      }
+
+      if (currentKey.IsKeyDown(Keys.X))
+      {
+          this.usePowerUp();
       }
 
       if (m_pos.X + m_size.X / 2 > 512)
@@ -85,5 +94,95 @@ namespace Gradius {
 
       base.Update(gameTime);
     }
-  }
+
+    public void usePowerUp()
+    {
+        switch (m_world.highlightedPowerUp)
+        {
+            case 1:
+            {
+                if(!activePowerUps.Contains(PowerUpState.SPEEDUP))
+                    activePowerUps.Add(PowerUpState.SPEEDUP);
+                m_world.highlightedPowerUp = 0;
+                m_maxVel += 100;
+            }
+                break;
+            case 2:
+            {
+                if (!activePowerUps.Contains(PowerUpState.MISSILE))
+                {
+                    activePowerUps.Add(PowerUpState.MISSILE);
+                    m_world.highlightedPowerUp = 0;
+                }
+            }
+                break;
+            case 3:
+            {
+                if (!activePowerUps.Contains(PowerUpState.DOUBLE))
+                {
+                    activePowerUps.Add(PowerUpState.DOUBLE);
+                    m_world.highlightedPowerUp = 0;
+                }
+                    
+                if (activePowerUps.Contains(PowerUpState.LASER))
+                    activePowerUps.Remove(PowerUpState.LASER);
+            }
+                break;
+            case 4:
+            {
+                if (!activePowerUps.Contains(PowerUpState.LASER))
+                {
+                    activePowerUps.Add(PowerUpState.LASER);
+                    m_world.highlightedPowerUp = 0;
+                }
+
+                if (activePowerUps.Contains(PowerUpState.DOUBLE))
+                    activePowerUps.Remove(PowerUpState.DOUBLE);
+            }
+                break;
+            case 5:
+            {
+                m_maxVel += 100;
+            }
+                break;
+            case 6:
+            {
+                m_maxVel += 100;
+            }
+                break;
+        }
+      }
+    
+    public override void Shoot()
+    {
+        if (activePowerUps.Contains(PowerUpState.MISSILE))
+        {
+            Vector2 shotVel = new Vector2(250, 250);
+            Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+            Vector2 shotDir = new Vector2(1, 1);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            this.m_world.Add(shot);
+        }
+        if (activePowerUps.Contains(PowerUpState.DOUBLE))
+        {
+            Vector2 shotVel = new Vector2(250, -250);
+            Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+            Vector2 shotDir = new Vector2(1, -1);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            this.m_world.Add(shot);
+        }
+        if (activePowerUps.Contains(PowerUpState.LASER))
+        {
+            Vector2 shotVel = new Vector2(5000, 0);
+            Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+            Vector2 shotDir = new Vector2(1, 0);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            this.m_world.Add(shot);
+        }
+        else
+        {
+            base.Shoot();
+        }
+    }
+    }
 }

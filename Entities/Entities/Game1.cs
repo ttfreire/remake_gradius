@@ -9,8 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FuncWorks.XNA.XTiled;
-namespace Gradius {
 
+namespace Gradius {
+  public enum PowerUpState {NONE, SPEEDUP, MISSILE, DOUBLE, LASER, OPTION, SHIELD }
   public class Game1 : Microsoft.Xna.Framework.Game {
 
     public GraphicsDeviceManager m_graphics;
@@ -18,7 +19,11 @@ namespace Gradius {
 
     Texture2D m_spriteViper;
     Texture2D m_spriteFan;
+
+    public Texture2D m_spritePowerUpRed;
+    public Texture2D m_spritePowerUpBlue;
     public Texture2D m_spriteBasicProjectile;
+    
     Map m_background;
     Rectangle mapView;
     float upperEnemySpawnCooldown = 5.0f;
@@ -30,6 +35,10 @@ namespace Gradius {
     Player m_player;
     WorldMap m_worldMap;
     List<Enemy> fanSquad1;
+
+    public List<PowerUpState> HUDPowerUp;
+    public int highlightedPowerUp = 0;
+    public int powerUpCounter = 0;
     public Game1() {
 
       m_graphics = new GraphicsDeviceManager(this);
@@ -45,6 +54,14 @@ namespace Gradius {
 
       base.Initialize();
       mapView = m_graphics.GraphicsDevice.Viewport.Bounds;
+      HUDPowerUp = new List<PowerUpState>();
+      HUDPowerUp.Add(PowerUpState.NONE);
+      HUDPowerUp.Add(PowerUpState.SPEEDUP);
+      HUDPowerUp.Add(PowerUpState.MISSILE);
+      HUDPowerUp.Add(PowerUpState.DOUBLE);
+      HUDPowerUp.Add(PowerUpState.LASER);
+      HUDPowerUp.Add(PowerUpState.OPTION);
+      HUDPowerUp.Add(PowerUpState.SHIELD);
     }
 
     protected override void LoadContent() {
@@ -56,6 +73,8 @@ namespace Gradius {
       m_background = Content.Load<Map>("newmap");
       m_worldMap = new WorldMap(this, m_background, m_graphics.GraphicsDevice.Viewport.Bounds);
       m_spriteFan = Content.Load<Texture2D>("fan");
+      m_spritePowerUpRed = Content.Load<Texture2D>("powerupred");
+      m_spritePowerUpBlue = Content.Load<Texture2D>("powerupblue");
       
       //add map
       //m_entities.Add(m_worldMap);

@@ -94,10 +94,16 @@ namespace Gradius {
     {
         Console.WriteLine("Enemy ID = " + m_id.ToString());
         if (mySquad != null && mySquad.Count == 1)
-            Console.WriteLine("Squad derrotado");
+            dropPowerUp();
         mySquad.Remove(this);
         m_world.Remove(this);
     }
+
+      public void dropPowerUp()
+      {
+          PowerUp powerup = new PowerUp(m_world, this.m_pos);
+          m_world.Add(powerup);
+      }
   }
 
 
