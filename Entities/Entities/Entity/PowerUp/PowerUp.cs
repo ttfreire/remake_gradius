@@ -49,7 +49,7 @@ namespace Gradius
                         {
                             if (m_world.highlightedPowerUp < m_world.HUDPowerUp.Capacity - 1)
                                 m_world.highlightedPowerUp += 1;
-                            m_world.powerUpCounter++;
+                            
                         }
                         else
                         {

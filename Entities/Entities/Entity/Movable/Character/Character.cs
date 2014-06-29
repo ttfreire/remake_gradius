@@ -20,6 +20,7 @@ namespace Gradius {
     public float m_accel;
     public float m_friction;
     public float m_rateOfFire;
+    public float m_continuousRateOfFire;
 
     public Texture2D m_sprite;
     public Vector2 m_spriteSize;
@@ -38,7 +39,7 @@ namespace Gradius {
       m_accel    = accel;
       m_friction = friction;
       m_rateOfFire = rateoffire;
-
+      m_continuousRateOfFire = continuousrateoffire;
       m_ProjectileSprite = projectileSprite;
       m_ProjectileSpriteSize = new Vector2(m_ProjectileSprite.Width, m_ProjectileSprite.Height);
 
@@ -136,7 +137,7 @@ namespace Gradius {
 
     public virtual void Shoot()
     {
-        Vector2 shotVel = new Vector2(1000, 0);
+        Vector2 shotVel = new Vector2(800, 0);
         Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X/2, this.m_pos.Y);
         Vector2 shotDir = new Vector2(1, 0);
         Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);

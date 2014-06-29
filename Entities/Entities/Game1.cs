@@ -80,7 +80,14 @@ namespace Gradius {
       //m_entities.Add(m_worldMap);
 
       //add player...
-      m_entities.Add(new Player(this, new Vector2(40, 240), new Vector2(m_spriteViper.Width, m_spriteViper.Height), 100, 800, 10, 0.25f, 1.0f, m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
+      m_entities.Add(new Player(this, new Vector2(40, 240), //pos
+                                new Vector2(m_spriteViper.Width, m_spriteViper.Height), 
+                                100, //vel
+                                800, // maxvel
+                                10, // friction
+                                50.0f, // rate of fire
+                                500.0f, // continuous rate of fire
+                                m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
       m_player = (Player) m_entities[0];
       
     }

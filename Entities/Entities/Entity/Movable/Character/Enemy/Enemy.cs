@@ -103,6 +103,7 @@ namespace Gradius {
       {
           PowerUp powerup = new PowerUp(m_world, this.m_pos);
           m_world.Add(powerup);
+          m_world.powerUpCounter++;
       }
   }
 

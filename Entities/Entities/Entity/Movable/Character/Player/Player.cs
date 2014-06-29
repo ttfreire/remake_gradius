@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius {
 
   public class Player : Character {
+    static float SPEEDUP_INCREASE = 100.0f;
     KeyboardState previousKey = Keyboard.GetState();
     KeyboardState currentKey = Keyboard.GetState();
     float shootCooldown;
@@ -31,8 +32,9 @@ namespace Gradius {
     public override void Update(GameTime gameTime) {
 
       //fill direction vector using the keyboard:
-      float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-      shootCooldown -= dt; 
+      float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+      shootCooldown -= dt;
+      continuousShootCooldown -= dt;
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
 
@@ -66,14 +68,10 @@ namespace Gradius {
           Shoot();
       }
 
-      if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z))
+      if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z) && continuousShootCooldown <= 0)
       {
-          continuousShootCooldown -= dt;
-          if (continuousShootCooldown <= 0)
-          {
-              continuousShootCooldown = 1.0f;
-              Shoot();
-          }
+          continuousShootCooldown = m_continuousRateOfFire;
+          Shoot();
       }
 
       if (currentKey.IsKeyDown(Keys.X))
@@ -104,7 +102,7 @@ namespace Gradius {
                 if(!activePowerUps.Contains(PowerUpState.SPEEDUP))
                     activePowerUps.Add(PowerUpState.SPEEDUP);
                 m_world.highlightedPowerUp = 0;
-                m_maxVel += 100;
+                m_maxVel += SPEEDUP_INCREASE;
             }
                 break;
             case 2:
@@ -173,10 +171,10 @@ namespace Gradius {
         }
         if (activePowerUps.Contains(PowerUpState.LASER))
         {
-            Vector2 shotVel = new Vector2(5000, 0);
+            Vector2 shotVel = new Vector2(800, 0);
             Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
             Vector2 shotDir = new Vector2(1, 0);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25,0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
         else
