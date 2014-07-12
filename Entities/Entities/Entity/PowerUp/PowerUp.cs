@@ -71,23 +71,26 @@ namespace Gradius
 
         public bool TestCollision(Player other)
         {
-
-            Vector2 myHalf = new Vector2(m_sprite.Width * 0.5f, m_sprite.Height * 0.5f);
-            Vector2 myMin = m_pos - myHalf;
-            Vector2 myMax = m_pos + myHalf;
-
-            Vector2 otherHalf = other.m_size * 0.5f;
-            Vector2 otherMin = other.m_pos - otherHalf;
-            Vector2 otherMax = other.m_pos + otherHalf;
-
-            if ((myMax.X < otherMin.X) || (myMax.Y < otherMin.Y) ||
-                (myMin.X > otherMax.X) || (myMin.Y > otherMax.Y))
+            if(other.m_type == MovableType.Player)
             {
+                Vector2 myHalf = new Vector2(m_sprite.Width * 0.5f, m_sprite.Height * 0.5f);
+                Vector2 myMin = m_pos - myHalf;
+                Vector2 myMax = m_pos + myHalf;
 
-                return false;
+                Vector2 otherHalf = other.m_size * 0.5f;
+                Vector2 otherMin = other.m_pos - otherHalf;
+                Vector2 otherMax = other.m_pos + otherHalf;
+
+                if ((myMax.X < otherMin.X) || (myMax.Y < otherMin.Y) ||
+                    (myMin.X > otherMax.X) || (myMin.Y > otherMax.Y))
+                {
+
+                    return false;
+                }
+
+                return true;
             }
-
-            return true;
+            return false;
         }
     
     }

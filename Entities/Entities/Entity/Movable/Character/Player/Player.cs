@@ -20,7 +20,8 @@ namespace Gradius {
     float continuousShootCooldown;
     public List<Vector2> m_trail;
     public int m_trail_pos = 0;
-    
+    int m_option_count;
+
     public List<PowerUpState> activePowerUps;
 
     public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite) :
@@ -33,6 +34,7 @@ namespace Gradius {
         m_trail = new List<Vector2>();
         for(int i = 0; i < TRAIL_SIZE; i++)
             m_trail.Add(this.m_pos);
+        
     }
 
     public override void Update(GameTime gameTime) {
@@ -159,18 +161,23 @@ namespace Gradius {
                 break;
             case 1:
             {
-                //if (!activePowerUps.Contains(PowerUpState.OPTION))
-                //{
+                List<Entity> optionlist = m_world.m_entities.FindAll(s => s is Option);
+                if (optionlist.Count < 2)
+                {
                     activePowerUps.Add(PowerUpState.OPTION);
                     m_world.highlightedPowerUp = 0;
-                    Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this);
+                    int option_trail = 25 + 50 * optionlist.Count;
+                    Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this, option_trail);
                     m_world.Add(option);
-                //}
+                    m_option_count = m_option_count + 1;
+                    Console.Write("Option Count = ");
+                    Console.Write(m_option_count);
+                }
             }
                 break;
             case 6:
             {
-                
+                m_world.highlightedPowerUp = 0;
             }
                 break;
         }

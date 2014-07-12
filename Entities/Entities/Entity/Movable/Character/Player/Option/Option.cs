@@ -20,17 +20,18 @@ namespace Gradius
         float shootCooldown;
         float continuousShootCooldown;
         Player m_player;
-        int m_trail_pos;
+        int m_option_trail_pos, m_initial_trail_pos;
 
-        public Option(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite, Player player) :
+        public Option(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite, Player player, int initial_trail_pos) :
             base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
         {
             shootCooldown = rateoffire;
             continuousShootCooldown = continuousrateoffire;
             m_depth -= 0.1f;
             m_player = player;
-            int trail_pos = Math.Abs(m_player.m_trail_pos - 50) % TRAIL_SIZE;
-            m_trail_pos = trail_pos;
+            m_initial_trail_pos = initial_trail_pos;
+            int trail_pos = Math.Abs(m_player.m_trail_pos - m_initial_trail_pos) % TRAIL_SIZE;
+            m_option_trail_pos = trail_pos;
         }
 
         public override void Update(GameTime gameTime)
@@ -43,8 +44,8 @@ namespace Gradius
             m_dir = Vector2.Zero;
             currentKey = Keyboard.GetState();
 
-            this.m_pos = m_player.m_trail[m_trail_pos];
-            m_trail_pos = Math.Abs(m_player.m_trail_pos + 50) % TRAIL_SIZE;
+            this.m_pos = m_player.m_trail[m_option_trail_pos];
+            m_option_trail_pos = Math.Abs(m_player.m_trail_pos + m_initial_trail_pos) % TRAIL_SIZE;
 
             if (m_pos.X + m_size.X / 2 > 512)
                 m_pos.X = 512 - m_size.X / 2;
