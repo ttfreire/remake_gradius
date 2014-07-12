@@ -13,12 +13,15 @@ namespace Gradius {
 
   public class Player : Character {
     static float SPEEDUP_INCREASE = 50.0f;
+    public static int TRAIL_SIZE = 100;
     KeyboardState previousKey = Keyboard.GetState();
     KeyboardState currentKey = Keyboard.GetState();
     float shootCooldown;
     float continuousShootCooldown;
+    public List<Vector2> m_trail;
+    public int m_trail_pos = 0;
     
-    List<PowerUpState> activePowerUps;
+    public List<PowerUpState> activePowerUps;
 
     public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite) :
         base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
@@ -27,6 +30,9 @@ namespace Gradius {
         continuousShootCooldown = continuousrateoffire;
         m_depth -= 0.1f;
         activePowerUps = new List<PowerUpState>();
+        m_trail = new List<Vector2>();
+        for(int i = 0; i < TRAIL_SIZE; i++)
+            m_trail.Add(this.m_pos);
     }
 
     public override void Update(GameTime gameTime) {
@@ -42,23 +48,33 @@ namespace Gradius {
           previousKey = currentKey;
 
       if (currentKey.IsKeyDown(Keys.Right))
-        m_dir.X += 1.0f;
+      {
+          m_dir.X += 1.0f;
+          m_trail[m_trail_pos] = this.m_pos;
+          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
+      }
 
       if (currentKey.IsKeyDown(Keys.Left))
       {
           m_dir.X += -1.0f;
+          m_trail[m_trail_pos] = this.m_pos;
+          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
           //previousKey = currentKey;
       }
 
       if (currentKey.IsKeyDown(Keys.Up))
       {
           m_dir.Y += -1.0f;
+          m_trail[m_trail_pos] = this.m_pos;
+          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
           //previousKey = currentKey;
       }
 
       if (currentKey.IsKeyDown(Keys.Down))
       {
           m_dir.Y += 1.0f;
+          m_trail[m_trail_pos] = this.m_pos;
+          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
           //previousKey = currentKey;
       }
 
@@ -88,6 +104,9 @@ namespace Gradius {
       if (m_pos.Y - m_size.Y / 2 < 0)
           m_pos.Y = m_size.Y / 2;
 
+
+      
+
       previousKey = currentKey;
 
       base.Update(gameTime);
@@ -97,7 +116,7 @@ namespace Gradius {
     {
         switch (m_world.highlightedPowerUp)
         {
-            case 1:
+            case 5:
             {
                 if(!activePowerUps.Contains(PowerUpState.SPEEDUP))
                     activePowerUps.Add(PowerUpState.SPEEDUP);
@@ -138,9 +157,15 @@ namespace Gradius {
                     activePowerUps.Remove(PowerUpState.DOUBLE);
             }
                 break;
-            case 5:
+            case 1:
             {
-                
+                //if (!activePowerUps.Contains(PowerUpState.OPTION))
+                //{
+                    activePowerUps.Add(PowerUpState.OPTION);
+                    m_world.highlightedPowerUp = 0;
+                    Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this);
+                    m_world.Add(option);
+                //}
             }
                 break;
             case 6:
@@ -181,6 +206,13 @@ namespace Gradius {
         {
             base.Shoot();
         }
+    }
+
+    public override bool TestCollision(Movable other)
+    {
+        if (other.m_type != MovableType.Option)
+            return base.TestCollision(other);
+        else return false;
     }
     }
 }

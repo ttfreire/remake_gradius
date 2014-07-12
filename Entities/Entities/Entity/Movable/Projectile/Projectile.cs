@@ -37,6 +37,10 @@ namespace Gradius
 
         public override bool TestCollision(Movable other)
         {
+            if (this.m_shooter.m_type == MovableType.Option && other.m_type == MovableType.Player)
+                return false;
+            if (this.m_shooter.m_type == MovableType.Player && other.m_type == MovableType.Option)
+                return false;
             if (other.m_type == m_shooter.m_type)
                 return false;
 

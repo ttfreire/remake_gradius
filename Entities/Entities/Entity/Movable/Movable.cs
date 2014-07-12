@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Gradius {
 
-  public enum MovableType { None, Player, Enemy, Projectile };
+  public enum MovableType { None, Player, Enemy, Projectile, Option };
 
   public class Movable : Entity {
 
