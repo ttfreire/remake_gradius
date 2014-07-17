@@ -19,12 +19,14 @@ namespace Gradius
         Rectangle m_view;
         public Vector2 m_screenMiddle;
         public int screenWidth;
+        public int screenHeigth;
         public WorldMap(Game1 world, Map map, Rectangle bounds):base(world)
         {
             m_map = map;
             m_view = bounds;
             m_screenMiddle = new Vector2(m_view.Width, m_view.Height) / 2;
             screenWidth = m_view.Width;
+            screenHeigth = m_view.Height;
         }
 
         public override void Update(GameTime gameTime)

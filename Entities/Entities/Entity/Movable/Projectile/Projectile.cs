@@ -89,7 +89,10 @@ namespace Gradius
                     m_world.Remove(this);
                 }
 
-                if (this.m_pos.X > 512)
+                if (this.m_pos.X > m_world.m_worldMap.screenWidth ||
+                    this.m_pos.X < 0 ||
+                    this.m_pos.Y > m_world.m_worldMap.screenHeigth ||
+                    this.m_pos.Y < 0)
                     m_world.Remove(this);
                 
 

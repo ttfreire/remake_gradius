@@ -135,11 +135,8 @@ namespace Gradius {
           m_spriteSize * 0.5f, m_size / m_spriteSize, SpriteEffects.None, m_depth);
     }
 
-    public virtual void Shoot()
+    public virtual void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir)
     {
-        Vector2 shotVel = new Vector2(800, 0);
-        Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X/2, this.m_pos.Y);
-        Vector2 shotDir = new Vector2(1, 0);
         Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
         this.m_world.Add(shot);
     }

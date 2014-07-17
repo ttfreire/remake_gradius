@@ -83,13 +83,13 @@ namespace Gradius {
       if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z) && shootCooldown <= 0)
       {
           shootCooldown = m_rateOfFire;
-          Shoot();
+          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y), new Vector2(1, 0));
       }
 
       if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z) && continuousShootCooldown <= 0)
       {
           continuousShootCooldown = m_continuousRateOfFire;
-          Shoot();
+          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y), new Vector2(1, 0));
       }
 
       if (currentKey.IsKeyDown(Keys.X))
@@ -106,7 +106,6 @@ namespace Gradius {
       if (m_pos.Y - m_size.Y / 2 < 0)
           m_pos.Y = m_size.Y / 2;
 
-
       
 
       previousKey = currentKey;
@@ -118,7 +117,7 @@ namespace Gradius {
     {
         switch (m_world.highlightedPowerUp)
         {
-            case 5:
+            case 1:
             {
                 if(!activePowerUps.Contains(PowerUpState.SPEEDUP))
                     activePowerUps.Add(PowerUpState.SPEEDUP);
@@ -159,19 +158,17 @@ namespace Gradius {
                     activePowerUps.Remove(PowerUpState.DOUBLE);
             }
                 break;
-            case 1:
+            case 5:
             {
                 List<Entity> optionlist = m_world.m_entities.FindAll(s => s is Option);
                 if (optionlist.Count < 2)
                 {
                     activePowerUps.Add(PowerUpState.OPTION);
                     m_world.highlightedPowerUp = 0;
-                    int option_trail = 25 + 50 * optionlist.Count;
+                    int option_trail = 25 + 25 * optionlist.Count-1;
                     Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this, option_trail);
                     m_world.Add(option);
                     m_option_count = m_option_count + 1;
-                    Console.Write("Option Count = ");
-                    Console.Write(m_option_count);
                 }
             }
                 break;
@@ -182,36 +179,36 @@ namespace Gradius {
                 break;
         }
       }
-    
-    public override void Shoot()
+
+    public override void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir)
     {
         if (activePowerUps.Contains(PowerUpState.MISSILE))
         {
-            Vector2 shotVel = new Vector2(250, 250);
-            Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
-            Vector2 shotDir = new Vector2(1, 1);
+            shotVel = new Vector2(250, 250);
+            shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+            shotDir = new Vector2(1, 1);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
         if (activePowerUps.Contains(PowerUpState.DOUBLE))
         {
-            Vector2 shotVel = new Vector2(250, -250);
-            Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
-            Vector2 shotDir = new Vector2(1, -1);
+            shotVel = new Vector2(250, -250);
+            shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+            shotDir = new Vector2(1, -1);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
         if (activePowerUps.Contains(PowerUpState.LASER))
         {
-            Vector2 shotVel = new Vector2(800, 0);
-            Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
-            Vector2 shotDir = new Vector2(1, 0);
+            shotVel = new Vector2(800, 0);
+            shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+            shotDir = new Vector2(1, 0);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25,0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
         else
         {
-            base.Shoot();
+            base.Shoot(shotVel, shotPos, shotDir);
         }
     }
 

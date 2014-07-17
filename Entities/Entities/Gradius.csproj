@@ -78,6 +78,8 @@
   <ItemGroup>
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\Movable\Character\Character.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Ducker\Ducker.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Rugal\Rugal.cs" />
     <Compile Include="Entity\Movable\Character\Enemy\Enemy.cs" />
     <Compile Include="Entity\Movable\Character\Enemy\Fan\Fan.cs" />
     <Compile Include="Entity\Movable\Character\Enemy\Garun\Garun.cs" />

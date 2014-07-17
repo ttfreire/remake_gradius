@@ -15,11 +15,13 @@ namespace Gradius {
   public class Enemy : Character {
       public WorldMap worldmap;
       public List<Enemy> mySquad;
-      public Enemy(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, 
-          MovableType type, Texture2D projectileSprite, List<Enemy> squad) :
+      bool m_dropsPowerUp;
+      public Enemy(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
+          MovableType type, Texture2D projectileSprite, List<Enemy> squad, bool dropsPowerUp) :
           base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite)
       {
           mySquad = squad;
+          m_dropsPowerUp = dropsPowerUp;
       }
 
     public override void Update(GameTime gameTime) 
@@ -35,10 +37,16 @@ namespace Gradius {
 
     public override void Die()
     {
-        Console.WriteLine("Enemy ID = " + m_id.ToString());
-        if (mySquad != null && mySquad.Count == 1)
+        if (mySquad != null)
+        {
+            if (mySquad.Count == 1)
+                dropPowerUp();
+            mySquad.Remove(this);
+        }
+  
+        if (m_dropsPowerUp)
             dropPowerUp();
-        mySquad.Remove(this);
+
         m_world.Remove(this);
     }
 

@@ -61,35 +61,35 @@ namespace Gradius
 
 
 
-        public override void Shoot()
+        public override void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir)
         {
             if (m_player.activePowerUps.Contains(PowerUpState.MISSILE))
             {
-                Vector2 shotVel = new Vector2(250, 250);
-                Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
-                Vector2 shotDir = new Vector2(1, 1);
+                shotVel = new Vector2(250, 250);
+                shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+                shotDir = new Vector2(1, 1);
                 Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
                 this.m_world.Add(shot);
             }
             if (m_player.activePowerUps.Contains(PowerUpState.DOUBLE))
             {
-                Vector2 shotVel = new Vector2(250, -250);
-                Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
-                Vector2 shotDir = new Vector2(1, -1);
+                shotVel = new Vector2(250, -250);
+                shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+                shotDir = new Vector2(1, -1);
                 Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
                 this.m_world.Add(shot);
             }
             if (m_player.activePowerUps.Contains(PowerUpState.LASER))
             {
-                Vector2 shotVel = new Vector2(800, 0);
-                Vector2 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
-                Vector2 shotDir = new Vector2(1, 0);
+                shotVel = new Vector2(800, 0);
+                shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
+                shotDir = new Vector2(1, 0);
                 Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
                 this.m_world.Add(shot);
             }
             else
             {
-                base.Shoot();
+                base.Shoot(shotVel, shotPos, shotDir);
             }
         }
         

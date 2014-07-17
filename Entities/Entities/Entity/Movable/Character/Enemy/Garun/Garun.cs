@@ -20,8 +20,8 @@ namespace Gradius
       public enum EnemyState { FORWARD, DIAGONAL, RETREAT }
       public EnemyState currentState = EnemyState.FORWARD;
       public Garun(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
-          MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map) :
-          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad)
+          MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp) :
+          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp)
       {
           worldmap = map;
           center = m_pos.Y;
@@ -36,20 +36,6 @@ namespace Gradius
       offset = (float)Math.Sin(msElapsed) * radius;
       m_pos.Y = center + offset;
       base.Update(gameTime);
-    }
-
-
-    public override void Die()
-    {
-        Console.WriteLine("Enemy ID = " + m_id.ToString());
-        if (mySquad == null)
-            m_world.Remove(this);
-        else
-        {
-            mySquad.Remove(this);
-            if (mySquad.Count == 1)
-                dropPowerUp();
-        }
     }
 
       public void dropPowerUp()

@@ -33,7 +33,7 @@ namespace Gradius {
     List<Entity> to_add = new List<Entity>();
     List<Entity> to_remove = new List<Entity>();
     Player m_player;
-    WorldMap m_worldMap;
+    public WorldMap m_worldMap;
     List<Enemy> fanSquad1;
 
     public List<PowerUpState> HUDPowerUp;
@@ -110,7 +110,7 @@ namespace Gradius {
           //add enemy
           for (int i = 1; i <= 5; i++)
           {
-              Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, fanSquad1, m_worldMap);
+              Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, fanSquad1, m_worldMap, false);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
           }
@@ -121,12 +121,19 @@ namespace Gradius {
           //create squad
           fanSquad1 = new List<Enemy>();
           //add enemy
-          for (int i = 1; i <= 5; i++)
-          {
-              Garun newEnemy = new Garun(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 380), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 500, 500, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, null, m_worldMap);
+          //for (int i = 0; i < 5; i++)
+          //{
+              Ducker newEnemy = new Ducker(this, new Vector2(0, 50), // pos
+                                        new Vector2(m_spriteFan.Width, m_spriteFan.Height), // size
+                                        50, // maxvel
+                                        500, // accel
+                                        500, // friction
+                                        1.0f, // rateoffire
+                                        1.0f, // continuousrateoffire
+                                        m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, null, m_worldMap, false);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
-          }
+          //}
       }
       // add new entities...
       if (to_add.Count > 0)
