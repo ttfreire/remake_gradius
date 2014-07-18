@@ -40,6 +40,10 @@ namespace Gradius {
     public List<PowerUpState> HUDPowerUp;
     public int highlightedPowerUp = 0;
     public int powerUpCounter = 0;
+
+    SpawnController enemySpawnController;
+    public int[] fanAnimationFrames = { 0, 1, 2, 3 };
+
     public Game1() {
 
       m_graphics = new GraphicsDeviceManager(this);
@@ -63,6 +67,8 @@ namespace Gradius {
       HUDPowerUp.Add(PowerUpState.LASER);
       HUDPowerUp.Add(PowerUpState.OPTION);
       HUDPowerUp.Add(PowerUpState.SHIELD);
+
+      enemySpawnController = new SpawnController(this);
     }
 
     protected override void LoadContent() {
@@ -105,6 +111,7 @@ namespace Gradius {
         this.Exit();
 
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+      enemySpawnController.Update(gameTime);
       upperEnemySpawnCooldown -= dt;
       bottomEnemySpawnCooldown -= dt;
       if (upperEnemySpawnCooldown <= 0)
@@ -113,14 +120,15 @@ namespace Gradius {
           //create squad
           fanSquad1 = new List<Enemy>();
           //add enemy
+          /**
           for (int i = 1; i <= 5; i++)
           {
-              int[] frames = { 0, 1, 2, 3 };
-              AnimationController fanAnimator = new AnimationController(m_spriteEnemies, frames, 5, 18);
+              AnimationController fanAnimator = new AnimationController(m_spriteEnemies, fanAnimationFrames, 5, 18);
               Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Fan, m_spriteBasicProjectile, fanSquad1, m_worldMap, false, fanAnimator);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
           }
+          **/
       }
         if (bottomEnemySpawnCooldown <= 0)
       {

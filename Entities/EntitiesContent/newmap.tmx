@@ -115,4 +115,30 @@
    <polygon points="0,-1 -48,73 53,72 0,146 -48,73 53,72"/>
   </object>
  </objectgroup>
+ <objectgroup name="enemy_spawns" width="14" height="1">
+  <object name="fan1" x="706" y="91" width="42" height="39">
+   <properties>
+    <property name="dropsPowerUp" value="False"/>
+    <property name="hasSquad" value="True"/>
+    <property name="quantity" value="5"/>
+    <property name="type" value="Fan"/>
+   </properties>
+  </object>
+  <object name="fan2" x="966" y="347" width="42" height="39">
+   <properties>
+    <property name="dropsPowerUp" value="False"/>
+    <property name="hasSquad" value="True"/>
+    <property name="quantity" value="5"/>
+    <property name="type" value="Fan"/>
+   </properties>
+  </object>
+  <object name="fan3" x="1094" y="131" width="42" height="39">
+   <properties>
+    <property name="dropsPowerUp" value="False"/>
+    <property name="hasSquad" value="True"/>
+    <property name="quantity" value="5"/>
+    <property name="type" value="Fan"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

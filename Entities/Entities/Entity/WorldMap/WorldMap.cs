@@ -15,8 +15,8 @@ namespace Gradius
 
     public class WorldMap : Entity
     {
-        Map m_map;
-        Rectangle m_view;
+        public Map m_map;
+        public Rectangle m_view;
         public Vector2 m_screenMiddle;
         public int screenWidth;
         public int screenHeigth;
