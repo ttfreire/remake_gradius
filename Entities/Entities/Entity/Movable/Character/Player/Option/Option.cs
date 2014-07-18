@@ -22,8 +22,8 @@ namespace Gradius
         Player m_player;
         int m_option_trail_pos, m_initial_trail_pos;
 
-        public Option(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite, Player player, int initial_trail_pos) :
-            base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
+        public Option(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite, Player player, int initial_trail_pos, AnimationController animator) :
+            base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator)
         {
             shootCooldown = rateoffire;
             continuousShootCooldown = continuousrateoffire;

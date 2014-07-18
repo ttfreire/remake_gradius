@@ -17,8 +17,9 @@ namespace Gradius {
     public GraphicsDeviceManager m_graphics;
     SpriteBatch m_spriteBatch;
 
-    Texture2D m_spriteViper;
-    Texture2D m_spriteFan;
+    public Texture2D m_spriteViper;
+    public Texture2D m_spriteFan;
+    public Texture2D m_spriteEnemies;
 
     public Texture2D m_spritePowerUpRed;
     public Texture2D m_spritePowerUpBlue;
@@ -68,18 +69,21 @@ namespace Gradius {
 
       m_spriteBatch = new SpriteBatch(GraphicsDevice);
 
-      m_spriteViper = Content.Load<Texture2D>("ship");
+      m_spriteViper = Content.Load<Texture2D>("ship-score");
       m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
       m_background = Content.Load<Map>("newmap");
       m_worldMap = new WorldMap(this, m_background, m_graphics.GraphicsDevice.Viewport.Bounds);
       m_spriteFan = Content.Load<Texture2D>("fan");
       m_spritePowerUpRed = Content.Load<Texture2D>("powerupred");
       m_spritePowerUpBlue = Content.Load<Texture2D>("powerupblue");
+      m_spriteEnemies = Content.Load<Texture2D>("enemy-powerups");
       
       //add map
       //m_entities.Add(m_worldMap);
 
       //add player...
+      int[] framesPlayer = { 0, 1, 2 };
+      AnimationController playerAnimator = new AnimationController(m_spriteViper, framesPlayer, 4, 3);
       m_entities.Add(new Player(this, new Vector2(40, 240), //pos
                                 new Vector2(m_spriteViper.Width, m_spriteViper.Height), 
                                 100, //vel
@@ -87,7 +91,8 @@ namespace Gradius {
                                 10, // friction
                                 50.0f, // rate of fire
                                 500.0f, // continuous rate of fire
-                                m_spriteViper, MovableType.Player, m_spriteBasicProjectile));
+                                m_spriteViper, MovableType.Player, m_spriteBasicProjectile,
+                                playerAnimator));
       m_player = (Player) m_entities[0];
       
     }
@@ -110,7 +115,9 @@ namespace Gradius {
           //add enemy
           for (int i = 1; i <= 5; i++)
           {
-              Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, fanSquad1, m_worldMap, false);
+              int[] frames = { 0, 1, 2, 3 };
+              AnimationController fanAnimator = new AnimationController(m_spriteEnemies, frames, 5, 18);
+              Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Fan, m_spriteBasicProjectile, fanSquad1, m_worldMap, false, fanAnimator);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
           }
@@ -130,7 +137,7 @@ namespace Gradius {
                                         500, // friction
                                         1.0f, // rateoffire
                                         1.0f, // continuousrateoffire
-                                        m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, null, m_worldMap, false);
+                                        m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, null, m_worldMap, false, null);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
           //}

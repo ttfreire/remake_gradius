@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius {
 
   public class Player : Character {
+    public enum PlayerState { NONE, UP, FORWARD, DOWN }
+    public PlayerState currentState = PlayerState.FORWARD;
     static float SPEEDUP_INCREASE = 50.0f;
     public static int TRAIL_SIZE = 100;
     KeyboardState previousKey = Keyboard.GetState();
@@ -24,8 +26,8 @@ namespace Gradius {
 
     public List<PowerUpState> activePowerUps;
 
-    public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite) :
-        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
+    public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator) :
+        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator)
     {
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
@@ -45,7 +47,7 @@ namespace Gradius {
       continuousShootCooldown -= dt;
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
-
+      currState = (int)currentState;
       if (currentKey.IsKeyUp(Keys.Z))
           previousKey = currentKey;
 
@@ -69,6 +71,7 @@ namespace Gradius {
           m_dir.Y += -1.0f;
           m_trail[m_trail_pos] = this.m_pos;
           m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
+          currentState = PlayerState.UP;
           //previousKey = currentKey;
       }
 
@@ -77,19 +80,23 @@ namespace Gradius {
           m_dir.Y += 1.0f;
           m_trail[m_trail_pos] = this.m_pos;
           m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
+          currentState = PlayerState.DOWN;
           //previousKey = currentKey;
       }
+
+      if (currentKey.IsKeyUp(Keys.Down) && currentKey.IsKeyUp(Keys.Up))
+          currentState = PlayerState.FORWARD;
 
       if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z) && shootCooldown <= 0)
       {
           shootCooldown = m_rateOfFire;
-          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y), new Vector2(1, 0));
+          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X, this.m_pos.Y), new Vector2(1, 0));
       }
 
-      if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z) && continuousShootCooldown <= 0)
+      if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z) && continuousShootCooldown < 0)
       {
           continuousShootCooldown = m_continuousRateOfFire;
-          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y), new Vector2(1, 0));
+          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X, this.m_pos.Y), new Vector2(1, 0));
       }
 
       if (currentKey.IsKeyDown(Keys.X))
@@ -166,7 +173,7 @@ namespace Gradius {
                     activePowerUps.Add(PowerUpState.OPTION);
                     m_world.highlightedPowerUp = 0;
                     int option_trail = 25 + 25 * optionlist.Count-1;
-                    Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this, option_trail);
+                    Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this, option_trail, null);
                     m_world.Add(option);
                     m_option_count = m_option_count + 1;
                 }
@@ -182,10 +189,20 @@ namespace Gradius {
 
     public override void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir)
     {
+        if (activePowerUps.Contains(PowerUpState.LASER))
+        {
+            shotVel = new Vector2(800, 0);
+            shotDir = new Vector2(1, 0);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            this.m_world.Add(shot);
+        }
+        else
+        {
+            base.Shoot(shotVel, shotPos, shotDir);
+        }
         if (activePowerUps.Contains(PowerUpState.MISSILE))
         {
             shotVel = new Vector2(250, 250);
-            shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
             shotDir = new Vector2(1, 1);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
@@ -193,23 +210,11 @@ namespace Gradius {
         if (activePowerUps.Contains(PowerUpState.DOUBLE))
         {
             shotVel = new Vector2(250, -250);
-            shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
             shotDir = new Vector2(1, -1);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
-        if (activePowerUps.Contains(PowerUpState.LASER))
-        {
-            shotVel = new Vector2(800, 0);
-            shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
-            shotDir = new Vector2(1, 0);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25,0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
-            this.m_world.Add(shot);
-        }
-        else
-        {
-            base.Shoot(shotVel, shotPos, shotDir);
-        }
+
     }
 
     public override bool TestCollision(Movable other)

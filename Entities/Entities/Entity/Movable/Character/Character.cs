@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius {
 
   public class Character : Movable {
+    public AnimationController m_animator;
+    public int currState;
 
     public Vector2 m_dir = Vector2.Zero;
     public Vector2 m_vel = Vector2.Zero;
@@ -31,7 +33,7 @@ namespace Gradius {
     public List<Entity> visibleEntities;
 
     public Character(Game1 world, Vector2 pos, Vector2 size, float maxVel,
-        float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite)
+        float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite, AnimationController animator)
         : base(world, pos, size, type)
     {
       
@@ -46,10 +48,19 @@ namespace Gradius {
       m_sprite = sprite;
       m_spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
       visibleEntities = new List<Entity>();
+      m_animator = animator;
+      currState = 0;
     }
 
     public override void Update(GameTime gameTime) {
-
+        if (m_animator != null)
+        {
+            if(this.m_type == MovableType.Fan)
+                m_animator.Update(gameTime, 0);
+            else
+                m_animator.Update(gameTime, currState);
+            currState = m_animator.entityCurrentState;
+        }
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
       //normalize direction:
@@ -131,8 +142,12 @@ namespace Gradius {
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
 
-      spriteBatch.Draw(m_sprite, m_pos, null, Color.White, 0.0f,
-          m_spriteSize * 0.5f, m_size / m_spriteSize, SpriteEffects.None, m_depth);
+        if (m_animator != null)
+          spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
+          new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height)/2, 2, SpriteEffects.None, m_depth);
+      else
+        spriteBatch.Draw(m_sprite, m_pos, null, Color.White, 0.0f,
+          new Vector2(m_sprite.Width, m_sprite.Height)/2, 2, SpriteEffects.None, m_depth);
     }
 
     public virtual void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir)
