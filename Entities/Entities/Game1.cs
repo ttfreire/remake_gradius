@@ -42,9 +42,19 @@ namespace Gradius {
     public int powerUpCounter = 0;
 
     SpawnController enemySpawnController;
-    public int[] fanAnimationFrames = { 0, 1, 2, 3 };
-    public int[] duckerAnimationFrames = { 45, 46 };
-    public int[] redDuckerAnimationFrames = { 55, 66, 57 };
+    static int[] playerAnimationFramesUp = { 0};
+    static int[] playerAnimationFramesForward = { 1};
+    static int[] playerAnimationFramesDown = { 2 };
+    public Dictionary<int, int[]> playerAnimations = new Dictionary<int, int[]>() { { 0, playerAnimationFramesUp },
+                                                                                    { 1, playerAnimationFramesForward },
+                                                                                    { 2, playerAnimationFramesDown }};
+    static int[] fanAnimationFrames = { 0, 1, 2, 3 };
+    public Dictionary<int, int[]> fanAnimations = new Dictionary<int, int[]>() { { 0, fanAnimationFrames } };
+    static int[] duckerAnimationFramesWalking = { 45, 46 };
+    static int[] duckerAnimationFramesHolding = { 47 };
+    public Dictionary<int, int[]> duckerAnimations = new Dictionary<int, int[]>() { { 0, duckerAnimationFramesWalking } ,
+                                                                                    { 1, duckerAnimationFramesHolding },
+                                                                                    { 2, duckerAnimationFramesHolding }};
 
     public Game1() {
 
@@ -90,8 +100,8 @@ namespace Gradius {
       //m_entities.Add(m_worldMap);
 
       //add player...
-      int[] framesPlayer = { 0, 1, 2 };
-      AnimationController playerAnimator = new AnimationController(m_spriteViper, framesPlayer, 4, 3);
+      
+      AnimationController playerAnimator = new AnimationController(m_spriteViper, playerAnimations, 4, 3, null);
       m_entities.Add(new Player(this, new Vector2(40, 240), //pos
                                 new Vector2(m_spriteViper.Width, m_spriteViper.Height), 
                                 100, //vel
@@ -125,7 +135,7 @@ namespace Gradius {
           /**
           for (int i = 1; i <= 5; i++)
           {
-              AnimationController fanAnimator = new AnimationController(m_spriteEnemies, fanAnimationFrames, 5, 18);
+              AnimationController fanAnimator = new AnimationController(m_spriteEnemies, fanAnimations, 5, 18);
               Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Fan, m_spriteBasicProjectile, fanSquad1, m_worldMap, false, fanAnimator);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();

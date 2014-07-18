@@ -19,8 +19,10 @@ namespace Gradius {
     public Vector2 m_size;
     public MovableType m_type;
     public bool m_isAnimatedByState;
+    public AnimationController m_animator;
+    public int currentAnimationState;
     public Movable(Game1 world):base(world) { }
-    public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type, bool isAnimatedByState)
+    public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type, AnimationController animator, bool isAnimatedByState)
         : base(world)
     {
       
@@ -28,6 +30,9 @@ namespace Gradius {
       m_size = size;
       m_type = type;
       m_isAnimatedByState = isAnimatedByState;
+      m_animator = animator;
+      if (m_animator != null)
+        m_animator.m_animatedSprite = this;
     }
 
     public override bool TestCollision(Movable other) {

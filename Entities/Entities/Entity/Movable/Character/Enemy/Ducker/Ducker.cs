@@ -14,7 +14,7 @@ namespace Gradius
 {
     class Ducker : Enemy
     {
-      public enum EnemyState { FORWARD, SHOOT, BACK }
+      public enum EnemyState {NONE, FORWARD, SHOOT, BACK }
       public EnemyState currentState = EnemyState.FORWARD;
       public Ducker(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
           MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator, bool isAnimatedByState) :
@@ -25,7 +25,8 @@ namespace Gradius
 
     public override void Update(GameTime gameTime) {
         Player player = (Player) m_world.m_entities.Find(s => s is Player);
-        
+        currState = (int)currentState;
+        currentAnimationState = (int)currentState;
         switch (currentState)
         {
             case EnemyState.FORWARD:
@@ -41,6 +42,20 @@ namespace Gradius
                 }
                 break;
 
+            case EnemyState.SHOOT:
+                {
+                    m_dir = Vector2.Zero;
+                    if (player != null)
+                    {
+                        Vector2 dir = (player.m_pos - m_pos) + new Vector2(player.m_size.Length(), 0);
+                        Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir);
+                        currentState = EnemyState.BACK;
+                    }
+
+
+                }
+                break;
+
             case EnemyState.BACK:
             {
                 m_dir = -Vector2.UnitX;
@@ -49,19 +64,7 @@ namespace Gradius
             }
             break;
 
-            case EnemyState.SHOOT:
-            {
-                m_dir = Vector2.Zero;
-                if (player != null)
-                {
-                    Vector2 dir = (player.m_pos - m_pos) + new Vector2(player.m_size.Length(), 0);
-                    Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir);
-                    currentState = EnemyState.BACK;
-                }
-
-
-            }
-            break;
+            
             
         }
       base.Update(gameTime);

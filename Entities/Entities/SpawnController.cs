@@ -62,7 +62,7 @@ namespace Gradius
             {
                 case "Fan":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, m_worldMap.m_world.fanAnimationFrames, 5, 18);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, m_worldMap.m_world.fanAnimations, 5, 18, null);
                         enemyMaxVel = 200;
                         enemyAccel = 800;
                         enemyFriction = 800;
@@ -85,7 +85,7 @@ namespace Gradius
 
                 case "Ducker":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, m_worldMap.m_world.duckerAnimationFrames, 5, 18);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, m_worldMap.m_world.duckerAnimations, 5, 18, null);
                         enemyMaxVel = 50;
                         enemyAccel = 500;
                         enemyFriction = 500;

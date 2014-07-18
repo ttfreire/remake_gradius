@@ -41,7 +41,6 @@ namespace Gradius {
     }
 
     public override void Update(GameTime gameTime) {
-
       //fill direction vector using the keyboard:
       float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
       shootCooldown -= dt;
@@ -49,6 +48,7 @@ namespace Gradius {
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
       currState = (int)currentState;
+      currentAnimationState = (int)currentState;
       if (currentKey.IsKeyUp(Keys.Z))
           previousKey = currentKey;
 
@@ -194,7 +194,7 @@ namespace Gradius {
         {
             shotVel = new Vector2(800, 0);
             shotDir = new Vector2(1, 0);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null, false);
             this.m_world.Add(shot);
         }
         else
@@ -205,14 +205,14 @@ namespace Gradius {
         {
             shotVel = new Vector2(250, 250);
             shotDir = new Vector2(1, 1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null, false);
             this.m_world.Add(shot);
         }
         if (activePowerUps.Contains(PowerUpState.DOUBLE))
         {
             shotVel = new Vector2(250, -250);
             shotDir = new Vector2(1, -1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null, false);
             this.m_world.Add(shot);
         }
 

@@ -28,6 +28,7 @@ namespace Gradius
 
     public override void Update(GameTime gameTime) {
         currState = (int)currentState;
+        currentAnimationState = (int)currentState;
         switch (currentState)
         {
             case EnemyState.FORWARD:
