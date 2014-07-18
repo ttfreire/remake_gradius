@@ -19,7 +19,7 @@ namespace Gradius
         int[] m_frames;
         public int entityCurrentState;
         int m_spriteSheetColumns, m_spriteSheetLines;
-        float m_framesPerSecond = 12.0f;
+        float m_framesPerSecond = 3.0f;
         float m_currentFrame;
 
         public AnimationController(Texture2D spritesheet, int[] frames, int columns, int lines)

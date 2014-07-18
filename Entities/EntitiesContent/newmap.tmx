@@ -120,6 +120,7 @@
    <properties>
     <property name="dropsPowerUp" value="False"/>
     <property name="hasSquad" value="True"/>
+    <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="5"/>
     <property name="type" value="Fan"/>
    </properties>
@@ -128,16 +129,27 @@
    <properties>
     <property name="dropsPowerUp" value="False"/>
     <property name="hasSquad" value="True"/>
+    <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="5"/>
     <property name="type" value="Fan"/>
    </properties>
   </object>
-  <object name="fan3" x="1094" y="131" width="42" height="39">
+  <object name="fan3" x="1095" y="131" width="42" height="39">
    <properties>
     <property name="dropsPowerUp" value="False"/>
     <property name="hasSquad" value="True"/>
+    <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="5"/>
     <property name="type" value="Fan"/>
+   </properties>
+  </object>
+  <object name="ducker1" x="706" y="343" width="42" height="39">
+   <properties>
+    <property name="dropsPowerUp" value="False"/>
+    <property name="hasSquad" value="True"/>
+    <property name="isAnimatedByState" value="True"/>
+    <property name="quantity" value="1"/>
+    <property name="type" value="Ducker"/>
    </properties>
   </object>
  </objectgroup>

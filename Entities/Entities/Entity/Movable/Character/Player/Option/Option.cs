@@ -23,7 +23,7 @@ namespace Gradius
         int m_option_trail_pos, m_initial_trail_pos;
 
         public Option(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite, Player player, int initial_trail_pos, AnimationController animator) :
-            base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator)
+            base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator, false)
         {
             shootCooldown = rateoffire;
             continuousShootCooldown = continuousrateoffire;
@@ -68,7 +68,7 @@ namespace Gradius
                 shotVel = new Vector2(250, 250);
                 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
                 shotDir = new Vector2(1, 1);
-                Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+                Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
                 this.m_world.Add(shot);
             }
             if (m_player.activePowerUps.Contains(PowerUpState.DOUBLE))
@@ -76,7 +76,7 @@ namespace Gradius
                 shotVel = new Vector2(250, -250);
                 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
                 shotDir = new Vector2(1, -1);
-                Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+                Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
                 this.m_world.Add(shot);
             }
             if (m_player.activePowerUps.Contains(PowerUpState.LASER))
@@ -84,7 +84,7 @@ namespace Gradius
                 shotVel = new Vector2(800, 0);
                 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
                 shotDir = new Vector2(1, 0);
-                Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+                Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
                 this.m_world.Add(shot);
             }
             else

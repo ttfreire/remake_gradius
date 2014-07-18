@@ -45,11 +45,13 @@ namespace Gradius
             float enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire, enemyContinuousrateoffire;
             Texture2D enemySprite, enemyProjectileSprite;
             List<Enemy> enemySquad;
-            bool enemyDropsPowerUp, enemyHasSquad;
+            bool enemyDropsPowerUp, enemyHasSquad, enemyIsAnimatedByState;
             AnimationController enemyAnimator;
             int enemyQuantity = (int)enemyProperties["quantity"].AsInt32;
             enemyHasSquad = (bool)enemyProperties["hasSquad"].AsBoolean;
             enemyDropsPowerUp = (bool)enemyProperties["dropsPowerUp"].AsBoolean;
+            enemyIsAnimatedByState = (bool)enemyProperties["isAnimatedByState"].AsBoolean;
+            enemyType = MovableType.Enemy;
 
             if(enemyHasSquad)
                 enemySquad = new List<Enemy>();
@@ -60,7 +62,6 @@ namespace Gradius
             {
                 case "Fan":
                     {
-                        enemyType = MovableType.Fan;
                         enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, m_worldMap.m_world.fanAnimationFrames, 5, 18);
                         enemyMaxVel = 200;
                         enemyAccel = 800;
@@ -73,7 +74,8 @@ namespace Gradius
                             Fan newFan = new Fan(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
-                                                    m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, enemyAnimator);
+                                                    m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
+                                                    enemyAnimator, enemyIsAnimatedByState);
                             m_worldMap.m_world.m_entities.Add(newFan);
                             if (enemyHasSquad)
                                 newFan.addToSquad();
@@ -81,25 +83,25 @@ namespace Gradius
                     }
                     break;
 
-                case "Rugal":
+                case "Ducker":
                     {
-                        enemyType = MovableType.Fan;
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, m_worldMap.m_world.fanAnimationFrames, 5, 18);
-                        enemyMaxVel = 200;
-                        enemyAccel = 800;
-                        enemyFriction = 800;
-                        enemyRateoffire = 0;
-                        enemyContinuousrateoffire = 0;
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, m_worldMap.m_world.duckerAnimationFrames, 5, 18);
+                        enemyMaxVel = 50;
+                        enemyAccel = 500;
+                        enemyFriction = 500;
+                        enemyRateoffire = 1.0f;
+                        enemyContinuousrateoffire = 1.0f;
 
                         for (int i = 1; i <= enemyQuantity; i++)
                         {
-                            Fan newFan = new Fan(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                            Ducker newDucker = new Ducker(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
-                                                    m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, enemyAnimator);
-                            m_worldMap.m_world.m_entities.Add(newFan);
+                                                    m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
+                                                    enemyAnimator, enemyIsAnimatedByState);
+                            m_worldMap.m_world.m_entities.Add(newDucker);
                             if (enemyHasSquad)
-                                newFan.addToSquad();
+                                newDucker.addToSquad();
                         }
                     }
                     break;

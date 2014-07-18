@@ -17,8 +17,8 @@ namespace Gradius
       public enum EnemyState { FORWARD, SHOOT, BACK }
       public EnemyState currentState = EnemyState.FORWARD;
       public Ducker(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
-          MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
-          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp, animator)
+          MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator, bool isAnimatedByState) :
+          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp, animator, isAnimatedByState)
       {
           worldmap = map;
       }
@@ -40,26 +40,28 @@ namespace Gradius
                         }
                 }
                 break;
-            case EnemyState.SHOOT:
-                {
-                    m_dir = Vector2.Zero;
-                    if (player != null)
-                    {
-                        Vector2 dir = (player.m_pos - m_pos) + new Vector2(player.m_size.Length(), 0);
-                        Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir);
-                        currentState = EnemyState.BACK;                     
-                    }
-                  
 
-                }
-                break;
-                case EnemyState.BACK:
+            case EnemyState.BACK:
+            {
+                m_dir = -Vector2.UnitX;
+                if (m_pos.X < 100)
+                    currentState = EnemyState.FORWARD;
+            }
+            break;
+
+            case EnemyState.SHOOT:
+            {
+                m_dir = Vector2.Zero;
+                if (player != null)
                 {
-                    m_dir = -Vector2.UnitX;
-                    if (m_pos.X < 100)
-                        currentState = EnemyState.FORWARD;
+                    Vector2 dir = (player.m_pos - m_pos) + new Vector2(player.m_size.Length(), 0);
+                    Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir);
+                    currentState = EnemyState.BACK;
                 }
-                break;
+
+
+            }
+            break;
             
         }
       base.Update(gameTime);

@@ -26,8 +26,9 @@ namespace Gradius {
 
     public List<PowerUpState> activePowerUps;
 
-    public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator) :
-        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator)
+    public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire,
+                    Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator, bool isAnimatedByState) :
+        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator, isAnimatedByState)
     {
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
@@ -193,7 +194,7 @@ namespace Gradius {
         {
             shotVel = new Vector2(800, 0);
             shotDir = new Vector2(1, 0);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
             this.m_world.Add(shot);
         }
         else
@@ -204,14 +205,14 @@ namespace Gradius {
         {
             shotVel = new Vector2(250, 250);
             shotDir = new Vector2(1, 1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
             this.m_world.Add(shot);
         }
         if (activePowerUps.Contains(PowerUpState.DOUBLE))
         {
             shotVel = new Vector2(250, -250);
             shotDir = new Vector2(1, -1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, false);
             this.m_world.Add(shot);
         }
 

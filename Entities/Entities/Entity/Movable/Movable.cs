@@ -11,22 +11,23 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Gradius {
 
-  public enum MovableType { None, Player, Enemy, Projectile, Option, Fan };
+  public enum MovableType { None, Player, Enemy, Projectile, Option };
 
   public class Movable : Entity {
 
     public Vector2 m_pos;
     public Vector2 m_size;
     public MovableType m_type;
-
+    public bool m_isAnimatedByState;
     public Movable(Game1 world):base(world) { }
-    public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type)
+    public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type, bool isAnimatedByState)
         : base(world)
     {
       
       m_pos  = pos;
       m_size = size;
       m_type = type;
+      m_isAnimatedByState = isAnimatedByState;
     }
 
     public override bool TestCollision(Movable other) {

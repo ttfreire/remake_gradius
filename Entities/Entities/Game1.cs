@@ -43,6 +43,8 @@ namespace Gradius {
 
     SpawnController enemySpawnController;
     public int[] fanAnimationFrames = { 0, 1, 2, 3 };
+    public int[] duckerAnimationFrames = { 45, 46 };
+    public int[] redDuckerAnimationFrames = { 55, 66, 57 };
 
     public Game1() {
 
@@ -98,7 +100,7 @@ namespace Gradius {
                                 50.0f, // rate of fire
                                 500.0f, // continuous rate of fire
                                 m_spriteViper, MovableType.Player, m_spriteBasicProjectile,
-                                playerAnimator));
+                                playerAnimator, true));
       m_player = (Player) m_entities[0];
       
     }
@@ -138,7 +140,8 @@ namespace Gradius {
           //add enemy
           //for (int i = 0; i < 5; i++)
           //{
-              Ducker newEnemy = new Ducker(this, new Vector2(0, 50), // pos
+            /** 
+            Ducker newEnemy = new Ducker(this, new Vector2(0, 50), // pos
                                         new Vector2(m_spriteFan.Width, m_spriteFan.Height), // size
                                         50, // maxvel
                                         500, // accel
@@ -148,6 +151,7 @@ namespace Gradius {
                                         m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, null, m_worldMap, false, null);
               m_entities.Add(newEnemy);
               newEnemy.addToSquad();
+             **/
           //}
       }
       // add new entities...
