@@ -26,8 +26,8 @@ namespace Gradius
         public Character m_shooter = null;
 
         public Projectile(Game1 world, Vector2 pos, Vector2 size, Texture2D sprite, Vector2 velocity, Vector2 direction, MovableType type, Character shooter,
-            AnimationController animator, bool isAnimatedByState)
-            : base(world, pos, size, type, animator, isAnimatedByState)
+            AnimationController animator)
+            : base(world, pos, size, type, animator)
         {
             m_sprite = sprite;
             m_spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
@@ -104,7 +104,7 @@ namespace Gradius
         {
 
             spriteBatch.Draw(m_sprite, m_pos, null, Color.White, 0.0f,
-                m_spriteSize * 0.5f, m_size / m_spriteSize, SpriteEffects.None, m_depth);
+                new Vector2(m_sprite.Width, m_sprite.Height)/2, m_size / m_spriteSize, SpriteEffects.None, m_depth);
         }
     }
 }

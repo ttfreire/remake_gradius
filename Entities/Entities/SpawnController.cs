@@ -45,12 +45,11 @@ namespace Gradius
             float enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire, enemyContinuousrateoffire;
             Texture2D enemySprite, enemyProjectileSprite;
             List<Enemy> enemySquad;
-            bool enemyDropsPowerUp, enemyHasSquad, enemyIsAnimatedByState;
+            bool enemyDropsPowerUp, enemyHasSquad;
             AnimationController enemyAnimator;
             int enemyQuantity = (int)enemyProperties["quantity"].AsInt32;
             enemyHasSquad = (bool)enemyProperties["hasSquad"].AsBoolean;
             enemyDropsPowerUp = (bool)enemyProperties["dropsPowerUp"].AsBoolean;
-            enemyIsAnimatedByState = (bool)enemyProperties["isAnimatedByState"].AsBoolean;
             enemyType = MovableType.Enemy;
 
             if(enemyHasSquad)
@@ -75,7 +74,7 @@ namespace Gradius
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
                                                     m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
-                                                    enemyAnimator, enemyIsAnimatedByState);
+                                                    enemyAnimator);
                             m_worldMap.m_world.m_entities.Add(newFan);
                             if (enemyHasSquad)
                                 newFan.addToSquad();
@@ -98,7 +97,7 @@ namespace Gradius
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
                                                     m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
-                                                    enemyAnimator, enemyIsAnimatedByState);
+                                                    enemyAnimator);
                             m_worldMap.m_world.m_entities.Add(newDucker);
                             if (enemyHasSquad)
                                 newDucker.addToSquad();

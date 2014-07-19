@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius {
 
   public class Character : Movable {
-    public int currState;
+    public string currAnimation;
 
     public Vector2 m_dir = Vector2.Zero;
     public Vector2 m_vel = Vector2.Zero;
@@ -33,8 +33,8 @@ namespace Gradius {
 
     public Character(Game1 world, Vector2 pos, Vector2 size, float maxVel,
         float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite, 
-        AnimationController animator, bool isAnimatedByState)
-        : base(world, pos, size, type, animator, isAnimatedByState)
+        AnimationController animator)
+        : base(world, pos, size, type, animator)
     {
       
       m_maxVel   = maxVel;
@@ -49,17 +49,12 @@ namespace Gradius {
       m_spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
       visibleEntities = new List<Entity>();
       m_animator = animator;
-      currState = 1;
     }
 
     public override void Update(GameTime gameTime) {  
         if (m_animator != null)
         {
-            if(this.m_isAnimatedByState)
-                m_animator.Update(gameTime, currState);
-            else
-                m_animator.Update(gameTime, 0);
-            currState = m_animator.entityCurrentState;
+            m_animator.Update(gameTime, currAnimation);
         }
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -152,7 +147,7 @@ namespace Gradius {
 
     public virtual void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir)
     {
-        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null, false);
+        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
         this.m_world.Add(shot);
     }
 

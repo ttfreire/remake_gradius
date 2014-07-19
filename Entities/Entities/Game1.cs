@@ -45,16 +45,16 @@ namespace Gradius {
     static int[] playerAnimationFramesUp = { 0};
     static int[] playerAnimationFramesForward = { 1};
     static int[] playerAnimationFramesDown = { 2 };
-    public Dictionary<int, int[]> playerAnimations = new Dictionary<int, int[]>() { { 0, playerAnimationFramesUp },
-                                                                                    { 1, playerAnimationFramesForward },
-                                                                                    { 2, playerAnimationFramesDown }};
+    public Dictionary<string, int[]> playerAnimations = new Dictionary<string, int[]>() { { "up", playerAnimationFramesUp },
+                                                                                    { "forward", playerAnimationFramesForward },
+                                                                                    { "down", playerAnimationFramesDown }};
     static int[] fanAnimationFrames = { 0, 1, 2, 3 };
-    public Dictionary<int, int[]> fanAnimations = new Dictionary<int, int[]>() { { 0, fanAnimationFrames } };
+    public Dictionary<string, int[]> fanAnimations = new Dictionary<string, int[]>() { { "moving", fanAnimationFrames } };
     static int[] duckerAnimationFramesWalking = { 45, 46 };
     static int[] duckerAnimationFramesHolding = { 47 };
-    public Dictionary<int, int[]> duckerAnimations = new Dictionary<int, int[]>() { { 0, duckerAnimationFramesWalking } ,
-                                                                                    { 1, duckerAnimationFramesHolding },
-                                                                                    { 2, duckerAnimationFramesHolding }};
+    public Dictionary<string, int[]> duckerAnimations = new Dictionary<string, int[]>() { { "walking", duckerAnimationFramesWalking } ,
+                                                                                    { "shooting", duckerAnimationFramesHolding },
+                                                                                    { "waiting", duckerAnimationFramesHolding }};
 
     public Game1() {
 
@@ -110,7 +110,7 @@ namespace Gradius {
                                 50.0f, // rate of fire
                                 500.0f, // continuous rate of fire
                                 m_spriteViper, MovableType.Player, m_spriteBasicProjectile,
-                                playerAnimator, true));
+                                playerAnimator));
       m_player = (Player) m_entities[0];
       
     }

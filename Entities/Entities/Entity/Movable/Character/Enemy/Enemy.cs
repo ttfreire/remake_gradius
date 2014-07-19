@@ -17,8 +17,8 @@ namespace Gradius {
       public List<Enemy> mySquad;
       bool m_dropsPowerUp;
       public Enemy(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
-          MovableType type, Texture2D projectileSprite, List<Enemy> squad, bool dropsPowerUp, AnimationController animator, bool isAnimatedByState) :
-          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, animator, isAnimatedByState)
+          MovableType type, Texture2D projectileSprite, List<Enemy> squad, bool dropsPowerUp, AnimationController animator) :
+          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, animator)
       {
           mySquad = squad;
           m_dropsPowerUp = dropsPowerUp;

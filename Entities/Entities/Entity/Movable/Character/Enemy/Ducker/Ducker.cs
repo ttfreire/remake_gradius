@@ -17,20 +17,21 @@ namespace Gradius
       public enum EnemyState {NONE, FORWARD, SHOOT, BACK }
       public EnemyState currentState = EnemyState.FORWARD;
       public Ducker(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
-          MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator, bool isAnimatedByState) :
-          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp, animator, isAnimatedByState)
+          MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
+          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp, animator)
       {
           worldmap = map;
       }
 
     public override void Update(GameTime gameTime) {
         Player player = (Player) m_world.m_entities.Find(s => s is Player);
-        currState = (int)currentState;
+
         currentAnimationState = (int)currentState;
         switch (currentState)
         {
             case EnemyState.FORWARD:
                 {
+                    currAnimation = "walking";
                     m_dir = Vector2.UnitX;
 
                     if (player != null)
@@ -44,6 +45,7 @@ namespace Gradius
 
             case EnemyState.SHOOT:
                 {
+                    currAnimation = "shooting";
                     m_dir = Vector2.Zero;
                     if (player != null)
                     {
@@ -58,6 +60,7 @@ namespace Gradius
 
             case EnemyState.BACK:
             {
+                currAnimation = "waiting";
                 m_dir = -Vector2.UnitX;
                 if (m_pos.X < 100)
                     currentState = EnemyState.FORWARD;

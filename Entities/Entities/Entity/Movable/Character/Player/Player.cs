@@ -27,8 +27,8 @@ namespace Gradius {
     public List<PowerUpState> activePowerUps;
 
     public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire,
-                    Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator, bool isAnimatedByState) :
-        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator, isAnimatedByState)
+                    Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator) :
+        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator)
     {
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
@@ -47,7 +47,7 @@ namespace Gradius {
       continuousShootCooldown -= dt;
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
-      currState = (int)currentState;
+
       currentAnimationState = (int)currentState;
       if (currentKey.IsKeyUp(Keys.Z))
           previousKey = currentKey;
@@ -64,7 +64,6 @@ namespace Gradius {
           m_dir.X += -1.0f;
           m_trail[m_trail_pos] = this.m_pos;
           m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
-          //previousKey = currentKey;
       }
 
       if (currentKey.IsKeyDown(Keys.Up))
@@ -73,7 +72,7 @@ namespace Gradius {
           m_trail[m_trail_pos] = this.m_pos;
           m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
           currentState = PlayerState.UP;
-          //previousKey = currentKey;
+          currAnimation = "up";
       }
 
       if (currentKey.IsKeyDown(Keys.Down))
@@ -82,11 +81,14 @@ namespace Gradius {
           m_trail[m_trail_pos] = this.m_pos;
           m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
           currentState = PlayerState.DOWN;
-          //previousKey = currentKey;
+          currAnimation = "down";
       }
 
       if (currentKey.IsKeyUp(Keys.Down) && currentKey.IsKeyUp(Keys.Up))
+      {
           currentState = PlayerState.FORWARD;
+          currAnimation = "forward";
+      }
 
       if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z) && shootCooldown <= 0)
       {
@@ -194,7 +196,7 @@ namespace Gradius {
         {
             shotVel = new Vector2(800, 0);
             shotDir = new Vector2(1, 0);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null, false);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
             this.m_world.Add(shot);
         }
         else
@@ -205,14 +207,14 @@ namespace Gradius {
         {
             shotVel = new Vector2(250, 250);
             shotDir = new Vector2(1, 1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null, false);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
             this.m_world.Add(shot);
         }
         if (activePowerUps.Contains(PowerUpState.DOUBLE))
         {
             shotVel = new Vector2(250, -250);
             shotDir = new Vector2(1, -1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null, false);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
             this.m_world.Add(shot);
         }
 
