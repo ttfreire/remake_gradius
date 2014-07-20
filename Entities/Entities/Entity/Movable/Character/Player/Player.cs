@@ -23,12 +23,13 @@ namespace Gradius {
     public List<Vector2> m_trail;
     public int m_trail_pos = 0;
     int m_option_count;
+    AnimationController m_animator;
 
     public List<PowerUpState> activePowerUps;
 
     public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire,
                     Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator) :
-        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite, animator)
+        base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
     {
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
@@ -37,18 +38,31 @@ namespace Gradius {
         m_trail = new List<Vector2>();
         for(int i = 0; i < TRAIL_SIZE; i++)
             m_trail.Add(this.m_pos);
-        
-    }
+
+        int[] playerAnimationFramesUp = { 0};
+        Animation playerAnimationUp = new Animation(PlayType.Once, playerAnimationFramesUp, 3.0f);
+        int[] playerAnimationFramesForward = { 1};
+        Animation playerAnimationForward = new Animation(PlayType.Once, playerAnimationFramesForward, 3.0f);
+        int[] playerAnimationFramesDown = { 2 };
+        Animation playerAnimationDown = new Animation(PlayType.Once, playerAnimationFramesDown, 3.0f);
+        int[] playerAnimationFramesExploded = { 4, 5, 6, 7 };
+        Animation playerAnimationExploded = new Animation(PlayType.Once, playerAnimationFramesExploded, 3.0f);
+        Dictionary<string, Animation> playerAnimations = new Dictionary<string,Animation>() { { "up", playerAnimationUp },
+                                                                                        { "forward", playerAnimationForward },
+                                                                                        { "down", playerAnimationDown },
+                                                                                        { "exploded", playerAnimationExploded } };
+        m_animator = new AnimationController(m_world.m_spriteViper, playerAnimations, 4, 3, this);
+        currAnimation = "forward";
+  }
 
     public override void Update(GameTime gameTime) {
-      //fill direction vector using the keyboard:
+      m_animator.Update(gameTime, currAnimation);
       float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
       shootCooldown -= dt;
       continuousShootCooldown -= dt;
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
 
-      currentAnimationState = (int)currentState;
       if (currentKey.IsKeyUp(Keys.Z))
           previousKey = currentKey;
 
@@ -196,7 +210,7 @@ namespace Gradius {
         {
             shotVel = new Vector2(800, 0);
             shotDir = new Vector2(1, 0);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize + new Vector2(25, 0), m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
         else
@@ -207,14 +221,14 @@ namespace Gradius {
         {
             shotVel = new Vector2(250, 250);
             shotDir = new Vector2(1, 1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
         if (activePowerUps.Contains(PowerUpState.DOUBLE))
         {
             shotVel = new Vector2(250, -250);
             shotDir = new Vector2(1, -1);
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
+            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
             this.m_world.Add(shot);
         }
 
@@ -225,6 +239,14 @@ namespace Gradius {
         if (other.m_type != MovableType.Option)
             return base.TestCollision(other);
         else return false;
+    }
+
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+
+        if (m_animator != null)
+            spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
+            new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
     }
     }
 }

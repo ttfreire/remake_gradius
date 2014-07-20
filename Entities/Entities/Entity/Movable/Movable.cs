@@ -18,19 +18,16 @@ namespace Gradius {
     public Vector2 m_pos;
     public Vector2 m_size;
     public MovableType m_type;
-    public AnimationController m_animator;
+
     public int currentAnimationState;
     public Movable(Game1 world):base(world) { }
-    public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type, AnimationController animator)
+    public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type)
         : base(world)
     {
-      
-      m_pos  = pos;
-      m_size = size;
-      m_type = type;
-      m_animator = animator;
-      if (m_animator != null)
-        m_animator.m_animatedSprite = this;
+
+        m_pos = pos;
+        m_size = size;
+        m_type = type;
     }
 
     public override bool TestCollision(Movable other) {

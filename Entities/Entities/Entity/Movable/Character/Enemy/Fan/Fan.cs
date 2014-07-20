@@ -15,18 +15,31 @@ namespace Gradius
     class Fan : Enemy
     {
       
-      public enum EnemyState { NONE, FORWARD, DIAGONAL, RETREAT }
+      public enum EnemyState { NONE, FORWARD, DIAGONAL, RETREAT, EXPLODED }
       public EnemyState currentState = EnemyState.FORWARD;
+      public AnimationController m_animator;
+      public string currAnimation;
       public Fan(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
                     MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
-          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp, 
-                animator)
+          base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp)
       {
           worldmap = map;
+
+          int[] fanAnimationFramesMoving = { 0, 1, 2, 3 };
+          Animation fanAnimationMoving = new Animation(PlayType.Loop, fanAnimationFramesMoving, 11.0f);
+          int[] fanAnimationFramesExploded = { 80, 81, 82, 83 };
+          Animation fanAnimationExploded = new Animation(PlayType.Loop, fanAnimationFramesExploded, 11.0f);
+
+          Dictionary<string, Animation> fanAnimations = new Dictionary<string, Animation>() { { "moving", fanAnimationMoving },
+                                                                                        { "exploded", fanAnimationExploded} };
+          m_animator = new AnimationController(m_world.m_spriteEnemies, fanAnimations, 5, 18, this);
+          currAnimation = "moving";
       }
 
     public override void Update(GameTime gameTime) {
-        currAnimation = "moving";
+        m_animator.Update(gameTime, currAnimation);
+        if (currAnimation == "exploded")
+            currentState = EnemyState.EXPLODED;
         currentAnimationState = (int)currentState;
         switch (currentState)
         {
@@ -79,8 +92,23 @@ namespace Gradius
                         m_world.Remove(this);
                 }
                 break;
+
+            case EnemyState.EXPLODED:
+                {
+                    m_dir = Vector2.Zero;
+                    m_vel = Vector2.Zero;
+                    currAnimation = "exploded";
+                }
+                break;
         }
       base.Update(gameTime);
+    }
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+
+        if (m_animator != null)
+            spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
+            new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
     }
     }
 }

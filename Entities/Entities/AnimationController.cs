@@ -16,17 +16,17 @@ namespace Gradius
     {
         public Texture2D m_spriteSheet;
         public Rectangle m_currentSpriteRect;
-        Dictionary<string, int[]> m_frames;
+        public Dictionary<string, Animation> m_animations;
         public string entityCurrentAnimation;
         int m_spriteSheetColumns, m_spriteSheetLines;
         float m_framesPerSecond = 3.0f;
         float m_currentFrame;
         public Movable m_animatedSprite;
 
-        public AnimationController(Texture2D spritesheet, Dictionary<string, int[]> frames, int columns, int lines, Movable asset)
+        public AnimationController(Texture2D spritesheet, Dictionary<string, Animation> frames, int columns, int lines, Movable asset)
         {
             m_spriteSheet = spritesheet;
-            m_frames = frames;
+            m_animations = frames;
             m_currentFrame = 0.0f;
             m_spriteSheetColumns = columns;
             m_spriteSheetLines = lines;
@@ -36,9 +36,9 @@ namespace Gradius
         public void Update(GameTime gameTime, string state)
         {
             entityCurrentAnimation = state;
-
-            m_currentFrame += m_framesPerSecond * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            m_currentFrame = m_animations[entityCurrentAnimation].m_currFrame;
             m_currentSpriteRect = getSprite(entityCurrentAnimation, (int)m_currentFrame);
+            m_animations[state].Update(gameTime);
 
         }
 
@@ -48,24 +48,19 @@ namespace Gradius
 
             int totalFrames = m_spriteSheetColumns * m_spriteSheetLines;
 
-            frameInt = frameInt % m_frames[currentAnimation].Length;
+            frameInt = frameInt % m_animations[currentAnimation].m_frames.Length;
 
             int spriteWidth = m_spriteSheet.Width / m_spriteSheetColumns;
             int spriteHeight = m_spriteSheet.Height / m_spriteSheetLines;
             int line, column;
 
-            line = m_frames[currentAnimation][frameInt] / m_spriteSheetColumns;
-            column = m_frames[currentAnimation][frameInt] % m_spriteSheetColumns;
+            line = m_animations[currentAnimation].m_frames[currentFrame] / m_spriteSheetColumns;
+            column = m_animations[currentAnimation].m_frames[currentFrame] % m_spriteSheetColumns;
 
             int sx = spriteWidth * column;
             int sy = spriteHeight * line;
             Rectangle rect = new Rectangle(sx, sy, spriteWidth, spriteHeight);
             return rect;
-        }
-
-        public void playAnimation(int state)
-        {
-
         }
     }
 }

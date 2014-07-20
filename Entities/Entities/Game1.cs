@@ -13,7 +13,7 @@ using FuncWorks.XNA.XTiled;
 namespace Gradius {
   public enum PowerUpState {NONE, SPEEDUP, MISSILE, DOUBLE, LASER, OPTION, SHIELD }
   public class Game1 : Microsoft.Xna.Framework.Game {
-
+    public GameTime m_gametime;
     public GraphicsDeviceManager m_graphics;
     SpriteBatch m_spriteBatch;
 
@@ -42,19 +42,9 @@ namespace Gradius {
     public int powerUpCounter = 0;
 
     SpawnController enemySpawnController;
-    static int[] playerAnimationFramesUp = { 0};
-    static int[] playerAnimationFramesForward = { 1};
-    static int[] playerAnimationFramesDown = { 2 };
-    public Dictionary<string, int[]> playerAnimations = new Dictionary<string, int[]>() { { "up", playerAnimationFramesUp },
-                                                                                    { "forward", playerAnimationFramesForward },
-                                                                                    { "down", playerAnimationFramesDown }};
-    static int[] fanAnimationFrames = { 0, 1, 2, 3 };
-    public Dictionary<string, int[]> fanAnimations = new Dictionary<string, int[]>() { { "moving", fanAnimationFrames } };
-    static int[] duckerAnimationFramesWalking = { 45, 46 };
-    static int[] duckerAnimationFramesHolding = { 47 };
-    public Dictionary<string, int[]> duckerAnimations = new Dictionary<string, int[]>() { { "walking", duckerAnimationFramesWalking } ,
-                                                                                    { "shooting", duckerAnimationFramesHolding },
-                                                                                    { "waiting", duckerAnimationFramesHolding }};
+    
+    
+    
 
     public Game1() {
 
@@ -101,7 +91,7 @@ namespace Gradius {
 
       //add player...
       
-      AnimationController playerAnimator = new AnimationController(m_spriteViper, playerAnimations, 4, 3, null);
+      
       m_entities.Add(new Player(this, new Vector2(40, 240), //pos
                                 new Vector2(m_spriteViper.Width, m_spriteViper.Height), 
                                 100, //vel
@@ -110,7 +100,7 @@ namespace Gradius {
                                 50.0f, // rate of fire
                                 500.0f, // continuous rate of fire
                                 m_spriteViper, MovableType.Player, m_spriteBasicProjectile,
-                                playerAnimator));
+                                null));
       m_player = (Player) m_entities[0];
       
     }
@@ -121,7 +111,7 @@ namespace Gradius {
 
       if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
         this.Exit();
-
+      m_gametime = gameTime;
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
       enemySpawnController.Update(gameTime);
       upperEnemySpawnCooldown -= dt;

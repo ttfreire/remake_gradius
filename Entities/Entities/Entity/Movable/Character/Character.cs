@@ -32,9 +32,8 @@ namespace Gradius {
     public List<Entity> visibleEntities;
 
     public Character(Game1 world, Vector2 pos, Vector2 size, float maxVel,
-        float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite, 
-        AnimationController animator)
-        : base(world, pos, size, type, animator)
+        float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite)
+        : base(world, pos, size, type)
     {
       
       m_maxVel   = maxVel;
@@ -48,14 +47,10 @@ namespace Gradius {
       m_sprite = sprite;
       m_spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
       visibleEntities = new List<Entity>();
-      m_animator = animator;
     }
 
     public override void Update(GameTime gameTime) {  
-        if (m_animator != null)
-        {
-            m_animator.Update(gameTime, currAnimation);
-        }
+
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
       //normalize direction:
@@ -137,17 +132,13 @@ namespace Gradius {
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
 
-        if (m_animator != null)
-          spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
-          new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height)/2, 2, SpriteEffects.None, m_depth);
-      else
         spriteBatch.Draw(m_sprite, m_pos, null, Color.White, 0.0f,
           new Vector2(m_sprite.Width, m_sprite.Height)/2, 2, SpriteEffects.None, m_depth);
     }
 
     public virtual void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir)
     {
-        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this, null);
+        Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, this);
         this.m_world.Add(shot);
     }
 
@@ -172,5 +163,11 @@ namespace Gradius {
         }
         else return false;
     }
+      public override void Die()
+      {
+          currAnimation = "exploded";
+          m_world.Remove(this);
+      }
+      
   }
 }
