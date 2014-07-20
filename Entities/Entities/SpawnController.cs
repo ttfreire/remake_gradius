@@ -15,6 +15,7 @@ namespace Gradius
     public class SpawnController
     {
         WorldMap m_worldMap;
+        List<int> activatedSpawners = new List<int>();
         public SpawnController(Game1 m_world)
         {
             m_worldMap = m_world.m_worldMap;
@@ -29,10 +30,11 @@ namespace Gradius
                     Vector2 spawn_pos = new Vector2(m_worldMap.m_map.ObjectLayers["enemy_spawns"].MapObjects[o].Bounds.X - m_worldMap.m_view.X,
                                                     m_worldMap.m_map.ObjectLayers["enemy_spawns"].MapObjects[o].Bounds.Y - m_worldMap.m_view.Y);
 
-                    if (spawn_pos.X == m_worldMap.screenWidth)
+                    if (spawn_pos.X <= m_worldMap.screenWidth && !activatedSpawners.Contains(o))
                     {
                         Dictionary<string, FuncWorks.XNA.XTiled.Property> dict = m_worldMap.m_map.ObjectLayers["enemy_spawns"].MapObjects[o].Properties;
                         spawnEnemy(dict, spawn_pos);
+                        activatedSpawners.Add(o);
                     }
                 }
             }
@@ -74,7 +76,7 @@ namespace Gradius
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
                                                     m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
-                                                    enemyAnimator, null);
+                                                    enemyAnimator);
                             m_worldMap.m_world.m_entities.Add(newFan);
                             if (enemyHasSquad)
                                 newFan.addToSquad();
@@ -101,6 +103,29 @@ namespace Gradius
                             m_worldMap.m_world.m_entities.Add(newDucker);
                             if (enemyHasSquad)
                                 newDucker.addToSquad();
+                        }
+                    }
+                    break;
+
+                case "boss":
+                    {
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteBoss, null, 2, 1, null);
+                        enemyMaxVel = 50;
+                        enemyAccel = 500;
+                        enemyFriction = 500;
+                        enemyRateoffire = 1.0f;
+                        enemyContinuousrateoffire = 5.0f;
+
+                        for (int i = 1; i <= enemyQuantity; i++)
+                        {
+                            Boss newBoss = new Boss(m_worldMap.m_world, new Vector2(m_worldMap.screenWidth - enemyAnimator.m_spriteSheet.Width/2, m_worldMap.m_screenMiddle.Y), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                                                    enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
+                                                    enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
+                                                    enemyAnimator);
+                            m_worldMap.m_world.m_entities.Add(newBoss);
+                            if (enemyHasSquad)
+                                newBoss.addToSquad();
                         }
                     }
                     break;

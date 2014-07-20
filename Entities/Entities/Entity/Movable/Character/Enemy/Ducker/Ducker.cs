@@ -14,6 +14,7 @@ namespace Gradius
 {
     class Ducker : Enemy
     {
+      bool m_dropsPowerUp; 
       public enum EnemyState {NONE, FORWARD, SHOOT, BACK }
       public EnemyState currentState = EnemyState.FORWARD;
       public AnimationController m_animator;
@@ -23,7 +24,7 @@ namespace Gradius
           base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, projectileSprite, squad, dropsPowerUp)
       {
           worldmap = map;
-          
+          m_dropsPowerUp = dropsPowerUp;
 
           int[] duckerAnimationFramesWalking = { 45, 46 };
           Animation duckerAnimationWalking = new Animation(PlayType.Loop, duckerAnimationFramesWalking, 3.1f);
@@ -99,6 +100,9 @@ namespace Gradius
 
       public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
       {
+
+          if (m_dropsPowerUp)
+              m_animator.m_currentSpriteRect.Y += m_animator.m_currentSpriteRect.Height * 2;
 
           if (m_animator != null)
               spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,

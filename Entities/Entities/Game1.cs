@@ -24,18 +24,16 @@ namespace Gradius {
     public Texture2D m_spritePowerUpRed;
     public Texture2D m_spritePowerUpBlue;
     public Texture2D m_spriteProjectile;
+    public Texture2D m_spriteBoss;
     
     Map m_background;
     Rectangle mapView;
-    float upperEnemySpawnCooldown = 5.0f;
-    float bottomEnemySpawnCooldown = 7.0f;
 
     public List<Entity> m_entities = new List<Entity>();
     List<Entity> to_add = new List<Entity>();
     List<Entity> to_remove = new List<Entity>();
     Player m_player;
     public WorldMap m_worldMap;
-    List<Enemy> fanSquad1;
 
     public List<PowerUpState> HUDPowerUp;
     public int highlightedPowerUp = 0;
@@ -85,6 +83,7 @@ namespace Gradius {
       m_spritePowerUpRed = Content.Load<Texture2D>("powerupred");
       m_spritePowerUpBlue = Content.Load<Texture2D>("powerupblue");
       m_spriteEnemies = Content.Load<Texture2D>("enemy-powerups");
+      m_spriteBoss = Content.Load<Texture2D>("boss");
       
       //add map
       //m_entities.Add(m_worldMap);

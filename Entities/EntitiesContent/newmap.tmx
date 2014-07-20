@@ -118,6 +118,7 @@
  <objectgroup name="enemy_spawns" width="14" height="1">
   <object name="fan1" x="706" y="91" width="42" height="39">
    <properties>
+    <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
     <property name="hasSquad" value="True"/>
     <property name="isAnimatedByState" value="False"/>
@@ -127,6 +128,7 @@
   </object>
   <object name="fan2" x="966" y="347" width="42" height="39">
    <properties>
+    <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
     <property name="hasSquad" value="True"/>
     <property name="isAnimatedByState" value="False"/>
@@ -136,6 +138,7 @@
   </object>
   <object name="fan3" x="1095" y="131" width="42" height="39">
    <properties>
+    <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
     <property name="hasSquad" value="True"/>
     <property name="isAnimatedByState" value="False"/>
@@ -145,22 +148,35 @@
   </object>
   <object name="ducker1" x="706" y="343" width="42" height="39">
    <properties>
-    <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="active" value="True"/>
+    <property name="dropsPowerUp" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="1"/>
     <property name="type" value="Ducker"/>
+   </properties>
+  </object>
+  <object name="boss" x="8214" y="118" width="42" height="39">
+   <properties>
+    <property name="active" value="True"/>
+    <property name="dropsPowerUp" value="False"/>
+    <property name="hasSquad" value="False"/>
+    <property name="isAnimatedByState" value="False"/>
+    <property name="quantity" value="1"/>
+    <property name="type" value="boss"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="event" width="14" height="1">
   <object name="volcano" x="7632" y="195" width="44" height="41">
    <properties>
+    <property name="active" value="True"/>
     <property name="timer" value="10"/>
    </properties>
   </object>
-  <object name="boss" x="8214" y="197" width="44" height="41">
+  <object name="bossEvent" x="8214" y="197" width="44" height="41">
    <properties>
+    <property name="active" value="true"/>
     <property name="timer" value="5"/>
    </properties>
   </object>
