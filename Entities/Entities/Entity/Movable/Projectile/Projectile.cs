@@ -157,9 +157,11 @@ namespace Gradius
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            Vector2 spriteSize = new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height);
+            Vector2 recSize = new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height);
+            Vector2 spriteSize = new Vector2(m_sprite.Width, m_sprite.Height);
+            Vector2 scale = new Vector2(spriteSize.X / recSize.X / 3, spriteSize.Y / recSize.Y);
             spriteBatch.Draw(m_sprite, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
-                spriteSize / 2, new Vector2(spriteSize.X / 8, spriteSize.Y / 3), SpriteEffects.None, m_depth);
+                recSize / 2, scale, SpriteEffects.None, m_depth);
         }
     }
 }
