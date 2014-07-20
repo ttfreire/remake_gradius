@@ -23,6 +23,8 @@ namespace Gradius
         bool isMoving = true;
         bool eventIsFinished = false;
         float eventTimerMax, eventTimer;
+        bool bossIsFinished = false;
+        float bossTimerMax, bossTimer;
         public WorldMap(Game1 world, Map map, Rectangle bounds):base(world)
         {
             m_map = map;
@@ -32,6 +34,8 @@ namespace Gradius
             screenHeigth = m_view.Height;
             eventTimerMax = (float)m_map.ObjectLayers["event"].MapObjects[0].Properties["timer"].AsInt32;
             eventTimer = eventTimerMax;
+            bossTimerMax = (float)m_map.ObjectLayers["event"].MapObjects[1].Properties["timer"].AsInt32;
+            bossTimer = bossTimerMax;
         }
 
         public override void Update(GameTime gameTime)
@@ -59,28 +63,37 @@ namespace Gradius
                     }
                 }
             }
-            for (int o = 0; o < m_map.ObjectLayers["event"].MapObjects.Length; o++)
-            {
-                if (m_map.ObjectLayers["event"].MapObjects[o].Bounds != null)
-                {
-                    Vector2 spawn_pos = new Vector2(m_map.ObjectLayers["event"].MapObjects[o].Bounds.X - m_view.X,
-                                                    m_map.ObjectLayers["event"].MapObjects[o].Bounds.Y - m_view.Y);
+                Vector2 event_pos = new Vector2(m_map.ObjectLayers["event"].MapObjects[0].Bounds.X - m_view.X,
+                                                m_map.ObjectLayers["event"].MapObjects[0].Bounds.Y - m_view.Y);
+                Vector2 boss_pos = new Vector2(m_map.ObjectLayers["event"].MapObjects[1].Bounds.X - m_view.X,
+                                                m_map.ObjectLayers["event"].MapObjects[1].Bounds.Y - m_view.Y);
 
-                    if (spawn_pos.X <= screenWidth && !eventIsFinished)
-                    {
-                        isMoving = false;
-                    }
+                if ((event_pos.X <= screenWidth && !eventIsFinished) ||
+                    (boss_pos.X <= screenWidth && !bossIsFinished))
+                {
+                    isMoving = false;
                 }
-            }
             if(isMoving)
                 m_view.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds);
             else
             {
-                eventTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (eventTimer <= 0)
+                if (!eventIsFinished)
                 {
-                    isMoving = true;
-                    eventIsFinished = true;
+                    eventTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (eventTimer <= 0)
+                    {
+                        isMoving = true;
+                        eventIsFinished = true;
+                    }
+                }
+                if (eventIsFinished && !bossIsFinished)
+                {
+                    bossTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (bossTimer <= 0)
+                    {
+                        isMoving = true;
+                        bossIsFinished = true;
+                    }
                 }
             }
             }

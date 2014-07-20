@@ -159,5 +159,10 @@
     <property name="timer" value="10"/>
    </properties>
   </object>
+  <object name="boss" x="8214" y="197" width="44" height="41">
+   <properties>
+    <property name="timer" value="5"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
