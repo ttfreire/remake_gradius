@@ -12,9 +12,13 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius
 {
 
+    public enum ProjectileType { NONE, STANDARD, MISSILE, DOUBLE, LASER, ENEMY }
     public class Projectile : Movable
     {
-
+        
+        public AnimationController m_animator;
+        public string currAnimation;
+        public ProjectileType m_projectileType;
         public Vector2 m_dir;
         public Vector2 m_vel;
 
@@ -25,7 +29,7 @@ namespace Gradius
 
         public Character m_shooter = null;
 
-        public Projectile(Game1 world, Vector2 pos, Vector2 size, Texture2D sprite, Vector2 velocity, Vector2 direction, MovableType type, Character shooter)
+        public Projectile(Game1 world, Vector2 pos, Vector2 size, Texture2D sprite, Vector2 velocity, Vector2 direction, MovableType type, ProjectileType projectileType, Character shooter)
             : base(world, pos, size, type)
         {
             m_sprite = sprite;
@@ -33,6 +37,27 @@ namespace Gradius
             m_vel = velocity;
             m_dir = direction;
             m_shooter = shooter;
+            int[] playerProjectileAnimationFramesStandard = { 0 };
+            Animation playerProjectileAnimationStandard = new Animation(PlayType.Once, playerProjectileAnimationFramesStandard, 3.0f);
+            int[] playerProjectileAnimationFramesDouble = { 1 };
+            Animation playerProjectileAnimationDouble = new Animation(PlayType.Once, playerProjectileAnimationFramesDouble, 3.0f);
+            int[] playerProjectileAnimationFramesLaser = { 2 };
+            Animation playerProjectileAnimationLaser = new Animation(PlayType.Once, playerProjectileAnimationFramesLaser, 3.0f);
+            int[] playerAnimationFramesMissileForward = { 3 };
+            Animation playerAnimationMissileForward = new Animation(PlayType.Once, playerAnimationFramesMissileForward, 3.0f);
+            int[] playerAnimationFramesMissileDiagonal = { 4 };
+            Animation playerAnimationMissileDiagonal = new Animation(PlayType.Once, playerAnimationFramesMissileDiagonal, 3.0f);
+            int[] enemyProjectileAnimationFrames = { 5 };
+            Animation enemyProjectileAnimation = new Animation(PlayType.Once, enemyProjectileAnimationFrames, 3.0f);
+            Dictionary<string, Animation> projectileAnimations = new Dictionary<string, Animation>() { { "standard", playerProjectileAnimationStandard },
+                                                                                        { "double", playerProjectileAnimationDouble },
+                                                                                        { "laser", playerProjectileAnimationLaser},
+                                                                                        { "missile forward", playerAnimationMissileForward },
+                                                                                        { "missile diagonal", playerAnimationMissileDiagonal },
+                                                                                        { "enemy" , enemyProjectileAnimation}};
+
+            m_animator = new AnimationController(m_world.m_spriteProjectile, projectileAnimations, 8, 3, this);
+            m_projectileType = projectileType;
         }
 
         public override bool TestCollision(Movable other)
@@ -49,6 +74,37 @@ namespace Gradius
 
         public override void Update(GameTime gameTime)
         {
+
+            switch (m_projectileType)
+            {
+                case ProjectileType.STANDARD:
+                    {
+                        currAnimation = "standard";
+                    }
+                    break;
+                case ProjectileType.DOUBLE:
+                    {
+                        currAnimation = "double";
+                    }
+                    break;
+                case ProjectileType.LASER:
+                    {
+                        currAnimation = "laser";
+                    }
+                    break;
+                case ProjectileType.ENEMY:
+                    {
+                        currAnimation = "enemy";
+                    }
+                    break;
+                case ProjectileType.MISSILE:
+                    {
+                        currAnimation = "missile diagonal";
+                    }
+                    break;
+            }
+
+            m_animator.Update(gameTime, currAnimation);
 
             float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -101,9 +157,9 @@ namespace Gradius
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-
-            spriteBatch.Draw(m_sprite, m_pos, null, Color.White, 0.0f,
-                new Vector2(m_sprite.Width, m_sprite.Height)/2, m_size / m_spriteSize, SpriteEffects.None, m_depth);
+            Vector2 spriteSize = new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height);
+            spriteBatch.Draw(m_sprite, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
+                spriteSize / 2, new Vector2(spriteSize.X / 8, spriteSize.Y / 3), SpriteEffects.None, m_depth);
         }
     }
 }

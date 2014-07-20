@@ -73,8 +73,8 @@ namespace Gradius
                             Fan newFan = new Fan(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
-                                                    m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
-                                                    enemyAnimator);
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
+                                                    enemyAnimator, null);
                             m_worldMap.m_world.m_entities.Add(newFan);
                             if (enemyHasSquad)
                                 newFan.addToSquad();
@@ -96,7 +96,7 @@ namespace Gradius
                             Ducker newDucker = new Ducker(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
-                                                    m_worldMap.m_world.m_spriteBasicProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp, 
                                                     enemyAnimator);
                             m_worldMap.m_world.m_entities.Add(newDucker);
                             if (enemyHasSquad)

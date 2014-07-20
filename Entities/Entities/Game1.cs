@@ -23,7 +23,7 @@ namespace Gradius {
 
     public Texture2D m_spritePowerUpRed;
     public Texture2D m_spritePowerUpBlue;
-    public Texture2D m_spriteBasicProjectile;
+    public Texture2D m_spriteProjectile;
     
     Map m_background;
     Rectangle mapView;
@@ -78,7 +78,7 @@ namespace Gradius {
       m_spriteBatch = new SpriteBatch(GraphicsDevice);
 
       m_spriteViper = Content.Load<Texture2D>("ship-score");
-      m_spriteBasicProjectile = Content.Load<Texture2D>("basic_projectile");
+      m_spriteProjectile = Content.Load<Texture2D>("projectile-shield");
       m_background = Content.Load<Map>("newmap");
       m_worldMap = new WorldMap(this, m_background, m_graphics.GraphicsDevice.Viewport.Bounds);
       m_spriteFan = Content.Load<Texture2D>("fan");
@@ -92,6 +92,8 @@ namespace Gradius {
       //add player...
       
       
+
+      
       m_entities.Add(new Player(this, new Vector2(40, 240), //pos
                                 new Vector2(m_spriteViper.Width, m_spriteViper.Height), 
                                 100, //vel
@@ -99,8 +101,7 @@ namespace Gradius {
                                 10, // friction
                                 50.0f, // rate of fire
                                 500.0f, // continuous rate of fire
-                                m_spriteViper, MovableType.Player, m_spriteBasicProjectile,
-                                null));
+                                m_spriteViper, MovableType.Player, m_spriteProjectile, null));
       m_player = (Player) m_entities[0];
       
     }

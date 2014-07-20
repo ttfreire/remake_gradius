@@ -67,7 +67,7 @@ namespace Gradius
                     if (player != null)
                     {
                         Vector2 dir = (player.m_pos - m_pos) + new Vector2(player.m_size.Length(), 0);
-                        Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir);
+                        Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir, ProjectileType.ENEMY);
                         currentState = EnemyState.BACK;
                     }
 
