@@ -114,46 +114,8 @@ namespace Gradius {
       m_gametime = gameTime;
       float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
       enemySpawnController.Update(gameTime);
-      upperEnemySpawnCooldown -= dt;
-      bottomEnemySpawnCooldown -= dt;
-      if (upperEnemySpawnCooldown <= 0)
-      {
-          upperEnemySpawnCooldown = 5.0f;
-          //create squad
-          fanSquad1 = new List<Enemy>();
-          //add enemy
-          /**
-          for (int i = 1; i <= 5; i++)
-          {
-              AnimationController fanAnimator = new AnimationController(m_spriteEnemies, fanAnimations, 5, 18);
-              Fan newEnemy = new Fan(this, new Vector2(m_graphics.PreferredBackBufferWidth + 50 * i, 100), new Vector2(m_spriteFan.Width, m_spriteFan.Height), 200, 800, 800, 0, 0, m_spriteFan, MovableType.Fan, m_spriteBasicProjectile, fanSquad1, m_worldMap, false, fanAnimator);
-              m_entities.Add(newEnemy);
-              newEnemy.addToSquad();
-          }
-          **/
-      }
-        if (bottomEnemySpawnCooldown <= 0)
-      {
-          bottomEnemySpawnCooldown = 5.0f;
-          //create squad
-          fanSquad1 = new List<Enemy>();
-          //add enemy
-          //for (int i = 0; i < 5; i++)
-          //{
-            /** 
-            Ducker newEnemy = new Ducker(this, new Vector2(0, 50), // pos
-                                        new Vector2(m_spriteFan.Width, m_spriteFan.Height), // size
-                                        50, // maxvel
-                                        500, // accel
-                                        500, // friction
-                                        1.0f, // rateoffire
-                                        1.0f, // continuousrateoffire
-                                        m_spriteFan, MovableType.Enemy, m_spriteBasicProjectile, null, m_worldMap, false, null);
-              m_entities.Add(newEnemy);
-              newEnemy.addToSquad();
-             **/
-          //}
-      }
+      
+
       // add new entities...
       if (to_add.Count > 0)
       {

@@ -29,8 +29,5 @@ namespace Gradius {
 
     public virtual bool TestCollision(Movable other) { return false; }
 
-    public virtual bool TestVision(Movable other, MovableType type) { return false; }
-
-    
   }
 }

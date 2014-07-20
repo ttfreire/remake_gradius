@@ -74,7 +74,7 @@ namespace Gradius
                     isMoving = false;
                 }
             if(isMoving)
-                m_view.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds);
+                m_view.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 30);
             else
             {
                 if (!eventIsFinished)
