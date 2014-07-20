@@ -20,6 +20,9 @@ namespace Gradius
         public Vector2 m_screenMiddle;
         public int screenWidth;
         public int screenHeigth;
+        bool isMoving = true;
+        bool eventIsFinished = false;
+        float eventTimerMax, eventTimer;
         public WorldMap(Game1 world, Map map, Rectangle bounds):base(world)
         {
             m_map = map;
@@ -27,10 +30,13 @@ namespace Gradius
             m_screenMiddle = new Vector2(m_view.Width, m_view.Height) / 2;
             screenWidth = m_view.Width;
             screenHeigth = m_view.Height;
+            eventTimerMax = (float)m_map.ObjectLayers["event"].MapObjects[0].Properties["timer"].AsInt32;
+            eventTimer = eventTimerMax;
         }
 
         public override void Update(GameTime gameTime)
         {
+
             //MAP COLLIDER
             for (int o = 0; o < m_map.ObjectLayers["colliders"].MapObjects.Length; o++)
             {
@@ -53,7 +59,30 @@ namespace Gradius
                     }
                 }
             }
-                m_view.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 30);
+            for (int o = 0; o < m_map.ObjectLayers["event"].MapObjects.Length; o++)
+            {
+                if (m_map.ObjectLayers["event"].MapObjects[o].Bounds != null)
+                {
+                    Vector2 spawn_pos = new Vector2(m_map.ObjectLayers["event"].MapObjects[o].Bounds.X - m_view.X,
+                                                    m_map.ObjectLayers["event"].MapObjects[o].Bounds.Y - m_view.Y);
+
+                    if (spawn_pos.X <= screenWidth && !eventIsFinished)
+                    {
+                        isMoving = false;
+                    }
+                }
+            }
+            if(isMoving)
+                m_view.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds);
+            else
+            {
+                eventTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (eventTimer <= 0)
+                {
+                    isMoving = true;
+                    eventIsFinished = true;
+                }
+            }
             }
         
 

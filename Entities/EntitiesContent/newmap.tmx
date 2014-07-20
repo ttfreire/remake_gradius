@@ -153,4 +153,11 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="event" width="14" height="1">
+  <object name="volcano" x="7632" y="195" width="44" height="41">
+   <properties>
+    <property name="timer" value="10"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
