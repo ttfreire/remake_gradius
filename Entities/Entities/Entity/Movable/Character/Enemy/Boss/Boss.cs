@@ -65,7 +65,10 @@ namespace Gradius
                     if (shootCooldown <= 0)
                     {
                         shootCooldown = m_rateOfFire;
-                        Shoot(new Vector2(-500, 0), m_pos, new Vector2(-1, 0), ProjectileType.LASER);
+                        Shoot(new Vector2(-500, 0), m_pos - new Vector2(0, m_size.Y / 2), new Vector2(-1, 0), ProjectileType.LASER);
+                        Shoot(new Vector2(-500, 0), m_pos - new Vector2(0, m_size.Y / 6), new Vector2(-1, 0), ProjectileType.LASER);
+                        Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 6), new Vector2(-1, 0), ProjectileType.LASER);
+                        Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 2), new Vector2(-1, 0), ProjectileType.LASER);
                     }
                 }
                 break;

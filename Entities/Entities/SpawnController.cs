@@ -110,7 +110,7 @@ namespace Gradius
                 case "boss":
                     {
                         enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteBoss, null, 2, 1, null);
-                        enemyMaxVel = 50;
+                        enemyMaxVel = 100;
                         enemyAccel = 500;
                         enemyFriction = 500;
                         enemyRateoffire = 1.0f;
