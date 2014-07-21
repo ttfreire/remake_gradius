@@ -74,7 +74,7 @@ namespace Gradius
                     isMoving = false;
                 }
             if(isMoving)
-                m_view.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds);
+                m_view.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 30);
             else
             {
                 if (!eventIsFinished)
@@ -84,6 +84,7 @@ namespace Gradius
                     {
                         isMoving = true;
                         eventIsFinished = true;
+                        m_world.m_entities.RemoveAll(s => s is Volcano);
                     }
                 }
                 if (eventIsFinished && !bossIsFinished)
@@ -91,8 +92,9 @@ namespace Gradius
                     bossTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (bossTimer <= 0)
                     {
-                        isMoving = true;
+                        //isMoving = true;
                         bossIsFinished = true;
+                        m_world.m_entities.RemoveAll(s => s is Boss);
                     }
                 }
             }

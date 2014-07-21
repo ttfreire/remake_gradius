@@ -136,12 +136,12 @@ namespace Gradius
                         enemyMaxVel = 0;
                         enemyAccel = 0;
                         enemyFriction = 0;
-                        enemyRateoffire = 0.5f;
-                        enemyContinuousrateoffire = 0.5f;
+                        enemyRateoffire = 0.8f;
+                        enemyContinuousrateoffire = 0.8f;
 
-                        for (int i = 1; i <= enemyQuantity; i++)
+                        for (int i = 0; i < enemyQuantity; i++)
                         {
-                            Volcano newVolcano = new Volcano(m_worldMap.m_world, enemyPosition, Vector2.Zero, enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
+                            Volcano newVolcano = new Volcano(m_worldMap.m_world, enemyPosition + new Vector2(300 * i, 0), Vector2.Zero, enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
                                                     m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
                                                     enemyAnimator);

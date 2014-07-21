@@ -32,8 +32,10 @@ namespace Gradius
             
             //update position:
             {
-                m_pos.X += (float) (m_vel.X * Math.Cos(45) * dt);
-                m_pos.Y += (float) (m_vel.Y * Math.Sin(45) * dt + 0.5 * 100 * dt * dt);
+                m_vel.X += (float) (m_vel.X * Math.Cos(30));
+                m_vel.Y += (float) (m_vel.Y * Math.Sin(0)) * 100;
+                m_pos.X += m_vel.X * dt;
+                m_pos.Y += (float) (m_vel.Y * dt + 0.5 * dt * dt);
 
                 Character enemy = null;
                 bool isColliding = false;

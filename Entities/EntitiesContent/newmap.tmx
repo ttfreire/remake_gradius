@@ -172,17 +172,7 @@
     <property name="dropsPowerUp" value="False"/>
     <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
-    <property name="quantity" value="1"/>
-    <property name="type" value="volcano"/>
-   </properties>
-  </object>
-  <object name="volcano2" x="7514" y="277" width="42" height="39">
-   <properties>
-    <property name="active" value="True"/>
-    <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="False"/>
-    <property name="isAnimatedByState" value="False"/>
-    <property name="quantity" value="1"/>
+    <property name="quantity" value="2"/>
     <property name="type" value="volcano"/>
    </properties>
   </object>

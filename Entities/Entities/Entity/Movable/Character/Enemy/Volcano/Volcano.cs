@@ -19,7 +19,7 @@ namespace Gradius
       public EnemyState currentState = EnemyState.NONE;
       public AnimationController m_animator;
       public string currAnimation;
-      float shootCooldown;
+      float shootCooldown, shootCooldown2, shootCooldown3;
 
       public Volcano(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
                     MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
@@ -27,12 +27,16 @@ namespace Gradius
       {
           worldmap = map;
           shootCooldown = rateoffire;
+          shootCooldown2 = rateoffire;
+          shootCooldown3 = rateoffire;
       }
 
     public override void Update(GameTime gameTime) {
        
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         shootCooldown -= dt;
+        shootCooldown2 -= dt;
+        shootCooldown3 -= dt;
         
         switch (currentState)
         {
@@ -47,7 +51,22 @@ namespace Gradius
                     if (shootCooldown <= 0)
                     {
                         shootCooldown = m_rateOfFire;
-                        Shoot(new Vector2(-150, -150), m_world.m_worldMap.m_screenMiddle, new Vector2(-1, -1), ProjectileType.VOLCANO);
+                        Random r = new Random();
+                        int xVel = r.Next(0, 101);
+                    }
+                    if (shootCooldown2 <= 0.3f)
+                    {
+                        shootCooldown2 = m_rateOfFire;
+                        Random r = new Random();
+                        int xVel = r.Next(-101, 0);
+                        Shoot(new Vector2(xVel, -500), new Vector2(m_pos.X - m_world.m_worldMap.screenWidth + 120, m_pos.Y), new Vector2(-1, -1), ProjectileType.VOLCANO);
+                    }
+                    if (shootCooldown3 <= 0.5f)
+                    {
+                        shootCooldown3 = m_rateOfFire;
+                        Random r = new Random();
+                        int xVel = r.Next(-50, 50);
+                        Shoot(new Vector2(xVel, -500), new Vector2(m_pos.X - m_world.m_worldMap.screenWidth + 120, m_pos.Y), new Vector2(-1, -1), ProjectileType.VOLCANO);
                     }
                 }
                 break;
