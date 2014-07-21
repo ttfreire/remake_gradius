@@ -118,7 +118,7 @@ namespace Gradius
 
                         for (int i = 1; i <= enemyQuantity; i++)
                         {
-                            Boss newBoss = new Boss(m_worldMap.m_world, new Vector2(m_worldMap.screenWidth - enemyAnimator.m_spriteSheet.Width/2, m_worldMap.m_screenMiddle.Y), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                            Boss newBoss = new Boss(m_worldMap.m_world, new Vector2(m_worldMap.screenWidth - enemyAnimator.m_spriteSheet.Width / 2, m_worldMap.m_screenMiddle.Y), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
                                                     m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
@@ -126,6 +126,28 @@ namespace Gradius
                             m_worldMap.m_world.m_entities.Add(newBoss);
                             if (enemyHasSquad)
                                 newBoss.addToSquad();
+                        }
+                    }
+                    break;
+
+                case "volcano":
+                    {
+                        enemyAnimator = null;
+                        enemyMaxVel = 0;
+                        enemyAccel = 0;
+                        enemyFriction = 0;
+                        enemyRateoffire = 0.5f;
+                        enemyContinuousrateoffire = 0.5f;
+
+                        for (int i = 1; i <= enemyQuantity; i++)
+                        {
+                            Volcano newVolcano = new Volcano(m_worldMap.m_world, enemyPosition, Vector2.Zero, enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
+                                                    enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
+                                                    enemyAnimator);
+                            m_worldMap.m_world.m_entities.Add(newVolcano);
+                            if (enemyHasSquad)
+                                newVolcano.addToSquad();
                         }
                     }
                     break;

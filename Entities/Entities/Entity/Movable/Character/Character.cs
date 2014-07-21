@@ -144,8 +144,17 @@ namespace Gradius {
 
         public virtual void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir, ProjectileType type)
         {
-            Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, type, this);
-            this.m_world.Add(shot);
+            if (type == ProjectileType.VOLCANO)
+            {
+                VolcanoProjectile shot = new VolcanoProjectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, type, this);
+                this.m_world.Add(shot);
+            }
+            else
+            {
+                Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, type, this);
+                this.m_world.Add(shot);
+            }
+                
         }
 
         public override bool TestCollision(Movable other)

@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius
 {
 
-    public enum ProjectileType { NONE, STANDARD, MISSILE, DOUBLE, LASER, ENEMY }
+    public enum ProjectileType { NONE, STANDARD, MISSILE, DOUBLE, LASER, ENEMY, VOLCANO }
     public class Projectile : Movable
     {
         

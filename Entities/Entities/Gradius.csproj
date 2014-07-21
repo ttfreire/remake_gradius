@@ -79,6 +79,8 @@
     <Compile Include="Animation.cs" />
     <Compile Include="AnimationController.cs" />
     <Compile Include="Entity\Movable\Character\Enemy\Boss\Boss.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Volcano\Volcano.cs" />
+    <Compile Include="Entity\Movable\Projectile\VolcanoProjectile\VolcanoProjectile.cs" />
     <Compile Include="SpawnController.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Entity\Movable\Character\Character.cs" />

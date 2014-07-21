@@ -166,6 +166,26 @@
     <property name="type" value="boss"/>
    </properties>
   </object>
+  <object name="volcano1" x="7219" y="280" width="42" height="39">
+   <properties>
+    <property name="active" value="True"/>
+    <property name="dropsPowerUp" value="False"/>
+    <property name="hasSquad" value="False"/>
+    <property name="isAnimatedByState" value="False"/>
+    <property name="quantity" value="1"/>
+    <property name="type" value="volcano"/>
+   </properties>
+  </object>
+  <object name="volcano2" x="7514" y="277" width="42" height="39">
+   <properties>
+    <property name="active" value="True"/>
+    <property name="dropsPowerUp" value="False"/>
+    <property name="hasSquad" value="False"/>
+    <property name="isAnimatedByState" value="False"/>
+    <property name="quantity" value="1"/>
+    <property name="type" value="volcano"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="event" width="14" height="1">
   <object name="volcano" x="7632" y="195" width="44" height="41">
