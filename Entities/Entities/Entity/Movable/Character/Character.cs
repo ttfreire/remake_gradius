@@ -162,6 +162,7 @@ namespace Gradius {
             if (base.TestCollision(other) && other is Enemy)
             {
                 this.Die();
+
                 return true;
             }
             return false;

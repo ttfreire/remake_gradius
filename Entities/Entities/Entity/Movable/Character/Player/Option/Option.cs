@@ -64,7 +64,7 @@ namespace Gradius
 
         public override void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir, ProjectileType type)
         {
-            if (m_player.activePowerUps.Contains(PowerUpState.MISSILE))
+            if (m_player.activePowerUps.Contains(PowerUpType.MISSILE))
             {
                 shotVel = new Vector2(250, 250);
                 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
@@ -72,7 +72,7 @@ namespace Gradius
                 Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, ProjectileType.MISSILE, this);
                 this.m_world.Add(shot);
             }
-            if (m_player.activePowerUps.Contains(PowerUpState.DOUBLE))
+            if (m_player.activePowerUps.Contains(PowerUpType.DOUBLE))
             {
                 shotVel = new Vector2(250, -250);
                 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
@@ -80,7 +80,7 @@ namespace Gradius
                 Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, ProjectileType.DOUBLE, this);
                 this.m_world.Add(shot);
             }
-            if (m_player.activePowerUps.Contains(PowerUpState.LASER))
+            if (m_player.activePowerUps.Contains(PowerUpType.LASER))
             {
                 shotVel = new Vector2(800, 0);
                 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);

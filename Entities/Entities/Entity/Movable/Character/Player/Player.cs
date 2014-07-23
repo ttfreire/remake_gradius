@@ -25,7 +25,7 @@ namespace Gradius {
     int m_option_count;
     AnimationController m_animator;
 
-    public List<PowerUpState> activePowerUps;
+    public List<PowerUpType> activePowerUps;
 
     public Player(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire,
                     Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator) :
@@ -34,7 +34,7 @@ namespace Gradius {
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
         m_depth -= 0.1f;
-        activePowerUps = new List<PowerUpState>();
+        activePowerUps = new List<PowerUpType>();
         m_trail = new List<Vector2>();
         for(int i = 0; i < TRAIL_SIZE; i++)
             m_trail.Add(this.m_pos);
@@ -143,43 +143,43 @@ namespace Gradius {
         {
             case 1:
             {
-                if(!activePowerUps.Contains(PowerUpState.SPEEDUP))
-                    activePowerUps.Add(PowerUpState.SPEEDUP);
+                if(!activePowerUps.Contains(PowerUpType.SPEEDUP))
+                    activePowerUps.Add(PowerUpType.SPEEDUP);
                 m_world.highlightedPowerUp = 0;
                 m_maxVel += SPEEDUP_INCREASE;
             }
                 break;
             case 2:
             {
-                if (!activePowerUps.Contains(PowerUpState.MISSILE))
+                if (!activePowerUps.Contains(PowerUpType.MISSILE))
                 {
-                    activePowerUps.Add(PowerUpState.MISSILE);
+                    activePowerUps.Add(PowerUpType.MISSILE);
                     m_world.highlightedPowerUp = 0;
                 }
             }
                 break;
             case 3:
             {
-                if (!activePowerUps.Contains(PowerUpState.DOUBLE))
+                if (!activePowerUps.Contains(PowerUpType.DOUBLE))
                 {
-                    activePowerUps.Add(PowerUpState.DOUBLE);
+                    activePowerUps.Add(PowerUpType.DOUBLE);
                     m_world.highlightedPowerUp = 0;
                 }
                     
-                if (activePowerUps.Contains(PowerUpState.LASER))
-                    activePowerUps.Remove(PowerUpState.LASER);
+                if (activePowerUps.Contains(PowerUpType.LASER))
+                    activePowerUps.Remove(PowerUpType.LASER);
             }
                 break;
             case 4:
             {
-                if (!activePowerUps.Contains(PowerUpState.LASER))
+                if (!activePowerUps.Contains(PowerUpType.LASER))
                 {
-                    activePowerUps.Add(PowerUpState.LASER);
+                    activePowerUps.Add(PowerUpType.LASER);
                     m_world.highlightedPowerUp = 0;
                 }
 
-                if (activePowerUps.Contains(PowerUpState.DOUBLE))
-                    activePowerUps.Remove(PowerUpState.DOUBLE);
+                if (activePowerUps.Contains(PowerUpType.DOUBLE))
+                    activePowerUps.Remove(PowerUpType.DOUBLE);
             }
                 break;
             case 5:
@@ -187,7 +187,7 @@ namespace Gradius {
                 List<Entity> optionlist = m_world.m_entities.FindAll(s => s is Option);
                 if (optionlist.Count < 2)
                 {
-                    activePowerUps.Add(PowerUpState.OPTION);
+                    activePowerUps.Add(PowerUpType.OPTION);
                     m_world.highlightedPowerUp = 0;
                     int option_trail = 25 + 25 * optionlist.Count-1;
                     Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this, option_trail);
@@ -206,7 +206,7 @@ namespace Gradius {
 
     public override void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir, ProjectileType type)
     {
-        if (activePowerUps.Contains(PowerUpState.LASER))
+        if (activePowerUps.Contains(PowerUpType.LASER))
         {
             shotVel = new Vector2(800, 0);
             shotDir = new Vector2(1, 0);
@@ -217,14 +217,14 @@ namespace Gradius {
         {
             base.Shoot(shotVel, shotPos, shotDir, ProjectileType.STANDARD);
         }
-        if (activePowerUps.Contains(PowerUpState.MISSILE))
+        if (activePowerUps.Contains(PowerUpType.MISSILE))
         {
             shotVel = new Vector2(250, 250);
             shotDir = new Vector2(1, 1);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, ProjectileType.MISSILE, this);
             this.m_world.Add(shot);
         }
-        if (activePowerUps.Contains(PowerUpState.DOUBLE))
+        if (activePowerUps.Contains(PowerUpType.DOUBLE))
         {
             shotVel = new Vector2(250, -250);
             shotDir = new Vector2(1, -1);
