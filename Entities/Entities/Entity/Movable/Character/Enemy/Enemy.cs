@@ -46,9 +46,6 @@ namespace Gradius {
   
         if (m_dropsPowerUp)
             dropPowerUp();
-        currAnimation = "exploded";
-
-        m_world.Remove(this);
     }
 
       public void dropPowerUp()
