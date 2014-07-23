@@ -20,6 +20,7 @@ namespace Gradius {
     public MovableType m_type;
 
     public int currentAnimationState;
+    public bool isdead = false;
     public Movable(Game1 world):base(world) { }
     public Movable(Game1 world, Vector2 pos, Vector2 size, MovableType type)
         : base(world)
@@ -42,6 +43,8 @@ namespace Gradius {
 
       if (this.m_type == other.m_type)
           return false;
+      if (other.isdead)
+          return false;
       if ((myMax.X < otherMin.X) || (myMax.Y < otherMin.Y) ||
           (myMin.X > otherMax.X) || (myMin.Y > otherMax.Y)) {
 
@@ -57,7 +60,6 @@ namespace Gradius {
 
       public virtual void Die()
       {
-          m_world.Remove(this);
       }
   }
 }

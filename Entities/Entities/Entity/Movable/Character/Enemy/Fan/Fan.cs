@@ -29,7 +29,7 @@ namespace Gradius
           int[] fanAnimationFramesMoving = { 0, 1, 2, 3 };
           Animation fanAnimationMoving = new Animation(PlayType.Loop, fanAnimationFramesMoving, 11.0f);
           int[] fanAnimationFramesExploded = { 80, 81, 82, 83 };
-          Animation fanAnimationExploded = new Animation(PlayType.Loop, fanAnimationFramesExploded, 11.0f);
+          Animation fanAnimationExploded = new Animation(PlayType.Once, fanAnimationFramesExploded, 5.0f);
 
           Dictionary<string, Animation> fanAnimations = new Dictionary<string, Animation>() { { "moving", fanAnimationMoving },
                                                                                         { "exploded", fanAnimationExploded} };
@@ -119,10 +119,9 @@ namespace Gradius
     {
         base.Die();
         m_currentState = EnemyState.EXPLODED;
-
-        m_timeToDie = 2.0f;
-
-        
+        isdead = true;
+        m_timeToDie = 0.5f;
     }
+
     }
 }

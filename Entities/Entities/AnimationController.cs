@@ -19,7 +19,6 @@ namespace Gradius
         public Dictionary<string, Animation> m_animations;
         public string entityCurrentAnimation;
         int m_spriteSheetColumns, m_spriteSheetLines;
-        float m_framesPerSecond = 3.0f;
         float m_currentFrame;
         public Movable m_animatedSprite;
 

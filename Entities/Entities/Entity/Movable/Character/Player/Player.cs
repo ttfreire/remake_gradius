@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius {
 
   public class Player : Character {
-    public enum PlayerState { NONE, UP, FORWARD, DOWN }
-    public PlayerState currentState = PlayerState.FORWARD;
+    public enum PlayerState { NONE, MOVING, EXPLODED }
+    public PlayerState m_currentState = PlayerState.MOVING;
     static float SPEEDUP_INCREASE = 50.0f;
     public static int TRAIL_SIZE = 100;
     KeyboardState previousKey = Keyboard.GetState();
@@ -24,6 +24,7 @@ namespace Gradius {
     public int m_trail_pos = 0;
     int m_option_count;
     AnimationController m_animator;
+    float m_timeToDie;
 
     public List<PowerUpType> activePowerUps;
 
@@ -63,63 +64,80 @@ namespace Gradius {
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
 
-      if (currentKey.IsKeyUp(Keys.Z))
-          previousKey = currentKey;
-
-      if (currentKey.IsKeyDown(Keys.Right))
+      switch (m_currentState)
       {
-          m_dir.X += 1.0f;
-          m_trail[m_trail_pos] = this.m_pos;
-          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
-      }
+          case PlayerState.MOVING:
+              {
+                  if (currentKey.IsKeyUp(Keys.Z))
+                      previousKey = currentKey;
 
-      if (currentKey.IsKeyDown(Keys.Left))
-      {
-          m_dir.X += -1.0f;
-          m_trail[m_trail_pos] = this.m_pos;
-          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
-      }
+                  if (currentKey.IsKeyDown(Keys.Right))
+                  {
+                      m_dir.X += 1.0f;
+                      m_trail[m_trail_pos] = this.m_pos;
+                      m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
+                  }
 
-      if (currentKey.IsKeyDown(Keys.Up))
-      {
-          m_dir.Y += -1.0f;
-          m_trail[m_trail_pos] = this.m_pos;
-          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
-          currentState = PlayerState.UP;
-          currAnimation = "up";
-      }
+                  if (currentKey.IsKeyDown(Keys.Left))
+                  {
+                      m_dir.X += -1.0f;
+                      m_trail[m_trail_pos] = this.m_pos;
+                      m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
+                  }
 
-      if (currentKey.IsKeyDown(Keys.Down))
-      {
-          m_dir.Y += 1.0f;
-          m_trail[m_trail_pos] = this.m_pos;
-          m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
-          currentState = PlayerState.DOWN;
-          currAnimation = "down";
-      }
+                  if (currentKey.IsKeyDown(Keys.Up))
+                  {
+                      m_dir.Y += -1.0f;
+                      m_trail[m_trail_pos] = this.m_pos;
+                      m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
+                      currAnimation = "up";
+                  }
 
-      if (currentKey.IsKeyUp(Keys.Down) && currentKey.IsKeyUp(Keys.Up))
-      {
-          currentState = PlayerState.FORWARD;
-          currAnimation = "forward";
-      }
+                  if (currentKey.IsKeyDown(Keys.Down))
+                  {
+                      m_dir.Y += 1.0f;
+                      m_trail[m_trail_pos] = this.m_pos;
+                      m_trail_pos = (m_trail_pos + 1) % TRAIL_SIZE;
+                      currAnimation = "down";
+                  }
 
-      if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z) && shootCooldown <= 0)
-      {
-          shootCooldown = m_rateOfFire;
-          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X, this.m_pos.Y), new Vector2(1, 0), ProjectileType.STANDARD);
-      }
+                  if (currentKey.IsKeyUp(Keys.Down) && currentKey.IsKeyUp(Keys.Up))
+                  {
+                      currAnimation = "forward";
+                  }
 
-      if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z) && continuousShootCooldown < 0)
-      {
-          continuousShootCooldown = m_continuousRateOfFire;
-          Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X, this.m_pos.Y), new Vector2(1, 0), ProjectileType.STANDARD);
-      }
+                  if (currentKey.IsKeyDown(Keys.Z) && !previousKey.IsKeyDown(Keys.Z) && shootCooldown <= 0)
+                  {
+                      shootCooldown = m_rateOfFire;
+                      Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X, this.m_pos.Y), new Vector2(1, 0), ProjectileType.STANDARD);
+                  }
 
-      if (currentKey.IsKeyDown(Keys.X))
-      {
-          this.usePowerUp();
+                  if (currentKey.IsKeyDown(Keys.Z) && previousKey.IsKeyDown(Keys.Z) && continuousShootCooldown < 0)
+                  {
+                      continuousShootCooldown = m_continuousRateOfFire;
+                      Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X, this.m_pos.Y), new Vector2(1, 0), ProjectileType.STANDARD);
+                  }
+
+                  if (currentKey.IsKeyDown(Keys.X))
+                  {
+                      this.usePowerUp();
+                  }
+              }
+              break;
+
+          case PlayerState.EXPLODED:
+              {
+                  m_dir = Vector2.Zero;
+                  m_vel = Vector2.Zero;
+                  currAnimation = "exploded";
+
+                  m_timeToDie -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                  if (m_timeToDie <= 0)
+                      m_world.Remove(this);
+              }
+              break;
       }
+      
 
       if (m_pos.X + m_size.X / 2 > 512)
           m_pos.X = 512 - m_size.X / 2;
@@ -190,7 +208,7 @@ namespace Gradius {
                     activePowerUps.Add(PowerUpType.OPTION);
                     m_world.highlightedPowerUp = 0;
                     int option_trail = 25 + 25 * optionlist.Count-1;
-                    Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, this.m_sprite, MovableType.Option, this.m_ProjectileSprite, this, option_trail);
+                    Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, m_world.m_spriteEnemies, MovableType.Option, this.m_ProjectileSprite, this, option_trail);
                     m_world.Add(option);
                     m_option_count = m_option_count + 1;
                 }
@@ -247,6 +265,14 @@ namespace Gradius {
         if (m_animator != null)
             spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
             new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        m_currentState = PlayerState.EXPLODED;
+        isdead = true;
+        m_timeToDie = 0.5f;
     }
     }
 }

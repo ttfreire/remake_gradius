@@ -31,6 +31,7 @@ namespace Gradius {
 
         public float m_depth = 0.5f;
         public List<Entity> visibleEntities;
+        
 
         public Character(Game1 world, Vector2 pos, Vector2 size, float maxVel,
             float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite, MovableType type, Texture2D projectileSprite)
@@ -162,7 +163,7 @@ namespace Gradius {
             if (base.TestCollision(other) && other is Enemy)
             {
                 this.Die();
-
+                other.Die();
                 return true;
             }
             return false;

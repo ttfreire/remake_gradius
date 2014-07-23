@@ -21,6 +21,7 @@ namespace Gradius
         float continuousShootCooldown;
         Player m_player;
         int m_option_trail_pos, m_initial_trail_pos;
+        public AnimationController m_animator;
 
         public Option(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, 
                         Texture2D sprite, MovableType type, Texture2D ProjectileSprite, Player player, int initial_trail_pos ) :
@@ -33,11 +34,23 @@ namespace Gradius
             m_initial_trail_pos = initial_trail_pos;
             int trail_pos = Math.Abs(m_player.m_trail_pos - m_initial_trail_pos) % TRAIL_SIZE;
             m_option_trail_pos = trail_pos;
+
+            int[] optionAnimationFrames = { 85, 86 };
+            Animation optionAnimation = new Animation(PlayType.Loop, optionAnimationFrames, 5.0f);
+            int[] optionAnimationFramesExploded = { 87};
+            Animation optionAnimationExploded = new Animation(PlayType.Loop, optionAnimationFramesExploded, 5.0f);
+            Dictionary<string, Animation> optionAnimations = new Dictionary<string, Animation>() { { "forward", optionAnimation }, 
+                                                                                                   { "up", optionAnimation }, 
+                                                                                                   { "down", optionAnimation },
+                                                                                                   { "exploded", optionAnimationExploded }};
+            m_animator = new AnimationController(m_world.m_spriteEnemies, optionAnimations, 5, 18, this);
+            currAnimation = "forward";
         }
 
         public override void Update(GameTime gameTime)
         {
-
+            m_animator.Update(gameTime, currAnimation);
+            
             //fill direction vector using the keyboard:
             float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             shootCooldown -= dt;
@@ -99,6 +112,14 @@ namespace Gradius
             if (other.m_type != MovableType.Player)
                 return base.TestCollision(other);
             else return false;
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+
+            if (m_animator != null)
+                spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
+                new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
         }
     }
 

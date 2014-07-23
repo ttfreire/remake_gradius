@@ -31,7 +31,7 @@ namespace Gradius
 
         public void Update(GameTime gameTime)
         {
-            m_currFrame += (m_fps * (float)gameTime.ElapsedGameTime.TotalMilliseconds);
+            m_currFrame += (m_fps * (float)gameTime.ElapsedGameTime.TotalSeconds);
             m_currFrame = m_currFrame % m_frames.Length;
             
         }
