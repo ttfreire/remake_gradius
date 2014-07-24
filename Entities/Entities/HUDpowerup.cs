@@ -52,9 +52,8 @@ namespace Gradius
 
         public void deplete()
         {
-            if (m_depletionCount > 0)
-                m_depletionCount--;
-            else
+            m_depletionCount--;
+            if (m_depletionCount == 0)
                 setAvailability(false);
         }
 
@@ -67,6 +66,13 @@ namespace Gradius
             int sy = spriteHeight * m_spriteLine;
             Rectangle rect = new Rectangle(sx, sy, spriteWidth, spriteHeight);
             return rect;
+        }
+
+        public bool isDepleted()
+        {
+            if (m_depletionCount == 0)
+                return true;
+            else return false;
         }
     }
 }

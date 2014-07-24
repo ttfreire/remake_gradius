@@ -157,69 +157,67 @@ namespace Gradius {
 
     public void usePowerUp()
     {
-        switch (m_world.highlightedPowerUp)
+        
+        switch (m_world.m_hudController.m_selectedPowerupIndex)
         {
-            case 1:
+            case 0:
             {
                 if(!activePowerUps.Contains(PowerUpType.SPEEDUP))
                     activePowerUps.Add(PowerUpType.SPEEDUP);
-                m_world.highlightedPowerUp = 0;
+                m_world.m_hudController.selectPowerupsHUD();
                 m_maxVel += SPEEDUP_INCREASE;
+            }
+                break;
+            case 1:
+            {
+                if (!activePowerUps.Contains(PowerUpType.MISSILE))
+                    activePowerUps.Add(PowerUpType.MISSILE);
+                m_world.m_hudController.selectPowerupsHUD();
+                
             }
                 break;
             case 2:
             {
-                if (!activePowerUps.Contains(PowerUpType.MISSILE))
-                {
-                    activePowerUps.Add(PowerUpType.MISSILE);
-                    m_world.highlightedPowerUp = 0;
-                }
-            }
-                break;
-            case 3:
-            {
                 if (!activePowerUps.Contains(PowerUpType.DOUBLE))
-                {
                     activePowerUps.Add(PowerUpType.DOUBLE);
-                    m_world.highlightedPowerUp = 0;
-                }
+                m_world.m_hudController.selectPowerupsHUD();
                     
                 if (activePowerUps.Contains(PowerUpType.LASER))
                     activePowerUps.Remove(PowerUpType.LASER);
             }
                 break;
-            case 4:
+            case 3:
             {
                 if (!activePowerUps.Contains(PowerUpType.LASER))
-                {
                     activePowerUps.Add(PowerUpType.LASER);
-                    m_world.highlightedPowerUp = 0;
-                }
+                m_world.m_hudController.selectPowerupsHUD();
 
                 if (activePowerUps.Contains(PowerUpType.DOUBLE))
                     activePowerUps.Remove(PowerUpType.DOUBLE);
             }
                 break;
-            case 5:
+            case 4:
             {
                 List<Entity> optionlist = m_world.m_entities.FindAll(s => s is Option);
-                if (optionlist.Count < 2)
+                if (optionlist.Count < 4)
                 {
                     activePowerUps.Add(PowerUpType.OPTION);
-                    m_world.highlightedPowerUp = 0;
                     int option_trail = 25 + 25 * optionlist.Count-1;
                     Option option = new Option(m_world, this.m_pos - new Vector2(500,0), this.m_size / 2, this.m_maxVel, this.m_accel, this.m_friction, this.m_rateOfFire, this.m_continuousRateOfFire, m_world.m_spriteEnemies, MovableType.Option, this.m_ProjectileSprite, this, option_trail);
                     m_world.Add(option);
                     m_option_count = m_option_count + 1;
                 }
+                m_world.m_hudController.selectPowerupsHUD();
             }
                 break;
-            case 6:
+            case 5:
             {
-                m_world.highlightedPowerUp = 0;
+                m_world.m_hudController.selectPowerupsHUD();
+
             }
                 break;
         }
+        
       }
 
     public override void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir, ProjectileType type)

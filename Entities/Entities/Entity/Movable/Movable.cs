@@ -43,6 +43,8 @@ namespace Gradius {
 
       if (this.m_type == other.m_type)
           return false;
+      if (this.m_type == MovableType.Option)
+          return false;
       if (other.isdead)
           return false;
       if ((myMax.X < otherMin.X) || (myMax.Y < otherMin.Y) ||

@@ -19,6 +19,9 @@ namespace Gradius
       public EnemyState m_currentState = EnemyState.FORWARD;
       public AnimationController m_animator;
       float m_timeToDie;
+      float m_rotation = 3.2f;
+      SpriteEffects m_spriteEffect = SpriteEffects.None;
+      int timesShot = 0; 
 
       public Ducker(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
           MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
@@ -59,6 +62,16 @@ namespace Gradius
                             m_currentState = EnemyState.SHOOT;
                             m_vel = Vector2.Zero;
                         }
+                    if(m_pos.Y < m_world.m_worldMap.m_screenMiddle.Y)
+                    {
+                        m_rotation = 3.2f;
+                        m_spriteEffect = SpriteEffects.None;
+                    }
+                    else
+                    {
+                        m_rotation = 0.0f;
+                        m_spriteEffect = SpriteEffects.FlipHorizontally;
+                    }
                 }
                 break;
 
@@ -70,7 +83,18 @@ namespace Gradius
                     {
                         Vector2 dir = (player.m_pos - m_pos) + new Vector2(player.m_size.Length(), 0);
                         Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir, ProjectileType.ENEMY);
+                        timesShot++;
                         m_currentState = EnemyState.BACK;
+                    }
+                    if (m_pos.Y < m_world.m_worldMap.m_screenMiddle.Y)
+                    {
+                        m_rotation = 3.2f;
+                        m_spriteEffect = SpriteEffects.FlipHorizontally;
+                    }
+                    else
+                    {
+                        m_rotation = 0.0f;
+                        m_spriteEffect = SpriteEffects.None;
                     }
 
 
@@ -79,10 +103,19 @@ namespace Gradius
 
             case EnemyState.BACK:
             {
-                currAnimation = "waiting";
-                m_dir = -Vector2.UnitX;
-                if (m_pos.X < 100)
-                    m_currentState = EnemyState.FORWARD;
+                if (timesShot < 2)
+                {
+                    currAnimation = "waiting";
+                    m_dir = -Vector2.UnitX;
+                    if (m_pos.X < 100)
+                        m_currentState = EnemyState.FORWARD;
+                }
+                else
+                {
+                    currAnimation = "walking";
+                    m_dir = -Vector2.UnitX;
+                    m_vel = new Vector2(-80, 0);
+                }
             }
             break;
             
@@ -115,8 +148,8 @@ namespace Gradius
       {
 
           if (m_animator != null)
-              spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
-              new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
+              spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, m_rotation,
+              new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, m_spriteEffect, 0);
       }
 
       public override void Die()

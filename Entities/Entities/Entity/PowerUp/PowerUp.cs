@@ -47,8 +47,11 @@ namespace Gradius
                     {
                         if (m_color == PowerUpColor.RED)
                         {
-                            if (m_world.highlightedPowerUp < m_world.HUDPowerUp.Capacity - 1)
+                            if (m_world.m_hudController.m_selectedPowerupIndex < m_world.m_hudController.m_powerupHUD.Count)
+                            {
                                 m_world.highlightedPowerUp += 1;
+                                m_world.m_hudController.nextPowerupHUD();
+                            }
                             
                         }
                         else

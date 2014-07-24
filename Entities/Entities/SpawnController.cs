@@ -147,7 +147,7 @@ namespace Gradius
 
                         for (int i = 1; i <= enemyQuantity; i++)
                         {
-                            Ducker newDucker = new Ducker(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                            Ducker newDucker = new Ducker(m_worldMap.m_world, enemyPosition - new Vector2(m_worldMap.m_view.Width * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
                                                     enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
                                                     enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
                                                     m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,

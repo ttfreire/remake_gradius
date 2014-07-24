@@ -44,7 +44,7 @@ namespace Gradius {
     public int powerUpCounter = 0;
 
     SpawnController enemySpawnController;
-    HUDController m_hudController;
+    public HUDController m_hudController;
     
     
 
@@ -97,11 +97,11 @@ namespace Gradius {
         
 
       //add HUD
-      HUDpowerup speedHUD = new HUDpowerup(5, m_spriteHUDpowerups, PowerUpType.SPEEDUP, 0, 0);
+      HUDpowerup speedHUD = new HUDpowerup(4, m_spriteHUDpowerups, PowerUpType.SPEEDUP, 0, 0);
       HUDpowerup missileHUD = new HUDpowerup(1, m_spriteHUDpowerups, PowerUpType.MISSILE, 0, 1);
       HUDpowerup doubleHUD = new HUDpowerup(1, m_spriteHUDpowerups, PowerUpType.DOUBLE, 0, 2);
       HUDpowerup laserHUD = new HUDpowerup(1, m_spriteHUDpowerups, PowerUpType.LASER, 0, 3);
-      HUDpowerup optionHUD = new HUDpowerup(1, m_spriteHUDpowerups, PowerUpType.OPTION, 0, 4);
+      HUDpowerup optionHUD = new HUDpowerup(2, m_spriteHUDpowerups, PowerUpType.OPTION, 0, 4);
       HUDpowerup shieldHUD = new HUDpowerup(1, m_spriteHUDpowerups, PowerUpType.SHIELD, 0, 5);
       List<HUDpowerup> listHUDPowerups = new List<HUDpowerup> { speedHUD, missileHUD, doubleHUD, laserHUD, optionHUD, shieldHUD };
 

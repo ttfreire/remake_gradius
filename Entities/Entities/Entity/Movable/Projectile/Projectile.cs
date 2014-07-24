@@ -68,7 +68,8 @@ namespace Gradius
                 return false;
             if (other.m_type == m_shooter.m_type)
                 return false;
-
+            if (other.m_type == MovableType.Option)
+                return false;
             return base.TestCollision(other);
         }
 
