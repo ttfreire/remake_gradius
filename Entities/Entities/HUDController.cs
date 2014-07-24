@@ -82,25 +82,28 @@ namespace Gradius
 
         public void selectPowerupsHUD()
         {
-            
-            m_powerupHUD[m_selectedPowerupIndex].setSelection(false);
-            
-            if (m_powerupHUD[m_selectedPowerupIndex].m_type == PowerUpType.DOUBLE)
+
+            if (m_powerupHUD[m_selectedPowerupIndex].m_isAvailable)
             {
-                int laserPowerUpIndex = m_powerupHUD.FindIndex(s => s.m_type == PowerUpType.LASER);
-                m_powerupHUD[laserPowerUpIndex].setAvailability(true);
-                m_powerupHUD[laserPowerUpIndex].setSelection(false);
-                m_powerupHUD[laserPowerUpIndex].m_depletionCount = m_powerupHUD[laserPowerUpIndex].m_totalBeforeDepletion;
+                m_powerupHUD[m_selectedPowerupIndex].setSelection(false);
+
+                if (m_powerupHUD[m_selectedPowerupIndex].m_type == PowerUpType.DOUBLE)
+                {
+                    int laserPowerUpIndex = m_powerupHUD.FindIndex(s => s.m_type == PowerUpType.LASER);
+                    m_powerupHUD[laserPowerUpIndex].setAvailability(true);
+                    m_powerupHUD[laserPowerUpIndex].setSelection(false);
+                    m_powerupHUD[laserPowerUpIndex].m_depletionCount = m_powerupHUD[laserPowerUpIndex].m_totalBeforeDepletion;
+                }
+                if (m_powerupHUD[m_selectedPowerupIndex].m_type == PowerUpType.LASER)
+                {
+                    int doublePowerUpIndex = m_powerupHUD.FindIndex(s => s.m_type == PowerUpType.DOUBLE);
+                    m_powerupHUD[doublePowerUpIndex].setAvailability(true);
+                    m_powerupHUD[doublePowerUpIndex].setSelection(false);
+                    m_powerupHUD[doublePowerUpIndex].m_depletionCount = m_powerupHUD[doublePowerUpIndex].m_totalBeforeDepletion;
+                }
+                m_powerupHUD[m_selectedPowerupIndex].deplete();
+                resetPowerupHUD();
             }
-            if (m_powerupHUD[m_selectedPowerupIndex].m_type == PowerUpType.LASER)
-            {
-                int doublePowerUpIndex = m_powerupHUD.FindIndex(s => s.m_type == PowerUpType.DOUBLE);
-                m_powerupHUD[doublePowerUpIndex].setAvailability(true);
-                m_powerupHUD[doublePowerUpIndex].setSelection(false);
-                m_powerupHUD[doublePowerUpIndex].m_depletionCount = m_powerupHUD[doublePowerUpIndex].m_totalBeforeDepletion;
-            }
-            m_powerupHUD[m_selectedPowerupIndex].deplete();
-            resetPowerupHUD();
         }
 
         public void nextPowerupHUD()

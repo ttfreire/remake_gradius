@@ -30,6 +30,7 @@ namespace Gradius
             m_spriteLine = spriteLine;
             m_spriteColumn = spriteColumn;
             m_defaultSpriteColumn = spriteColumn;
+            m_isAvailable = true;
         }
 
         public void setAvailability(bool b_value)
