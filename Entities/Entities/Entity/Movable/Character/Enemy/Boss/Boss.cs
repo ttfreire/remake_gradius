@@ -54,14 +54,31 @@ namespace Gradius
                 break;
             case EnemyState.ALIVE:
                 {
-                    if (m_pos.Y - m_size.Y / 2 <= 50)
+                    if (m_pos.Y - m_size.Y / 2 <= 80)
                     {
                         m_dir.Y = 1;
+                        if (shootCooldown <= 0)
+                        {
+                            shootCooldown = m_rateOfFire;
+                            Shoot(new Vector2(-500, 0), m_pos - new Vector2(0, m_size.Y / 2), new Vector2(-1, 0), ProjectileType.LASER);
+                            Shoot(new Vector2(-500, 0), m_pos - new Vector2(0, m_size.Y / 6), new Vector2(-1, 0), ProjectileType.LASER);
+                            Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 6), new Vector2(-1, 0), ProjectileType.LASER);
+                            Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 2), new Vector2(-1, 0), ProjectileType.LASER);
+                        }
                     }
-                    if (m_pos.Y + m_size.Y / 2 >= m_world.m_worldMap.m_view.Height - 100)
+                    if (m_pos.Y + m_size.Y / 2 >= m_world.m_worldMap.m_view.Height - 200)
                     {
                         m_dir.Y = -1;
+                        if (shootCooldown <= 0)
+                        {
+                            shootCooldown = m_rateOfFire;
+                            Shoot(new Vector2(-500, 0), m_pos - new Vector2(0, m_size.Y / 2), new Vector2(-1, 0), ProjectileType.LASER);
+                            Shoot(new Vector2(-500, 0), m_pos - new Vector2(0, m_size.Y / 6), new Vector2(-1, 0), ProjectileType.LASER);
+                            Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 6), new Vector2(-1, 0), ProjectileType.LASER);
+                            Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 2), new Vector2(-1, 0), ProjectileType.LASER);
+                        }
                     }
+                   /**
                     if (shootCooldown <= 0)
                     {
                         shootCooldown = m_rateOfFire;
@@ -70,6 +87,7 @@ namespace Gradius
                         Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 6), new Vector2(-1, 0), ProjectileType.LASER);
                         Shoot(new Vector2(-500, 0), m_pos + new Vector2(0, m_size.Y / 2), new Vector2(-1, 0), ProjectileType.LASER);
                     }
+                    **/
                 }
                 break;
 

@@ -24,8 +24,9 @@ namespace Gradius {
     public List<Vector2> m_trail;
     public int m_trail_pos = 0;
     int m_option_count;
-    AnimationController m_animator;
+    AnimationController m_animator, m_shieldAnimator;
     float m_timeToDie;
+    int shieldCount = 4;
 
     public List<PowerUpType> activePowerUps;
 
@@ -55,11 +56,20 @@ namespace Gradius {
                                                                                         { "down", playerAnimationDown },
                                                                                         { "exploded", playerAnimationExploded } };
         m_animator = new AnimationController(m_world.m_spriteViper, playerAnimations, 4, 3);
+
+        int[] shieldAnimationFrames = { 12, 13, 14, 15 };
+        Animation shieldAnimation = new Animation(PlayType.Once, shieldAnimationFrames, 3.0f);
+        Dictionary<string, Animation> shieldAnimations = new Dictionary<string, Animation>() {{ "up", shieldAnimation },
+                                                                                              { "forward", shieldAnimation },
+                                                                                            { "down", shieldAnimation },
+                                                                                            { "exploded", shieldAnimation }};
+        m_shieldAnimator = new AnimationController(m_world.m_spriteProjectile, shieldAnimations, 8, 3);
         currAnimation = "forward";
   }
 
     public override void Update(GameTime gameTime) {
       m_animator.Update(gameTime, currAnimation);
+      m_shieldAnimator.Update(gameTime, currAnimation);
       float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
       shootCooldown -= dt;
       continuousShootCooldown -= dt;
@@ -218,8 +228,12 @@ namespace Gradius {
                 break;
             case 5:
             {
+                if (!activePowerUps.Contains(PowerUpType.SHIELD))
+                {
+                    activePowerUps.Add(PowerUpType.SHIELD);
+                    shieldCount = 4;
+                }
                 m_world.m_hudController.selectPowerupsHUD();
-
             }
                 break;
         }
@@ -270,14 +284,30 @@ namespace Gradius {
         if (m_animator != null)
             spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
             new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
+        if (activePowerUps.Contains(PowerUpType.SHIELD))
+        {
+            spriteBatch.Draw(m_world.m_spriteProjectile, m_pos + new Vector2(m_animator.m_currentSpriteRect.Width+30, -m_animator.m_currentSpriteRect.Height) / 2, m_shieldAnimator.m_currentSpriteRect, Color.White, 0.0f,
+            new Vector2(m_shieldAnimator.m_currentSpriteRect.Width, m_shieldAnimator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
+            spriteBatch.Draw(m_world.m_spriteProjectile, m_pos + new Vector2(m_animator.m_currentSpriteRect.Width+30, m_animator.m_currentSpriteRect.Height) / 2, m_shieldAnimator.m_currentSpriteRect, Color.White, 0.0f,
+            new Vector2(m_shieldAnimator.m_currentSpriteRect.Width, m_shieldAnimator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.FlipHorizontally, m_depth);
+        }
     }
 
     public override void Die()
     {
-        base.Die();
-        m_currentState = PlayerState.EXPLODED;
-        isdead = true;
-        m_timeToDie = 0.5f;
+        if (activePowerUps.Contains(PowerUpType.SHIELD))
+        {
+            shieldCount--;
+            if (shieldCount == 0)
+                activePowerUps.Remove(PowerUpType.SHIELD);
+        }
+        else
+        {
+            base.Die();
+            m_currentState = PlayerState.EXPLODED;
+            isdead = true;
+            m_timeToDie = 0.5f;
+        }
     }
     }
 }

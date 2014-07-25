@@ -19,6 +19,7 @@ namespace Gradius
         KeyboardState currentKey = Keyboard.GetState();
         float shootCooldown;
         float continuousShootCooldown;
+        float missileShootCooldown;
         Player m_player;
         int m_option_trail_pos, m_initial_trail_pos;
         public AnimationController m_animator;
@@ -29,6 +30,7 @@ namespace Gradius
         {
             shootCooldown = rateoffire;
             continuousShootCooldown = continuousrateoffire;
+            missileShootCooldown = 1500;
             m_depth -= 0.1f;
             m_player = player;
             m_initial_trail_pos = initial_trail_pos;
@@ -55,6 +57,7 @@ namespace Gradius
             float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             shootCooldown -= dt;
             continuousShootCooldown -= dt;
+            missileShootCooldown -= dt;
             m_dir = Vector2.Zero;
             currentKey = Keyboard.GetState();
 
@@ -77,8 +80,9 @@ namespace Gradius
 
         public override void Shoot(Vector2 shotVel, Vector2 shotPos, Vector2 shotDir, ProjectileType type)
         {
-            if (m_player.activePowerUps.Contains(PowerUpType.MISSILE))
+            if (m_player.activePowerUps.Contains(PowerUpType.MISSILE) && missileShootCooldown <= 0)
             {
+                missileShootCooldown = 1500;
                 shotVel = new Vector2(250, 250);
                 shotPos = new Vector2(this.m_pos.X + this.m_size.X / 2, this.m_pos.Y);
                 shotDir = new Vector2(1, 1);

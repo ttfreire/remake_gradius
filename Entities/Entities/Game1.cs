@@ -13,6 +13,8 @@ using FuncWorks.XNA.XTiled;
 namespace Gradius {
 
   public class Game1 : Microsoft.Xna.Framework.Game {
+    public enum GameStates {PLAYING, PAUSED}
+    public List<Keys> KONAMI_CODE = new List<Keys>() { Keys.Up, Keys.Up, Keys.Down, Keys.Down, Keys.Left, Keys.Right, Keys.Left, Keys.Right, Keys.B, Keys.A };
     public GameTime m_gametime;
     public GraphicsDeviceManager m_graphics;
     SpriteBatch m_spriteBatch;
@@ -46,9 +48,12 @@ namespace Gradius {
 
     SpawnController enemySpawnController;
     public HUDController m_hudController;
-    
-    
 
+    GameStates m_currentGameState;
+    KeyboardState m_currentKeyboardState, m_previousKeyboardState;
+
+    List<Keys> m_cheat;
+    float cheatResetTimer = 10000;
     public Game1() {
 
       m_graphics = new GraphicsDeviceManager(this);
@@ -74,6 +79,7 @@ namespace Gradius {
       HUDPowerUp.Add(PowerUpType.SHIELD);
 
       enemySpawnController = new SpawnController(this);
+      m_currentGameState = GameStates.PLAYING;
     }
 
     protected override void LoadContent() {
@@ -120,47 +126,119 @@ namespace Gradius {
                                 700.0f, // continuous rate of fire
                                 m_spriteViper, MovableType.Player, m_spriteProjectile, null));
       m_player = (Player) m_entities[0];
-      
+      m_cheat = new List<Keys>();
     }
 
     protected override void UnloadContent() {}
 
     protected override void Update(GameTime gameTime) {
+        m_currentKeyboardState = Keyboard.GetState();
 
-      if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-        this.Exit();
-      m_gametime = gameTime;
-      float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        if (m_currentGameState == GameStates.PLAYING)
+        {
+            if (m_currentKeyboardState.IsKeyDown(Keys.Enter) && !m_previousKeyboardState.IsKeyDown(Keys.Enter))
+            {
+                m_currentGameState = GameStates.PAUSED;
+                m_previousKeyboardState = m_currentKeyboardState;
+            }
+            if (m_currentKeyboardState.IsKeyDown(Keys.Escape))
+                this.Exit();
+            if (m_currentKeyboardState.IsKeyUp(Keys.Enter))
+            {
+                m_previousKeyboardState = m_currentKeyboardState;
+            }
+            m_gametime = gameTime;
+            float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-      m_hudController.Update(gameTime);
-        
-        
-        enemySpawnController.Update(gameTime);
-      
+            m_hudController.Update(gameTime);
 
-      // add new entities...
-      if (to_add.Count > 0)
-      {
-          foreach (Entity e in to_add)
-              m_entities.Add(e);
-          to_add.Clear();
-      }
 
-      m_worldMap.Update(gameTime);
+            enemySpawnController.Update(gameTime);
 
-      // remove entities...
-      if (to_remove.Count > 0)
-      {
-          foreach (Entity e in to_remove)
-              m_entities.Remove(e);
-          to_remove.Clear();
-      }
 
-      //update all entities...
-        foreach (Entity e in m_entities)
-          e.Update(gameTime);
+            // add new entities...
+            if (to_add.Count > 0)
+            {
+                foreach (Entity e in to_add)
+                    m_entities.Add(e);
+                to_add.Clear();
+            }
 
-      base.Update(gameTime);
+            m_worldMap.Update(gameTime);
+
+            // remove entities...
+            if (to_remove.Count > 0)
+            {
+                foreach (Entity e in to_remove)
+                    m_entities.Remove(e);
+                to_remove.Clear();
+            }
+
+            //update all entities...
+            foreach (Entity e in m_entities)
+                e.Update(gameTime);
+
+            base.Update(gameTime);
+        }
+
+        if (m_currentGameState == GameStates.PAUSED)
+        {
+            cheatResetTimer -= gameTime.ElapsedGameTime.Milliseconds;
+            if (cheatResetTimer <= 0)
+            {
+                cheatResetTimer = 10000;
+                m_cheat.Clear();
+            }
+
+            if (m_currentKeyboardState.IsKeyDown(Keys.Enter) && !m_previousKeyboardState.IsKeyDown(Keys.Enter))
+            {
+                m_currentGameState = GameStates.PLAYING;
+            }
+            if (m_currentKeyboardState.IsKeyDown(Keys.Up) && m_previousKeyboardState.IsKeyUp(Keys.Up))
+            {
+                m_cheat.Add(Keys.Up);
+            }
+            if (m_currentKeyboardState.IsKeyDown(Keys.Down) && m_previousKeyboardState.IsKeyUp(Keys.Down))
+            {
+                m_cheat.Add(Keys.Down);
+            }
+            if (m_currentKeyboardState.IsKeyDown(Keys.Left) && m_previousKeyboardState.IsKeyUp(Keys.Left))
+            {
+                m_cheat.Add(Keys.Left);
+            }
+            if (m_currentKeyboardState.IsKeyDown(Keys.Right) && m_previousKeyboardState.IsKeyUp(Keys.Right))
+            {
+                m_cheat.Add(Keys.Right);
+            }
+            if (m_currentKeyboardState.IsKeyDown(Keys.A) && m_previousKeyboardState.IsKeyUp(Keys.A))
+            {
+                m_cheat.Add(Keys.A);
+            }
+            if (m_currentKeyboardState.IsKeyDown(Keys.B) && m_previousKeyboardState.IsKeyUp(Keys.B))
+            {
+                m_cheat.Add(Keys.B);
+            }
+            if (m_cheat.Count == 10)
+                if (m_cheat[0] == KONAMI_CODE[0] &&
+                    m_cheat[1] == KONAMI_CODE[1] &&
+                    m_cheat[2] == KONAMI_CODE[2] &&
+                    m_cheat[3] == KONAMI_CODE[3] &&
+                    m_cheat[4] == KONAMI_CODE[4] &&
+                    m_cheat[5] == KONAMI_CODE[5] &&
+                    m_cheat[6] == KONAMI_CODE[6] &&
+                    m_cheat[7] == KONAMI_CODE[7] &&
+                    m_cheat[8] == KONAMI_CODE[8] &&
+                    m_cheat[9] == KONAMI_CODE[9])
+                {
+                    Console.WriteLine("I LOVE NORIKO");
+                    Player player = (Player)m_entities.Find(s => s is Player);
+                    player.activePowerUps = new List<PowerUpType>() { PowerUpType.SPEEDUP, PowerUpType.LASER, PowerUpType.MISSILE, PowerUpType.OPTION, PowerUpType.SHIELD };
+                    int option_trail = 25;
+                    Option option = new Option(this, player.m_pos - new Vector2(500, 0), player.m_size / 2, player.m_maxVel, player.m_accel, player.m_friction, player.m_rateOfFire, player.m_continuousRateOfFire, m_spriteEnemies, MovableType.Option, player.m_ProjectileSprite, player, option_trail);
+                    Add(option);
+                }
+        }
+        m_previousKeyboardState = m_currentKeyboardState;
     }
 
     protected override void Draw(GameTime gameTime) {
