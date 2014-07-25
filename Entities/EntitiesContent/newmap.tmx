@@ -114,7 +114,7 @@
    <polygon points="0,-1 -48,73 53,72 0,146 -48,73 53,72"/>
   </object>
  </objectgroup>
- <objectgroup name="enemy_spawns" width="14" height="1">
+ <objectgroup name="enemy_spawns" width="14" height="1" visible="0">
   <object name="fan1" x="532" y="92" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
@@ -1005,7 +1005,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="event" width="14" height="1" visible="0">
+ <objectgroup name="event" width="14" height="1">
   <object name="volcano" x="7632" y="195" width="44" height="41">
    <properties>
     <property name="active" value="True"/>
@@ -1015,7 +1015,7 @@
   <object name="bossEvent" x="8214" y="197" width="44" height="41">
    <properties>
     <property name="active" value="true"/>
-    <property name="timer" value="5"/>
+    <property name="timer" value="25"/>
    </properties>
   </object>
  </objectgroup>

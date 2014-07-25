@@ -45,10 +45,11 @@ namespace Gradius
                 {
                     if (e != this && e is Character)
                     {
-                        if (this.TestCollision((Character)e))
+			Character character = (Character)e;
+                        if (this.TestCollision(character) && character.m_type != MovableType.Option)
                         {
                             isColliding = true;
-                            enemy = (Character)e;
+                            enemy = character;
                             break;
                         }
                         if (e is Projectile)

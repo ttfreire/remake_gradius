@@ -20,7 +20,7 @@ namespace Gradius
       public AnimationController m_animator;
       public string currAnimation;
       float shootCooldown;
-      int shieldCount = 50;
+      int shieldCount = 30;
       float m_timeToDie;
 
       public Boss(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
