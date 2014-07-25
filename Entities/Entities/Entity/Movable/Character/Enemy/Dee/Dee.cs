@@ -15,13 +15,14 @@ namespace Gradius
     class Dee : Enemy
     {
       bool m_dropsPowerUp; 
-      public enum EnemyState {NONE, IDLE, EXPLODED }
+      public enum EnemyState {NONE, IDLE, SHOOT,  EXPLODED }
       public EnemyState m_currentState = EnemyState.IDLE;
       public AnimationController m_animator;
       float m_timeToDie;
       float m_rotation = 3.2f;
       SpriteEffects m_spriteEffect = SpriteEffects.None;
-      int timesShot = 0; 
+      int timesShot = 0;
+      float waitToShoot = 5000;
 
       public Dee(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
           MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
@@ -30,11 +31,14 @@ namespace Gradius
           worldmap = map;
           m_dropsPowerUp = dropsPowerUp;
 
-          int[] deeAnimationFrames = { 40, 41, 42 };
+          int[] deeAnimationFrames = { 40 };
+          int[] deeAnimationFramesShoot = { 41 };
           Animation deeAnimation = new Animation(PlayType.Loop, deeAnimationFrames, 3.0f);
+          Animation deeAnimationShoot = new Animation(PlayType.Loop, deeAnimationFramesShoot, 3.0f);
           int[] deeAnimationFramesExploded = { 80, 81, 82, 83 };
           Animation deeAnimationExploded = new Animation(PlayType.Loop, deeAnimationFramesExploded, 3.0f);
           Dictionary<string, Animation> deeAnimations = new Dictionary<string, Animation>() { { "idle", deeAnimation }, 
+                                                                                              { "shooting", deeAnimationShoot }, 
                                                                                               { "exploded", deeAnimationExploded}};
           m_animator = new AnimationController(m_world.m_spriteEnemies, deeAnimations, 5, 18);
           currAnimation = "idle";
@@ -45,7 +49,7 @@ namespace Gradius
         Player player = (Player) m_world.m_entities.Find(s => s is Player);
         m_animator.Update(gameTime, currAnimation);
         currentAnimationState = (int)m_currentState;
-
+        waitToShoot -= gameTime.ElapsedGameTime.Milliseconds;
         if (m_pos.Y < m_world.m_worldMap.m_screenMiddle.Y)
         {
             m_rotation = 3.14f;
@@ -62,12 +66,26 @@ namespace Gradius
                 {
                     currAnimation = "idle";
                     m_dir = -Vector2.UnitX;
-
-                   
-                    
+                    if (waitToShoot <= 0)
+                    {
+                        waitToShoot = 5000;
+                        m_currentState = EnemyState.SHOOT;
+                    }
                 }
                 break;
 
+            case EnemyState.SHOOT:
+                {
+                    currAnimation = "shooting";
+                    m_dir = Vector2.Zero;
+                    if (player != null)
+                    {
+                        Vector2 dir = (player.m_pos - m_pos) + new Vector2(player.m_size.Length(), 0);
+                        Shoot(dir, new Vector2(this.m_pos.X, this.m_pos.Y), dir, ProjectileType.ENEMY);
+                        m_currentState = EnemyState.IDLE;
+                    }
+                }
+                break;
             case EnemyState.EXPLODED:
             {
                 m_dir = Vector2.Zero;
