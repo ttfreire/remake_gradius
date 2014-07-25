@@ -18,25 +18,39 @@ namespace Gradius
         public PowerUpColor m_color;
         public Vector2 m_pos;
         public Texture2D m_sprite;
+        public string currAnimation;
+        AnimationController m_animator;
+
         public PowerUp(Game1 world, Vector2 powerupPos) : base(world)
         {
+            int[] powerUpAnimationFrames;
+            Animation powerUpAnimation;
+
             if (world.powerUpCounter == 15)
             {
                 m_color = PowerUpColor.BLUE;
-                m_sprite = world.m_spritePowerUpBlue;
+                m_sprite = world.m_spriteEnemies;
                 world.powerUpCounter = 0;
+                powerUpAnimationFrames = new int[]{ 70, 71, 72 };
+                powerUpAnimation = new Animation(PlayType.Once, powerUpAnimationFrames, 3.0f);
             }
             else
             {
                 m_color = PowerUpColor.RED;
-                m_sprite = world.m_spritePowerUpRed;
+                m_sprite = world.m_spriteEnemies;
+                powerUpAnimationFrames = new int[] { 75, 76, 77 };
+                powerUpAnimation = new Animation(PlayType.Once, powerUpAnimationFrames, 3.0f);
             }
+            Dictionary<string, Animation> powerUpAnimations = new Dictionary<string,Animation>() { { "default", powerUpAnimation } };
+            m_animator = new AnimationController(m_world.m_spriteEnemies, powerUpAnimations, 5, 18);
+            currAnimation = "default";
             m_pos = powerupPos;
         }
 
         public override void Update(GameTime gameTime)
         {
-            m_pos.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 30);
+            m_animator.Update(gameTime, currAnimation);
+            m_pos.X -= Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds / 33);
             Player player;
             foreach (Entity e in m_world.m_entities)
             {
@@ -69,7 +83,9 @@ namespace Gradius
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(m_sprite, m_pos, Color.White);
+            if (m_animator != null)
+                spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
+                new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, 0);
         }
 
         public bool TestCollision(Player other)

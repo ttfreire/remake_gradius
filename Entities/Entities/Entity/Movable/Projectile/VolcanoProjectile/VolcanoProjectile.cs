@@ -38,7 +38,9 @@ namespace Gradius
                 m_pos.Y += (float) (m_vel.Y * dt + 0.5 * dt * dt);
 
                 Character enemy = null;
+                Projectile proj = null;
                 bool isColliding = false;
+                bool isCollidingWithProjectile = false;
                 foreach (Entity e in m_world.m_entities)
                 {
                     if (e != this && e is Character)
@@ -49,12 +51,26 @@ namespace Gradius
                             enemy = (Character)e;
                             break;
                         }
+                        if (e is Projectile)
+                        {
+                            proj = (Projectile)e;
+                            if (this.TestCollision(proj) && proj.m_shooter is Player)
+                            {
+                                isCollidingWithProjectile = true;
+                                break;
+                            }
+                        }
                     }
                 }
 
                 if (isColliding)
                 {
                     enemy.Die();
+                    m_world.Remove(this);
+                }
+                if (isCollidingWithProjectile)
+                {
+                    m_world.Remove(proj);
                     m_world.Remove(this);
                 }
 

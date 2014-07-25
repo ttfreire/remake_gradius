@@ -35,7 +35,7 @@ namespace Gradius
 
           Dictionary<string, Animation> JumperAnimations = new Dictionary<string, Animation>() { { "moving", JumperAnimation },
                                                                                                 { "exploded", JumperAnimationExploded} };
-          m_animator = new AnimationController(m_world.m_spriteEnemies, JumperAnimations, 5, 18, this);
+          m_animator = new AnimationController(m_world.m_spriteEnemies, JumperAnimations, 5, 18);
           currAnimation = "moving";
       }
 

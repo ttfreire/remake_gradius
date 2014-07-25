@@ -41,7 +41,7 @@ namespace Gradius
                                                                                                 { "diagonal up", rugalAnimationDiagonalUp },
                                                                                                 { "diagonal down", rugalAnimationDiagonalDown },
                                                                                                 { "exploded", rugalAnimationExploded} };
-          m_animator = new AnimationController(m_world.m_spriteEnemies, rugalAnimations, 5, 18, this);
+          m_animator = new AnimationController(m_world.m_spriteEnemies, rugalAnimations, 5, 18);
           currAnimation = "forward";
       }
 

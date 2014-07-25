@@ -43,7 +43,7 @@ namespace Gradius
                                                                                                    { "up", optionAnimation }, 
                                                                                                    { "down", optionAnimation },
                                                                                                    { "exploded", optionAnimationExploded }};
-            m_animator = new AnimationController(m_world.m_spriteEnemies, optionAnimations, 5, 18, this);
+            m_animator = new AnimationController(m_world.m_spriteEnemies, optionAnimations, 5, 18);
             currAnimation = "forward";
         }
 

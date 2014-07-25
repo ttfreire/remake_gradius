@@ -20,16 +20,14 @@ namespace Gradius
         public string entityCurrentAnimation;
         int m_spriteSheetColumns, m_spriteSheetLines;
         float m_currentFrame;
-        public Movable m_animatedSprite;
 
-        public AnimationController(Texture2D spritesheet, Dictionary<string, Animation> frames, int columns, int lines, Movable asset)
+        public AnimationController(Texture2D spritesheet, Dictionary<string, Animation> frames, int columns, int lines)
         {
             m_spriteSheet = spritesheet;
             m_animations = frames;
             m_currentFrame = 0.0f;
             m_spriteSheetColumns = columns;
             m_spriteSheetLines = lines;
-            m_animatedSprite = asset;
         }
 
         public void Update(GameTime gameTime, string state)

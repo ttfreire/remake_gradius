@@ -20,6 +20,7 @@ namespace Gradius {
     KeyboardState currentKey = Keyboard.GetState();
     float shootCooldown;
     float continuousShootCooldown;
+    float missileShootCooldown;
     public List<Vector2> m_trail;
     public int m_trail_pos = 0;
     int m_option_count;
@@ -34,6 +35,7 @@ namespace Gradius {
     {
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
+        missileShootCooldown = 1500;
         m_depth -= 0.1f;
         activePowerUps = new List<PowerUpType>();
         m_trail = new List<Vector2>();
@@ -52,7 +54,7 @@ namespace Gradius {
                                                                                         { "forward", playerAnimationForward },
                                                                                         { "down", playerAnimationDown },
                                                                                         { "exploded", playerAnimationExploded } };
-        m_animator = new AnimationController(m_world.m_spriteViper, playerAnimations, 4, 3, this);
+        m_animator = new AnimationController(m_world.m_spriteViper, playerAnimations, 4, 3);
         currAnimation = "forward";
   }
 
@@ -61,6 +63,7 @@ namespace Gradius {
       float dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
       shootCooldown -= dt;
       continuousShootCooldown -= dt;
+      missileShootCooldown -= dt;
       m_dir = Vector2.Zero;
       currentKey = Keyboard.GetState();
 
@@ -117,6 +120,9 @@ namespace Gradius {
                       continuousShootCooldown = m_continuousRateOfFire;
                       Shoot(new Vector2(800, 0), new Vector2(this.m_pos.X, this.m_pos.Y), new Vector2(1, 0), ProjectileType.STANDARD);
                   }
+
+                  if(currentKey.IsKeyUp(Keys.Z))
+                      continuousShootCooldown = m_continuousRateOfFire;
 
                   if (currentKey.IsKeyDown(Keys.X))
                   {
@@ -233,8 +239,9 @@ namespace Gradius {
         {
             base.Shoot(shotVel, shotPos, shotDir, ProjectileType.STANDARD);
         }
-        if (activePowerUps.Contains(PowerUpType.MISSILE))
+        if (activePowerUps.Contains(PowerUpType.MISSILE) && missileShootCooldown <=0)
         {
+            missileShootCooldown = 1500;
             shotVel = new Vector2(250, 250);
             shotDir = new Vector2(1, 1);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, ProjectileType.MISSILE, this);
@@ -242,7 +249,7 @@ namespace Gradius {
         }
         if (activePowerUps.Contains(PowerUpType.DOUBLE))
         {
-            shotVel = new Vector2(250, -250);
+            shotVel = new Vector2(300, -300);
             shotDir = new Vector2(1, -1);
             Projectile shot = new Projectile(m_world, shotPos, m_ProjectileSpriteSize, m_ProjectileSprite, shotVel, shotDir, MovableType.Projectile, ProjectileType.DOUBLE, this);
             this.m_world.Add(shot);

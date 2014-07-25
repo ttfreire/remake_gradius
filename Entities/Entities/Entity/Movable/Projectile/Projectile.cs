@@ -56,7 +56,7 @@ namespace Gradius
                                                                                         { "missile diagonal", playerAnimationMissileDiagonal },
                                                                                         { "enemy" , enemyProjectileAnimation}};
 
-            m_animator = new AnimationController(m_world.m_spriteProjectile, projectileAnimations, 8, 3, this);
+            m_animator = new AnimationController(m_world.m_spriteProjectile, projectileAnimations, 8, 3);
             m_projectileType = projectileType;
         }
 

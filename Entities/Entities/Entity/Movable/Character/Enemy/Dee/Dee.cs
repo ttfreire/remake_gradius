@@ -36,7 +36,7 @@ namespace Gradius
           Animation deeAnimationExploded = new Animation(PlayType.Loop, deeAnimationFramesExploded, 3.0f);
           Dictionary<string, Animation> deeAnimations = new Dictionary<string, Animation>() { { "idle", deeAnimation }, 
                                                                                               { "exploded", deeAnimationExploded}};
-          m_animator = new AnimationController(m_world.m_spriteEnemies, deeAnimations, 5, 18, this);
+          m_animator = new AnimationController(m_world.m_spriteEnemies, deeAnimations, 5, 18);
           currAnimation = "idle";
       }
 

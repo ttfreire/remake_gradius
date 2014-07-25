@@ -63,7 +63,7 @@ namespace Gradius
             {
                 case "Fan":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 200;
                         enemyAccel = 800;
                         enemyFriction = 800;
@@ -86,7 +86,7 @@ namespace Gradius
 
                 case "Garun":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 80;
                         enemyAccel = 800;
                         enemyFriction = 800;
@@ -112,7 +112,7 @@ namespace Gradius
 
                 case "Rugal":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 80;
                         enemyAccel = 800;
                         enemyFriction = 800;
@@ -138,7 +138,7 @@ namespace Gradius
 
                 case "Dee-01":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 50;
                         enemyAccel = 500;
                         enemyFriction = 500;
@@ -161,7 +161,7 @@ namespace Gradius
 
                 case "Ducker":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 50;
                         enemyAccel = 500;
                         enemyFriction = 500;
@@ -184,7 +184,7 @@ namespace Gradius
 
                 case "Dagumu":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 50;
                         enemyAccel = 500;
                         enemyFriction = 500;
@@ -207,7 +207,7 @@ namespace Gradius
 
                 case "Rush":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 200;
                         enemyAccel = 200;
                         enemyFriction = 500;
@@ -230,7 +230,7 @@ namespace Gradius
 
                 case "Jumper":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18);
                         enemyMaxVel = 150;
                         enemyAccel = 150;
                         enemyFriction = 500;
@@ -253,7 +253,7 @@ namespace Gradius
 
                 case "boss":
                     {
-                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteBoss, null, 2, 1, null);
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteBoss, null, 2, 1);
                         enemyMaxVel = 100;
                         enemyAccel = 500;
                         enemyFriction = 500;

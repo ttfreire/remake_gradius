@@ -34,7 +34,7 @@ namespace Gradius
           Animation garunAnimationExploded = new Animation(PlayType.Once, garunAnimationFramesExploded, 5.0f);
           Dictionary<string, Animation> garunAnimations = new Dictionary<string, Animation>() { { "moving", garunAnimationMoving },
                                                                                         { "exploded", garunAnimationExploded} };
-          m_animator = new AnimationController(m_world.m_spriteEnemies, garunAnimations, 5, 18, this);
+          m_animator = new AnimationController(m_world.m_spriteEnemies, garunAnimations, 5, 18);
           currAnimation = "moving";
 
           center = m_pos.Y;

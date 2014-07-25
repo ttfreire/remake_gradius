@@ -31,7 +31,7 @@ namespace Gradius
           Animation bossAnimationMoving = new Animation(PlayType.Loop, bossAnimationFramesMoving, 11.0f);
 
           Dictionary<string, Animation> bossAnimations = new Dictionary<string, Animation>() { { "moving", bossAnimationMoving } };
-          m_animator = new AnimationController(m_world.m_spriteBoss, bossAnimations, 2, 1, this);
+          m_animator = new AnimationController(m_world.m_spriteBoss, bossAnimations, 2, 1);
           currAnimation = "moving";
           shootCooldown = rateoffire;
           m_size = new Vector2(m_world.m_spriteBoss.Bounds.Width / 2, m_world.m_spriteBoss.Bounds.Height);

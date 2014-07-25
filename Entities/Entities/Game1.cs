@@ -116,8 +116,8 @@ namespace Gradius {
                                 100, //vel
                                 800, // maxvel
                                 10, // friction
-                                50.0f, // rate of fire
-                                500.0f, // continuous rate of fire
+                                200.0f, // rate of fire
+                                700.0f, // continuous rate of fire
                                 m_spriteViper, MovableType.Player, m_spriteProjectile, null));
       m_player = (Player) m_entities[0];
       

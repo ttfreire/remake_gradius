@@ -36,7 +36,7 @@ namespace Gradius
           Animation HatchAnimationExploded = new Animation(PlayType.Loop, HatchAnimationFramesExploded, 3.0f);
           Dictionary<string, Animation> HatchAnimations = new Dictionary<string, Animation>() { { "idle", HatchAnimation }, 
                                                                                               { "exploded", HatchAnimationExploded}};
-          m_animator = new AnimationController(m_world.m_spriteHatch, HatchAnimations, 4, 2, this);
+          m_animator = new AnimationController(m_world.m_spriteHatch, HatchAnimations, 4, 2);
           currAnimation = "idle";
       }
 

@@ -36,7 +36,7 @@ namespace Gradius
 
           Dictionary<string, Animation> RushAnimations = new Dictionary<string, Animation>() { { "moving", RushAnimation },
                                                                                                 { "exploded", RushAnimationExploded} };
-          m_animator = new AnimationController(m_world.m_spriteEnemies, RushAnimations, 5, 18, this);
+          m_animator = new AnimationController(m_world.m_spriteEnemies, RushAnimations, 5, 18);
           currAnimation = "moving";
       }
 

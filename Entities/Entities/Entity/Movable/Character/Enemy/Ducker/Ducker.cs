@@ -40,7 +40,7 @@ namespace Gradius
                                                                                     { "shooting", DuckerAnimationHolding },
                                                                                     { "waiting", DuckerAnimationHolding }, 
                                                                                     { "exploded", DuckerAnimationExploded}};
-          m_animator = new AnimationController(m_world.m_spriteEnemies, DuckerAnimations, 5, 18, this);
+          m_animator = new AnimationController(m_world.m_spriteEnemies, DuckerAnimations, 5, 18);
           currAnimation = "walking";
       }
 
