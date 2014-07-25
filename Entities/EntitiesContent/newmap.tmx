@@ -87,31 +87,30 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="colliders" width="14" height="1">
-  <object name="top" x="2362" y="11" width="5319" height="28"/>
-  <object name="bottom" x="2362" y="395" width="5319" height="29"/>
-  <object name="mountain1" x="2805" y="304">
+ <objectgroup name="colliders" width="14" height="1" visible="0">
+  <object name="top" x="2363" y="-3" width="5319" height="28"/>
+  <object name="bottom" x="2362" y="408" width="5319" height="29"/>
+  <object name="mountain1" x="2806" y="315">
    <polygon points="0,0 -60,92 65,91"/>
   </object>
   <object name="mountain2-1" x="4099" y="249">
    <polygon points="0,0 -41,56 45,55"/>
   </object>
-  <object name="mountain2-2" x="4173" y="363">
+  <object name="mountain2-2" x="4174" y="378">
    <polyline points="0,0 -152,1 -181,29 29,31 1,0"/>
   </object>
-  <object name="mountain3" x="5208" y="251">
+  <object name="mountain3" x="5209" y="263">
    <polygon points="0,0 -103,144 96,143"/>
   </object>
-  <object name="mountain4" x="7239" y="307">
+  <object name="mountain4" x="7241" y="318">
    <polygon points="0,0 -63,88 63,88"/>
   </object>
-  <object name="mountain4" x="7535" y="305">
+  <object name="mountain4" x="7533" y="318">
    <polygon points="0,0 -63,88 63,88"/>
   </object>
-  <object name="residual1" x="3059" y="32" width="37" height="15"/>
-  <object name="residual2" x="4833" y="36" width="37" height="15"/>
-  <object name="residual2" x="6008" y="33" width="37" height="15"/>
-  <object x="6647" y="126">
+  <object name="residual1" x="3060" y="31" width="37" height="15"/>
+  <object name="residual2" x="4832" y="36" width="37" height="15"/>
+  <object name="meteor" x="6647" y="126">
    <polygon points="0,-1 -48,73 53,72 0,146 -48,73 53,72"/>
   </object>
  </objectgroup>
@@ -149,7 +148,7 @@
     <property name="type" value="Fan"/>
    </properties>
   </object>
-  <object name="ducker2" x="2816" y="39" width="42" height="39">
+  <object name="ducker2" x="2819" y="54" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -170,7 +169,7 @@
     <property name="type" value="boss"/>
    </properties>
   </object>
-  <object name="volcano1" x="7515" y="276" width="42" height="39">
+  <object name="volcano1" x="7219" y="280" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -180,7 +179,7 @@
     <property name="type" value="volcano"/>
    </properties>
   </object>
-  <object name="dagumu1" x="3399" y="353" width="52" height="42">
+  <object name="dagumu1" x="3401" y="368" width="52" height="42">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -191,7 +190,7 @@
     <property name="type" value="Dagumu"/>
    </properties>
   </object>
-  <object name="dee1" x="2634" y="39" width="25" height="30">
+  <object name="dee1" x="2634" y="55" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -202,7 +201,7 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="dee2" x="2669" y="40" width="25" height="30">
+  <object name="dee2" x="2672" y="55" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -239,7 +238,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -250,7 +249,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -261,7 +260,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -305,7 +304,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -316,7 +315,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -327,7 +326,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -338,7 +337,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
@@ -349,7 +348,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
@@ -360,7 +359,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
@@ -371,7 +370,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -382,7 +381,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -393,14 +392,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rugal"/>
    </properties>
   </object>
-  <object name="dee3" x="2709" y="39" width="25" height="30">
+  <object name="dee3" x="2713" y="55" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -411,7 +410,7 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="RedJumper1" x="2765" y="355" width="42" height="39">
+  <object name="RedJumper1" x="2769" y="380" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
@@ -422,7 +421,7 @@
     <property name="type" value="Jumper"/>
    </properties>
   </object>
-  <object name="jumper1" x="2871" y="357" width="42" height="39">
+  <object name="jumper1" x="2875" y="381" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="false"/>
@@ -437,7 +436,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -448,7 +447,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -459,7 +458,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
@@ -470,14 +469,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="RedGarun"/>
    </properties>
   </object>
-  <object name="ducker1" x="2821" y="357" width="42" height="39">
+  <object name="ducker1" x="2825" y="381" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -488,7 +487,7 @@
     <property name="type" value="Ducker"/>
    </properties>
   </object>
-  <object name="dee5" x="3333" y="364" width="25" height="30">
+  <object name="dee5" x="3338" y="380" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -499,7 +498,7 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="dee4" x="3298" y="363" width="25" height="30">
+  <object name="dee4" x="3301" y="380" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -510,18 +509,18 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="rush1" x="3403" y="313" width="42" height="39">
+  <object name="rush1" x="3405" y="348" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rush"/>
    </properties>
   </object>
-  <object name="Jumper2" x="3517" y="353" width="42" height="39">
+  <object name="Jumper2" x="3523" y="381" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="false"/>
@@ -532,7 +531,7 @@
     <property name="type" value="Jumper"/>
    </properties>
   </object>
-  <object name="RedJumper2" x="3594" y="355" width="42" height="39">
+  <object name="RedJumper2" x="3600" y="381" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
@@ -547,7 +546,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -558,14 +557,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rugal"/>
    </properties>
   </object>
-  <object name="ducker4" x="3639" y="37" width="42" height="39">
+  <object name="ducker4" x="3643" y="53" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -576,7 +575,7 @@
     <property name="type" value="Ducker"/>
    </properties>
   </object>
-  <object name="ducker3" x="3645" y="356" width="42" height="39">
+  <object name="ducker3" x="3651" y="382" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -591,7 +590,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -613,14 +612,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rugal"/>
    </properties>
   </object>
-  <object name="RedJumper2" x="4409" y="355" width="42" height="39">
+  <object name="RedJumper2" x="4412" y="381" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
@@ -635,7 +634,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -646,14 +645,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rugal"/>
    </properties>
   </object>
-  <object name="dee6" x="4762" y="361" width="25" height="30">
+  <object name="dee6" x="4769" y="379" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -664,7 +663,7 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="dee7" x="4798" y="362" width="25" height="30">
+  <object name="dee7" x="4805" y="380" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -675,18 +674,18 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="rush2" x="4867" y="311" width="42" height="39">
+  <object name="rush2" x="4875" y="349" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rush"/>
    </properties>
   </object>
-  <object name="dagumu2" x="4863" y="351" width="52" height="42">
+  <object name="dagumu2" x="4870" y="368" width="52" height="42">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -701,7 +700,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -712,7 +711,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -723,7 +722,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
@@ -734,14 +733,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Garun"/>
    </properties>
   </object>
-  <object name="Jumper3" x="5384" y="355" width="42" height="39">
+  <object name="Jumper3" x="5387" y="380" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="false"/>
@@ -756,7 +755,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -767,7 +766,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
@@ -778,14 +777,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Garun"/>
    </properties>
   </object>
-  <object name="redducker1" x="5581" y="38" width="42" height="39">
+  <object name="redducker1" x="5584" y="52" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
@@ -800,14 +799,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rugal"/>
    </properties>
   </object>
-  <object name="ducker4" x="5663" y="355" width="42" height="39">
+  <object name="ducker4" x="5666" y="380" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -818,7 +817,7 @@
     <property name="type" value="Ducker"/>
    </properties>
   </object>
-  <object name="dee8" x="5908" y="39" width="25" height="30">
+  <object name="dee8" x="5911" y="53" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -829,7 +828,7 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="dagumu3" x="6002" y="40" width="52" height="42">
+  <object name="dagumu3" x="6003" y="67" width="52" height="42">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -840,18 +839,18 @@
     <property name="type" value="Dagumu"/>
    </properties>
   </object>
-  <object name="rush3" x="6008" y="83" width="42" height="39">
+  <object name="rush3" x="6007" y="45" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rush"/>
    </properties>
   </object>
-  <object name="dee9" x="5944" y="40" width="25" height="30">
+  <object name="dee9" x="5947" y="54" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -866,7 +865,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="2"/>
     <property name="spawnDirection" value="Front"/>
@@ -877,7 +876,7 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
@@ -888,14 +887,14 @@
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="True"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rugal"/>
    </properties>
   </object>
-  <object name="ducker5" x="5874" y="356" width="42" height="39">
+  <object name="ducker5" x="5877" y="381" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -906,7 +905,7 @@
     <property name="type" value="Ducker"/>
    </properties>
   </object>
-  <object name="ducker6" x="5848" y="41" width="42" height="39">
+  <object name="ducker6" x="5851" y="52" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -917,7 +916,7 @@
     <property name="type" value="Ducker"/>
    </properties>
   </object>
-  <object name="dagumu4" x="6465" y="351" width="52" height="42">
+  <object name="dagumu4" x="6471" y="365" width="52" height="42">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -928,18 +927,18 @@
     <property name="type" value="Dagumu"/>
    </properties>
   </object>
-  <object name="rush4" x="6468" y="313" width="42" height="39">
+  <object name="rush4" x="6474" y="327" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
-    <property name="hasSquad" value="True"/>
+    <property name="hasSquad" value="False"/>
     <property name="isAnimatedByState" value="False"/>
     <property name="quantity" value="3"/>
     <property name="spawnDirection" value="Front"/>
     <property name="type" value="Rush"/>
    </properties>
   </object>
-  <object name="Reddee1" x="6413" y="364" width="25" height="30">
+  <object name="Reddee1" x="6419" y="378" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -950,7 +949,7 @@
     <property name="type" value="RedDee-01"/>
    </properties>
   </object>
-  <object name="dee10" x="6377" y="363" width="25" height="30">
+  <object name="dee10" x="6383" y="377" width="25" height="30">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -961,7 +960,7 @@
     <property name="type" value="Dee-01"/>
    </properties>
   </object>
-  <object name="redducker2" x="6335" y="38" width="42" height="39">
+  <object name="redducker2" x="6341" y="53" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
@@ -972,7 +971,7 @@
     <property name="type" value="Ducker"/>
    </properties>
   </object>
-  <object name="Jumper4" x="6624" y="356" width="42" height="39">
+  <object name="Jumper4" x="6629" y="381" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="false"/>
@@ -983,7 +982,7 @@
     <property name="type" value="Jumper"/>
    </properties>
   </object>
-  <object name="Jumper5" x="6733" y="357" width="42" height="39">
+  <object name="Jumper5" x="6738" y="382" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="false"/>
@@ -994,7 +993,7 @@
     <property name="type" value="Jumper"/>
    </properties>
   </object>
-  <object name="RedJumper3" x="6843" y="353" width="42" height="39">
+  <object name="RedJumper3" x="6850" y="382" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="True"/>
@@ -1006,7 +1005,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="event" width="14" height="1">
+ <objectgroup name="event" width="14" height="1" visible="0">
   <object name="volcano" x="7632" y="195" width="44" height="41">
    <properties>
     <property name="active" value="True"/>
