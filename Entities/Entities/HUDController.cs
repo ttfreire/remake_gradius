@@ -18,7 +18,7 @@ namespace Gradius
         public List<HUDpowerup> m_powerupHUD;
         public int m_selectedPowerupIndex;
         Texture2D m_livesIcon;
-        int m_lives = 1;
+        public int m_lives = 3;
         int m_numberofPlayers = 1;
         int m_score = 0;
         int m_higherScore = 50000;

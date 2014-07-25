@@ -19,6 +19,7 @@ namespace Gradius
         public SpawnController(Game1 m_world)
         {
             m_worldMap = m_world.m_worldMap;
+            activatedSpawners.Clear();
         }
 
         public void Update(GameTime gameTime)

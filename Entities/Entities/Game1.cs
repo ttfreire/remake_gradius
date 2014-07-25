@@ -82,6 +82,10 @@ namespace Gradius {
 
       enemySpawnController = new SpawnController(this);
       m_currentGameState = GameStates.PLAYING;
+
+      highlightedPowerUp = 0;
+      powerUpCounter = 0;
+      cheatResetTimer = 10000;
     }
 
     protected override void LoadContent() {
@@ -100,7 +104,8 @@ namespace Gradius {
       m_spriteBoss = Content.Load<Texture2D>("boss");
       m_spriteHUDpowerups = Content.Load<Texture2D>("powerups");
       m_spriteHUDlife = Content.Load<Texture2D>("life");
-      m_spriteFont = Content.Load<SpriteFont>("Arial");
+      //m_spriteFont = Content.Load<SpriteFont>("Arial");
+      m_spriteFont = Content.Load<SpriteFont>("SpriteFont1");
       
       //add map
       //m_entities.Add(m_worldMap);
@@ -131,9 +136,19 @@ namespace Gradius {
       m_cheat = new List<Keys>();
     }
 
-    protected override void UnloadContent() {}
+    protected override void UnloadContent() {
+        m_entities.Clear();
+    }
 
     protected override void Update(GameTime gameTime) {
+        if (m_hudController.m_lives == 0)
+        {
+            UnloadContent();
+            
+            LoadContent();
+            Initialize();
+        }
+
         m_currentKeyboardState = Keyboard.GetState();
         cheatResetTimer -= gameTime.ElapsedGameTime.Milliseconds;
         if (cheatResetTimer <= 0)
