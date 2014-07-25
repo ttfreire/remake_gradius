@@ -106,9 +106,11 @@ namespace Gradius
 
       public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
       {
-
+          Color color = Color.White;
+          if (m_dropsPowerUp)
+              color = Color.Red;
           if (m_animator != null)
-              spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
+              spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, color, 0.0f,
               new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
       }
 
