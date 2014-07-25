@@ -87,6 +87,7 @@ namespace Gradius {
       highlightedPowerUp = 0;
       powerUpCounter = 0;
       cheatResetTimer = 10000;
+      highlightedPowerUp = 0;
     }
 
     protected override void LoadContent() {
