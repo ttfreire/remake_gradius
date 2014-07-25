@@ -14,7 +14,7 @@ namespace Gradius {
   public class Player : Character {
     public enum PlayerState { NONE, MOVING, EXPLODED }
     public PlayerState m_currentState = PlayerState.MOVING;
-    static float SPEEDUP_INCREASE = 50.0f;
+    public float SPEEDUP_INCREASE = 50.0f;
     public static int TRAIL_SIZE = 100;
     KeyboardState previousKey = Keyboard.GetState();
     KeyboardState currentKey = Keyboard.GetState();

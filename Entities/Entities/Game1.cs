@@ -54,6 +54,8 @@ namespace Gradius {
 
     List<Keys> m_cheat;
     float cheatResetTimer = 10000;
+    bool bool_noriko = false;
+
     public Game1() {
 
       m_graphics = new GraphicsDeviceManager(this);
@@ -133,7 +135,13 @@ namespace Gradius {
 
     protected override void Update(GameTime gameTime) {
         m_currentKeyboardState = Keyboard.GetState();
-
+        cheatResetTimer -= gameTime.ElapsedGameTime.Milliseconds;
+        if (cheatResetTimer <= 0)
+        {
+            cheatResetTimer = 10000;
+            m_cheat.Clear();
+            bool_noriko = false;
+        }
         if (m_currentGameState == GameStates.PLAYING)
         {
             if (m_currentKeyboardState.IsKeyDown(Keys.Enter) && !m_previousKeyboardState.IsKeyDown(Keys.Enter))
@@ -183,12 +191,7 @@ namespace Gradius {
 
         if (m_currentGameState == GameStates.PAUSED)
         {
-            cheatResetTimer -= gameTime.ElapsedGameTime.Milliseconds;
-            if (cheatResetTimer <= 0)
-            {
-                cheatResetTimer = 10000;
-                m_cheat.Clear();
-            }
+            
 
             if (m_currentKeyboardState.IsKeyDown(Keys.Enter) && !m_previousKeyboardState.IsKeyDown(Keys.Enter))
             {
@@ -230,12 +233,14 @@ namespace Gradius {
                     m_cheat[8] == KONAMI_CODE[8] &&
                     m_cheat[9] == KONAMI_CODE[9])
                 {
-                    Console.WriteLine("I LOVE NORIKO");
+                    bool_noriko = true;
                     Player player = (Player)m_entities.Find(s => s is Player);
                     player.activePowerUps = new List<PowerUpType>() { PowerUpType.SPEEDUP, PowerUpType.LASER, PowerUpType.MISSILE, PowerUpType.OPTION, PowerUpType.SHIELD };
                     int option_trail = 25;
                     Option option = new Option(this, player.m_pos - new Vector2(500, 0), player.m_size / 2, player.m_maxVel, player.m_accel, player.m_friction, player.m_rateOfFire, player.m_continuousRateOfFire, m_spriteEnemies, MovableType.Option, player.m_ProjectileSprite, player, option_trail);
                     Add(option);
+                    player.m_maxVel += player.SPEEDUP_INCREASE;
+                    m_cheat.Clear();
                 }
         }
         m_previousKeyboardState = m_currentKeyboardState;
@@ -254,11 +259,16 @@ namespace Gradius {
       foreach(Entity e in m_entities)
         e.Draw(gameTime, m_spriteBatch);
 
+      if (bool_noriko)
+          m_spriteBatch.DrawString(m_spriteFont, "I LOVE NORIKO", Vector2.Zero, Color.White, 0.0f,
+                Vector2.Zero, 1, SpriteEffects.None, 0);
       m_spriteBatch.End();
 
       base.Draw(gameTime);
 
       m_hudController.Draw(gameTime, m_spriteBatch);
+
+      
     }
 
     public void Add(Entity item)
