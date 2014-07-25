@@ -20,6 +20,7 @@ namespace Gradius
       public EnemyState m_currentState = EnemyState.UP;
       public AnimationController m_animator;
       float m_timeToDie;
+      bool isSpawned = false;
 
       public Rush(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
           MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
@@ -47,7 +48,16 @@ namespace Gradius
         {
             case EnemyState.UP:
                 {
-                    m_dir = -Vector2.UnitY;
+                    if (m_pos.Y > m_world.m_worldMap.m_screenMiddle.Y && !isSpawned)
+                    {
+                        m_dir = -Vector2.UnitY;
+                        isSpawned = true;
+                    }
+                    else if (m_pos.Y < m_world.m_worldMap.m_screenMiddle.Y && !isSpawned)
+                    {
+                        m_dir = Vector2.UnitY;
+                        isSpawned = true;
+                    }
                     m_maxVel = default_maxVel;
                     if (player != null)
                     {

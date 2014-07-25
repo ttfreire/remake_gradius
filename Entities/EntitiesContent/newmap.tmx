@@ -170,7 +170,7 @@
     <property name="type" value="boss"/>
    </properties>
   </object>
-  <object name="volcano1" x="7219" y="280" width="42" height="39">
+  <object name="volcano1" x="7515" y="276" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
