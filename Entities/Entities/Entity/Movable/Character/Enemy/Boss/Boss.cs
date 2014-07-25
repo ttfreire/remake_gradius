@@ -29,10 +29,13 @@ namespace Gradius
       {
           worldmap = map;
 
-          int[] bossAnimationFramesMoving = { 0};
+          int[] bossAnimationFramesMoving = { 0 };
           Animation bossAnimationMoving = new Animation(PlayType.Loop, bossAnimationFramesMoving, 11.0f);
+          int[] bossAnimationFramesExploded = { 4, 5, 6, 7 };
+          Animation bossAnimationExploded = new Animation(PlayType.Loop, bossAnimationFramesExploded, 3.0f);
 
-          Dictionary<string, Animation> bossAnimations = new Dictionary<string, Animation>() { { "moving", bossAnimationMoving } };
+          Dictionary<string, Animation> bossAnimations = new Dictionary<string, Animation>() { { "moving", bossAnimationMoving },
+                                                                                                {"exploded", bossAnimationExploded }};
           m_animator = new AnimationController(m_world.m_spriteBoss, bossAnimations, 2, 1);
           currAnimation = "moving";
           shootCooldown = rateoffire;

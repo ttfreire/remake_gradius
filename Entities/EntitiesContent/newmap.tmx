@@ -87,7 +87,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="colliders" width="14" height="1" visible="0">
+ <objectgroup name="colliders" width="14" height="1">
   <object name="top" x="2363" y="-3" width="5319" height="28"/>
   <object name="bottom" x="2362" y="408" width="5319" height="29"/>
   <object name="mountain1" x="2806" y="315">
@@ -114,7 +114,7 @@
    <polygon points="0,-1 -48,73 53,72 0,146 -48,73 53,72"/>
   </object>
  </objectgroup>
- <objectgroup name="enemy_spawns" width="14" height="1" visible="0">
+ <objectgroup name="enemy_spawns" width="14" height="1">
   <object name="fan1" x="532" y="92" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
@@ -169,7 +169,7 @@
     <property name="type" value="boss"/>
    </properties>
   </object>
-  <object name="volcano1" x="7219" y="280" width="42" height="39">
+  <object name="volcano1" x="7513" y="280" width="42" height="39">
    <properties>
     <property name="active" value="True"/>
     <property name="dropsPowerUp" value="False"/>
@@ -1018,5 +1018,10 @@
     <property name="timer" value="25"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="checkpoints" width="14" height="1">
+  <object name="check1" x="2595" y="204" width="56" height="44"/>
+  <object name="check2" x="1811" y="184" width="56" height="44"/>
+  <object name="check3" x="5047" y="194" width="56" height="44"/>
  </objectgroup>
 </map>

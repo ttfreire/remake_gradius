@@ -145,10 +145,14 @@ namespace Gradius {
     protected override void Update(GameTime gameTime) {
         if (m_player.isDead)
         {
+            int checkpoint = (int)m_worldMap.lastCheckpointPos.X;
+            List<int> activatedSpawners = enemySpawnController.activatedSpawners;
             UnloadContent();
             
             LoadContent();
             Initialize();
+            m_worldMap.m_view.X = checkpoint;
+            enemySpawnController.activatedSpawners = activatedSpawners;
         }
 
         m_currentKeyboardState = Keyboard.GetState();

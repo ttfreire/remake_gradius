@@ -15,6 +15,7 @@ namespace Gradius
 
     public class WorldMap : Entity
     {
+        public Vector2 lastCheckpointPos;
         public Map m_map;
         public Rectangle m_view;
         public Vector2 m_screenMiddle;
@@ -36,10 +37,18 @@ namespace Gradius
             eventTimer = eventTimerMax;
             bossTimerMax = (float)m_map.ObjectLayers["event"].MapObjects[1].Properties["timer"].AsInt32;
             bossTimer = bossTimerMax;
+            lastCheckpointPos = Vector2.Zero;
         }
 
         public override void Update(GameTime gameTime)
         {
+
+            for (int o = 0; o < m_map.ObjectLayers["checkpoints"].MapObjects.Length; o++)
+            {
+                Vector2 checkpointPos = new Vector2(m_map.ObjectLayers["checkpoints"].MapObjects[o].Bounds.X, m_map.ObjectLayers["checkpoints"].MapObjects[o].Bounds.Y);
+                if (checkpointPos.X - m_view.X <= m_view.X && checkpointPos.X > lastCheckpointPos.X)
+                    lastCheckpointPos = checkpointPos;
+            }
 
             //MAP COLLIDER
             for (int o = 0; o < m_map.ObjectLayers["colliders"].MapObjects.Length; o++)
@@ -53,15 +62,30 @@ namespace Gradius
                         if ((e is Player) || e is Projectile)
                         {
                             mov = (Movable)e;
+                           // if (m_map.ObjectLayers["colliders"].MapObjects[o].Name == "mountain4")
+                           //     Console.Write("lala");
                             if (mov.m_type != MovableType.Option)
                             {
-                            if (m_map.ObjectLayers["colliders"].MapObjects[o].Bounds.Intersects(new Rectangle((int)(mov.m_pos.X - mov.m_size.X / 2) + m_view.X,
-                                                                                                (int)(mov.m_pos.Y - mov.m_size.Y / 2),
-                                                                                                    (int)mov.m_size.X,
-                                                                                                (int)mov.m_size.Y)))
-                            {
-                                mov.Die();
-                            }
+                                if (m_map.ObjectLayers["colliders"].MapObjects[o].Polygon != null)
+                                {
+                                    if (m_map.ObjectLayers["colliders"].MapObjects[o].Polygon.Intersects(new Rectangle((int)(mov.m_pos.X - mov.m_size.X / 2) + m_view.X,
+                                                                                                        (int)(mov.m_pos.Y - mov.m_size.Y / 2),
+                                                                                                            (int)mov.m_size.X,
+                                                                                                        (int)mov.m_size.Y)))
+                                    {
+                                        mov.Die();
+                                    }
+                                }
+                                else
+                                    if (m_map.ObjectLayers["colliders"].MapObjects[o].Bounds != null)
+                                        if (m_map.ObjectLayers["colliders"].MapObjects[o].Bounds.Intersects(new Rectangle((int)(mov.m_pos.X - mov.m_size.X / 2) + m_view.X,
+                                                                                                            (int)(mov.m_pos.Y - mov.m_size.Y / 2),
+                                                                                                                (int)mov.m_size.X,
+                                                                                                            (int)mov.m_size.Y)))
+                                        {
+                                            mov.Die();
+                                        }
+                                
                                 }
                         }
                     }
