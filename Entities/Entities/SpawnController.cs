@@ -136,6 +136,29 @@ namespace Gradius
                     }
                     break;
 
+                case "Dee-01":
+                    {
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyMaxVel = 50;
+                        enemyAccel = 500;
+                        enemyFriction = 500;
+                        enemyRateoffire = 1.0f;
+                        enemyContinuousrateoffire = 1.0f;
+
+                        for (int i = 1; i <= enemyQuantity; i++)
+                        {
+                            Dee newdee = new Dee(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                                                    enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
+                                                    enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
+                                                    enemyAnimator);
+                            m_worldMap.m_world.m_entities.Add(newdee);
+                            if (enemyHasSquad)
+                                newdee.addToSquad();
+                        }
+                    }
+                    break;
+
                 case "Ducker":
                     {
                         enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
@@ -155,6 +178,75 @@ namespace Gradius
                             m_worldMap.m_world.m_entities.Add(newDucker);
                             if (enemyHasSquad)
                                 newDucker.addToSquad();
+                        }
+                    }
+                    break;
+
+                case "Dagumu":
+                    {
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyMaxVel = 50;
+                        enemyAccel = 500;
+                        enemyFriction = 500;
+                        enemyRateoffire = 1.0f;
+                        enemyContinuousrateoffire = 1.0f;
+
+                        for (int i = 1; i <= enemyQuantity; i++)
+                        {
+                            Hatch newHatch = new Hatch(m_worldMap.m_world, enemyPosition + new Vector2(50 * i, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                                                    enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
+                                                    enemyContinuousrateoffire, m_worldMap.m_world.m_spriteHatch, enemyType,
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
+                                                    enemyAnimator);
+                            m_worldMap.m_world.m_entities.Add(newHatch);
+                            if (enemyHasSquad)
+                                newHatch.addToSquad();
+                        }
+                    }
+                    break;
+
+                case "Rush":
+                    {
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyMaxVel = 200;
+                        enemyAccel = 200;
+                        enemyFriction = 500;
+                        enemyRateoffire = 1.0f;
+                        enemyContinuousrateoffire = 1.0f;
+
+                        for (int i = 1; i <= enemyQuantity; i++)
+                        {
+                            Rush newRush = new Rush(m_worldMap.m_world, enemyPosition + new Vector2(0, i * 50), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                                                    enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
+                                                    enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
+                                                    enemyAnimator);
+                            m_worldMap.m_world.m_entities.Add(newRush);
+                            if (enemyHasSquad)
+                                newRush.addToSquad();
+                        }
+                    }
+                    break;
+
+                case "Jumper":
+                    {
+                        enemyAnimator = new AnimationController(m_worldMap.m_world.m_spriteEnemies, null, 5, 18, null);
+                        enemyMaxVel = 150;
+                        enemyAccel = 150;
+                        enemyFriction = 500;
+                        enemyRateoffire = 1.0f;
+                        enemyContinuousrateoffire = 1.0f;
+
+                        for (int i = 1; i <= enemyQuantity; i++)
+                        {
+                            Jumper newJumper = new Jumper(m_worldMap.m_world, enemyPosition + new Vector2(i * 50, 0), new Vector2(enemyAnimator.m_currentSpriteRect.Width,
+                                                    enemyAnimator.m_currentSpriteRect.Height), enemyMaxVel, enemyAccel, enemyFriction, enemyRateoffire,
+                                                    enemyContinuousrateoffire, m_worldMap.m_world.m_spriteEnemies, enemyType,
+                                                    m_worldMap.m_world.m_spriteProjectile, enemySquad, m_worldMap, enemyDropsPowerUp,
+                                                    enemyAnimator);
+                            m_worldMap.m_world.m_entities.Add(newJumper);
+                            if (enemyHasSquad)
+                                newJumper.addToSquad();
                         }
                     }
                     break;

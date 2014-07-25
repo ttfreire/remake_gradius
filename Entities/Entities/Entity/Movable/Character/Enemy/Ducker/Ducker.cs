@@ -30,17 +30,17 @@ namespace Gradius
           worldmap = map;
           m_dropsPowerUp = dropsPowerUp;
 
-          int[] duckerAnimationFramesWalking = { 45, 46 };
-          Animation duckerAnimationWalking = new Animation(PlayType.Loop, duckerAnimationFramesWalking, 16.0f);
-          int[] duckerAnimationFramesHolding = { 47 };
-          Animation duckerAnimationHolding = new Animation(PlayType.Loop, duckerAnimationFramesHolding, 3.0f);
-          int[] duckerAnimationFramesExploded = { 80, 81, 82, 83 };
-          Animation duckerAnimationExploded = new Animation(PlayType.Loop, duckerAnimationFramesExploded, 3.0f);
-          Dictionary<string, Animation> duckerAnimations = new Dictionary<string, Animation>() { { "walking", duckerAnimationWalking } ,
-                                                                                    { "shooting", duckerAnimationHolding },
-                                                                                    { "waiting", duckerAnimationHolding }, 
-                                                                                    { "exploded", duckerAnimationExploded}};
-          m_animator = new AnimationController(m_world.m_spriteEnemies, duckerAnimations, 5, 18, this);
+          int[] DuckerAnimationFramesWalking = { 45, 46 };
+          Animation DuckerAnimationWalking = new Animation(PlayType.Loop, DuckerAnimationFramesWalking, 16.0f);
+          int[] DuckerAnimationFramesHolding = { 47 };
+          Animation DuckerAnimationHolding = new Animation(PlayType.Loop, DuckerAnimationFramesHolding, 3.0f);
+          int[] DuckerAnimationFramesExploded = { 80, 81, 82, 83 };
+          Animation DuckerAnimationExploded = new Animation(PlayType.Loop, DuckerAnimationFramesExploded, 3.0f);
+          Dictionary<string, Animation> DuckerAnimations = new Dictionary<string, Animation>() { { "walking", DuckerAnimationWalking } ,
+                                                                                    { "shooting", DuckerAnimationHolding },
+                                                                                    { "waiting", DuckerAnimationHolding }, 
+                                                                                    { "exploded", DuckerAnimationExploded}};
+          m_animator = new AnimationController(m_world.m_spriteEnemies, DuckerAnimations, 5, 18, this);
           currAnimation = "walking";
       }
 
@@ -64,7 +64,7 @@ namespace Gradius
                         }
                     if(m_pos.Y < m_world.m_worldMap.m_screenMiddle.Y)
                     {
-                        m_rotation = 3.2f;
+                        m_rotation = 3.14f;
                         m_spriteEffect = SpriteEffects.None;
                     }
                     else
@@ -88,7 +88,7 @@ namespace Gradius
                     }
                     if (m_pos.Y < m_world.m_worldMap.m_screenMiddle.Y)
                     {
-                        m_rotation = 3.2f;
+                        m_rotation = 3.14f;
                         m_spriteEffect = SpriteEffects.FlipHorizontally;
                     }
                     else

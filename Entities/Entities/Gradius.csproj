@@ -79,6 +79,10 @@
     <Compile Include="Animation.cs" />
     <Compile Include="AnimationController.cs" />
     <Compile Include="Entity\Movable\Character\Enemy\Boss\Boss.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Jumper\Jumper.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Rush\Rush.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Hatch\Hatch.cs" />
+    <Compile Include="Entity\Movable\Character\Enemy\Dee\Dee.cs" />
     <Compile Include="Entity\Movable\Character\Enemy\Volcano\Volcano.cs" />
     <Compile Include="Entity\Movable\Projectile\VolcanoProjectile\VolcanoProjectile.cs" />
     <Compile Include="HUDController.cs" />

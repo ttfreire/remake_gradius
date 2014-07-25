@@ -25,6 +25,7 @@ namespace Gradius {
     public Texture2D m_spritePowerUpBlue;
     public Texture2D m_spriteProjectile;
     public Texture2D m_spriteBoss;
+    public Texture2D m_spriteHatch;
 
     public Texture2D m_spriteHUDpowerups;
     public Texture2D m_spriteHUDlife;
@@ -87,6 +88,7 @@ namespace Gradius {
       m_spritePowerUpRed = Content.Load<Texture2D>("powerupred");
       m_spritePowerUpBlue = Content.Load<Texture2D>("powerupblue");
       m_spriteEnemies = Content.Load<Texture2D>("enemy-powerups");
+      m_spriteHatch = Content.Load<Texture2D>("docs-bigblast");
       m_spriteBoss = Content.Load<Texture2D>("boss");
       m_spriteHUDpowerups = Content.Load<Texture2D>("powerups");
       m_spriteHUDlife = Content.Load<Texture2D>("life");

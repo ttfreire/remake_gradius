@@ -49,9 +49,12 @@ namespace Gradius
                     Movable mov;
                     foreach (Entity e in m_world.m_entities)
                     {
-                        if (e is Player || e is Projectile)
+                        
+                        if ((e is Player) || e is Projectile)
                         {
                             mov = (Movable)e;
+                            if (mov.m_type != MovableType.Option)
+                            {
                             if (m_map.ObjectLayers["colliders"].MapObjects[o].Bounds.Intersects(new Rectangle((int)(mov.m_pos.X - mov.m_size.X / 2) + m_view.X,
                                                                                                 (int)(mov.m_pos.Y - mov.m_size.Y / 2),
                                                                                                     (int)mov.m_size.X,
@@ -59,6 +62,7 @@ namespace Gradius
                             {
                                 mov.Die();
                             }
+                                }
                         }
                     }
                 }
