@@ -13,6 +13,7 @@ using FuncWorks.XNA.XTiled;
 namespace Gradius {
 
   public class Game1 : Microsoft.Xna.Framework.Game {
+    public int m_lives = 3;
     public enum GameStates {PLAYING, PAUSED}
     public List<Keys> KONAMI_CODE = new List<Keys>() { Keys.Up, Keys.Up, Keys.Down, Keys.Down, Keys.Left, Keys.Right, Keys.Left, Keys.Right, Keys.B, Keys.A };
     public GameTime m_gametime;
@@ -120,7 +121,7 @@ namespace Gradius {
       HUDpowerup shieldHUD = new HUDpowerup(1, m_spriteHUDpowerups, PowerUpType.SHIELD, 0, 5);
       List<HUDpowerup> listHUDPowerups = new List<HUDpowerup> { speedHUD, missileHUD, doubleHUD, laserHUD, optionHUD, shieldHUD };
 
-      m_hudController = new HUDController(listHUDPowerups, m_spriteHUDlife, new Vector2 (250, 440), m_spriteFont);
+      m_hudController = new HUDController(this,listHUDPowerups, m_spriteHUDlife, new Vector2 (250, 440), m_spriteFont);
 
 
       //add player...
@@ -141,7 +142,7 @@ namespace Gradius {
     }
 
     protected override void Update(GameTime gameTime) {
-        if (m_hudController.m_lives == 0)
+        if (m_player.isDead)
         {
             UnloadContent();
             

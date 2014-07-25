@@ -15,18 +15,20 @@ namespace Gradius
 {
     public class HUDController
     {
+        Game1 m_world;
         public List<HUDpowerup> m_powerupHUD;
         public int m_selectedPowerupIndex;
         Texture2D m_livesIcon;
-        public int m_lives = 3;
+ 
         int m_numberofPlayers = 1;
         int m_score = 0;
         int m_higherScore = 50000;
         Vector2 m_pos;
         SpriteFont m_hudFont;
 
-        public HUDController(List<HUDpowerup> powerupHUD, Texture2D livesIcon, Vector2 pos, SpriteFont hudFont)
+        public HUDController(Game1 world, List<HUDpowerup> powerupHUD, Texture2D livesIcon, Vector2 pos, SpriteFont hudFont)
         {
+            m_world = world;
             m_powerupHUD = powerupHUD;
             m_livesIcon = livesIcon;
             m_pos = pos;
@@ -56,14 +58,14 @@ namespace Gradius
             // Lives
             spriteBatch.Draw(m_livesIcon, m_pos + new Vector2(-200, 20), null, Color.White, 0.0f,
                 new Vector2(m_livesIcon.Width, m_livesIcon.Height) / 2, 1, SpriteEffects.None, 0);
-            spriteBatch.DrawString(m_hudFont, m_lives.ToString(), m_pos + new Vector2(-180, 20), Color.White, 0.0f,
-                m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(m_hudFont, m_world.m_lives.ToString(), m_pos + new Vector2(-180, 20), Color.White, 0.0f,
+                m_hudFont.MeasureString(m_world.m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
             spriteBatch.DrawString(m_hudFont, m_numberofPlayers.ToString()+"P", m_pos + new Vector2(-120, 20), Color.White, 0.0f,
-                m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
+                m_hudFont.MeasureString(m_world.m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
             spriteBatch.DrawString(m_hudFont, m_score.ToString(), m_pos + new Vector2(-60, 20), Color.White, 0.0f,
-                m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
+                m_hudFont.MeasureString(m_world.m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
             spriteBatch.DrawString(m_hudFont, "HI   "+m_higherScore.ToString(), m_pos + new Vector2(50, 20), Color.White, 0.0f,
-                m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
+                m_hudFont.MeasureString(m_world.m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
 
 
             spriteBatch.End();
@@ -71,8 +73,8 @@ namespace Gradius
 
         public void subtractLife()
         {
-            if (m_lives > 0)
-                m_lives--;
+            if (m_world.m_lives > 0)
+                m_world.m_lives--;
         }
 
         public void updateScore(int points)

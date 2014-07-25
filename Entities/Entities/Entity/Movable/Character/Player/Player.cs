@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Gradius {
 
   public class Player : Character {
+    public bool isDead;
     public enum PlayerState { NONE, MOVING, EXPLODED }
     public PlayerState m_currentState = PlayerState.MOVING;
     public float SPEEDUP_INCREASE = 50.0f;
@@ -34,6 +35,7 @@ namespace Gradius {
                     Texture2D sprite, MovableType type, Texture2D ProjectileSprite, AnimationController animator) :
         base(world, pos, size, maxVel, accel, friction, rateoffire, continuousrateoffire, sprite, type, ProjectileSprite)
     {
+        isDead = false;
         shootCooldown = rateoffire;
         continuousShootCooldown = continuousrateoffire;
         missileShootCooldown = 1500;
@@ -150,6 +152,7 @@ namespace Gradius {
                   m_timeToDie -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                   if (m_timeToDie <= 0)
                       m_world.Remove(this);
+                  isDead = true;
               }
               break;
       }
