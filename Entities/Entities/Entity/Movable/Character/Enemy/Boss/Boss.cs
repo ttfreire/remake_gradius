@@ -16,10 +16,12 @@ namespace Gradius
     {
       
       public enum EnemyState { NONE, ALIVE, EXPLODED }
-      public EnemyState currentState = EnemyState.NONE;
+      public EnemyState m_currentState = EnemyState.NONE;
       public AnimationController m_animator;
       public string currAnimation;
       float shootCooldown;
+      int shieldCount = 50;
+      float m_timeToDie;
 
       public Boss(Game1 world, Vector2 pos, Vector2 size, float maxVel, float accel, float friction, float rateoffire, float continuousrateoffire, Texture2D sprite,
                     MovableType type, Texture2D projectileSprite, List<Enemy> squad, WorldMap map, bool dropsPowerUp, AnimationController animator) :
@@ -41,15 +43,14 @@ namespace Gradius
         m_animator.Update(gameTime, currAnimation);
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         shootCooldown -= dt;
-        if (currAnimation == "exploded")
-            currentState = EnemyState.EXPLODED;
-        currentAnimationState = (int)currentState;
-        switch (currentState)
+
+        currentAnimationState = (int)m_currentState;
+        switch (m_currentState)
         {
             case EnemyState.NONE:
                 {
                     m_dir = new Vector2(0, -1);
-                    currentState = EnemyState.ALIVE;
+                    m_currentState = EnemyState.ALIVE;
                 }
                 break;
             case EnemyState.ALIVE:
@@ -96,6 +97,9 @@ namespace Gradius
                     m_dir = Vector2.Zero;
                     m_vel = Vector2.Zero;
                     currAnimation = "exploded";
+                    m_timeToDie -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    if (m_timeToDie <= 0)
+                        m_world.Remove(this);
                 }
                 break;
         }
@@ -107,6 +111,20 @@ namespace Gradius
         if (m_animator != null)
             spriteBatch.Draw(m_animator.m_spriteSheet, m_pos, m_animator.m_currentSpriteRect, Color.White, 0.0f,
             new Vector2(m_animator.m_currentSpriteRect.Width, m_animator.m_currentSpriteRect.Height) / 2, 2, SpriteEffects.None, m_depth);
+    }
+
+    public override void Die()
+    {
+        if (shieldCount > 0)
+            shieldCount--;
+        else
+        {
+            base.Die();
+            m_currentState = EnemyState.EXPLODED;
+            isdead = true;
+            m_timeToDie = 0.5f;
+            m_world.m_hudController.subtractLife();
+        }
     }
     }
 }
