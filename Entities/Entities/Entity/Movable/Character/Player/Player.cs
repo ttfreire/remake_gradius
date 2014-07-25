@@ -307,6 +307,7 @@ namespace Gradius {
             m_currentState = PlayerState.EXPLODED;
             isdead = true;
             m_timeToDie = 0.5f;
+            m_world.m_hudController.subtractLife();
         }
     }
     }

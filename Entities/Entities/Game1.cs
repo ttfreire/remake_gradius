@@ -115,7 +115,7 @@ namespace Gradius {
       HUDpowerup shieldHUD = new HUDpowerup(1, m_spriteHUDpowerups, PowerUpType.SHIELD, 0, 5);
       List<HUDpowerup> listHUDPowerups = new List<HUDpowerup> { speedHUD, missileHUD, doubleHUD, laserHUD, optionHUD, shieldHUD };
 
-      m_hudController = new HUDController(listHUDPowerups, m_spriteHUDlife, new Vector2 (290, 440), m_spriteFont);
+      m_hudController = new HUDController(listHUDPowerups, m_spriteHUDlife, new Vector2 (250, 440), m_spriteFont);
 
 
       //add player...

@@ -46,6 +46,8 @@ namespace Gradius {
   
         if (m_dropsPowerUp)
             dropPowerUp();
+
+        m_world.m_hudController.updateScore(100);
     }
 
       public void dropPowerUp()

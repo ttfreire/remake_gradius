@@ -75,6 +75,7 @@ namespace Gradius
                                     m_world.Remove(ent);
                         }
                         m_world.Remove(this);
+                        m_world.m_hudController.updateScore(500);
                     }
                 }
             }

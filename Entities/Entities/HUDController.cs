@@ -18,7 +18,7 @@ namespace Gradius
         public List<HUDpowerup> m_powerupHUD;
         public int m_selectedPowerupIndex;
         Texture2D m_livesIcon;
-        int m_lives = 3;
+        int m_lives = 1;
         int m_numberofPlayers = 1;
         int m_score = 0;
         int m_higherScore = 50000;
@@ -49,7 +49,7 @@ namespace Gradius
             for (int i = 0; i < m_powerupHUD.Count; i++)
             {
                 Rectangle powerUpRect = m_powerupHUD[i].getSpriteRectangle();
-                spriteBatch.Draw(m_powerupHUD[i].m_sprite, m_pos + new Vector2(i * powerUpRect.Width, 0), powerUpRect, Color.White, 0.0f,
+                spriteBatch.Draw(m_powerupHUD[i].m_sprite, m_pos + new Vector2(40+ i * powerUpRect.Width, 0), powerUpRect, Color.White, 0.0f,
                 new Vector2(m_powerupHUD[i].m_sprite.Width, m_powerupHUD[i].m_sprite.Height) / 2, 1, SpriteEffects.None, 0);
             }
 
@@ -60,7 +60,7 @@ namespace Gradius
                 m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
             spriteBatch.DrawString(m_hudFont, m_numberofPlayers.ToString()+"P", m_pos + new Vector2(-120, 20), Color.White, 0.0f,
                 m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
-            spriteBatch.DrawString(m_hudFont, m_score.ToString(), m_pos + new Vector2(-30, 20), Color.White, 0.0f,
+            spriteBatch.DrawString(m_hudFont, m_score.ToString(), m_pos + new Vector2(-60, 20), Color.White, 0.0f,
                 m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
             spriteBatch.DrawString(m_hudFont, "HI   "+m_higherScore.ToString(), m_pos + new Vector2(50, 20), Color.White, 0.0f,
                 m_hudFont.MeasureString(m_lives.ToString()) / 2, 1, SpriteEffects.None, 0);
