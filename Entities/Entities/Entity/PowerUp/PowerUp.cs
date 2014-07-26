@@ -93,7 +93,7 @@ namespace Gradius
         {
             if(other.m_type == MovableType.Player)
             {
-                Vector2 myHalf = new Vector2(m_sprite.Width * 0.5f, m_sprite.Height * 0.5f);
+                Vector2 myHalf = new Vector2(m_animator.m_currentSpriteRect.Width * 0.5f, m_animator.m_currentSpriteRect.Height * 0.5f);
                 Vector2 myMin = m_pos - myHalf;
                 Vector2 myMax = m_pos + myHalf;
 
